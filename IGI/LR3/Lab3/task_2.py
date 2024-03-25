@@ -8,6 +8,8 @@ from inits import get_integer_input
 
 
 def number_of_elements_greater_than_12():
+    """ Organise cycle which takes integer numbers
+     and calculates the amount of numbers which are greater than 12"""
     x = -1
     counter = 0
     while x != 0:

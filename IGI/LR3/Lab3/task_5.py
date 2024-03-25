@@ -9,15 +9,18 @@ from inits import get_integer_input
 
 
 def my_generator(size):
+    """Generate a sequence of random float numbers."""
     for _ in range(size):
         yield random.uniform(-100, 100)
 
 
 def generate_list(size):
+    """Generate a list of random float numbers."""
     return [x / 10 for x in my_generator(size)]
 
 
 def get_list(prompt):
+    """Get a list of float values from the user."""
     while True:
         user_input = input(prompt)
         if not user_input.strip():
@@ -30,6 +33,7 @@ def get_list(prompt):
 
 
 def print_iterable(iterable, prompt="The sequence is: "):
+    """Print the elements of an iterable."""
     print(prompt, end=' ')
     for el in iterable:
         print(el, end=' ')
@@ -37,6 +41,7 @@ def print_iterable(iterable, prompt="The sequence is: "):
 
 
 def multiply_positive(iterable):
+    """Find the product of the positive elements of the list."""
     product = 1
     for el in iterable:
         if el > 0:
@@ -45,6 +50,7 @@ def multiply_positive(iterable):
 
 
 def task_5_enter_list():
+    """Get a list of float values from the user and analyze it."""
     os.system('clear')
     user_input = get_list("Enter a list of float values separated by spaces: ")
     print_iterable(user_input)
@@ -53,6 +59,7 @@ def task_5_enter_list():
 
 
 def task_5_enter_size():
+    """Generate a list of random float values and analyze it."""
     os.system('clear')
     sz = get_integer_input("Enter the size of the list: ")
     user_sequence = generate_list(sz)
@@ -62,6 +69,7 @@ def task_5_enter_size():
 
 
 def list_analyzer(lst):
+    """Analyze the list."""
     print(f"The product of the positive elements of the list: {multiply_positive(lst)}")
     print(f"The sum of the elements of the list located before the element"
           f" with the minimum absolute value: {sum(lst[:lst.index(min(lst, key=abs))])}")

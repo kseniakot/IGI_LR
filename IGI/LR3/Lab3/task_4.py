@@ -5,14 +5,17 @@ from menu import wait_for_key_press
 
 
 def count_uppercase_letters(s):
+    """Count the number of uppercase letters in the string"""
     return sum(1 for char in s if char.isupper())
 
 
 def count_lowercase_letters(s):
+    """Count the number of lowercase letters in the string"""
     return sum(1 for char in s if char.islower())
 
 
 def search_word_with_z(s):
+    """Find the first word which contains 'z' and determine its position"""
     words = s.split()
     for i, word in enumerate(words):
         if 'z' in word:
@@ -21,6 +24,7 @@ def search_word_with_z(s):
 
 
 def remove_words_starting_with_a(s):
+    """Remove words starting with 'a' from the string"""
     words = s.split()
     return ' '.join(word for word in words if not word.startswith('a'))
 

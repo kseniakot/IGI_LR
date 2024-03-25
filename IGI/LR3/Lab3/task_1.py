@@ -11,6 +11,7 @@ from menu import wait_for_key_press
 
 
 def factorial(n):
+    """Calculate the factorial of a number"""
     if n == 0:
         return 1
     else:
@@ -18,6 +19,7 @@ def factorial(n):
 
 
 def arcsin(x, eps):
+    """Calculate the value of the arcsin function using the power series"""
     n = 0
     result = 0
     term = x
