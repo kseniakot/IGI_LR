@@ -14,9 +14,9 @@ def my_generator(size):
         yield random.uniform(-100, 100)
 
 
-def generate_list(size):
+def generate_list(generator):
     """Generate a list of random float numbers."""
-    return [x / 10 for x in my_generator(size)]
+    return [x / 10 for x in generator]
 
 
 def get_list(prompt):
@@ -62,7 +62,7 @@ def task_5_enter_size():
     """Generate a list of random float values and analyze it."""
     os.system('clear')
     sz = get_integer_input("Enter the size of the list: ")
-    user_sequence = generate_list(sz)
+    user_sequence = generate_list(my_generator(sz))
     print_iterable(user_sequence)
     list_analyzer(user_sequence)
     wait_for_key_press()
