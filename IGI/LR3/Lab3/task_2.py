@@ -4,7 +4,7 @@
 #     input 0 to stop the cycle
 
 from menu import wait_for_key_press
-from inits import get_integer_input
+from input import get_integer_input
 
 
 def number_of_elements_greater_than_12():

@@ -6,7 +6,7 @@
 import os
 from math import asin
 from prettytable import PrettyTable
-from inits import get_float_input, get_integer_input
+from input import get_float_input, get_integer_input
 from menu import wait_for_key_press
 
 

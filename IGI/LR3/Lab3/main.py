@@ -2,6 +2,7 @@
 # Data types, Collections, Functions, Modules
 
 # Ksenia Kotova, 253503, 23.02.2024
+# version: 1.0
 
 from task_1 import task_1
 from task_2 import task_2

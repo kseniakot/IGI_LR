@@ -3,20 +3,9 @@
 #  of the list located before the element with the minimum absolute value.
 
 import os
-import random
 from menu import print_menu, navigate_menu, wait_for_key_press
-from inits import get_integer_input
-
-
-def my_generator(size):
-    """Generate a sequence of random float numbers."""
-    for _ in range(size):
-        yield random.uniform(-100, 100)
-
-
-def generate_list(generator):
-    """Generate a list of random float numbers."""
-    return [x / 10 for x in generator]
+from input import get_integer_input
+from list_initializer import my_generator
 
 
 def get_list(prompt):
