@@ -2,6 +2,7 @@
 # Organise cycle which takes integer numbers and calculates
 #     the amount of numbers which are greater than 12
 #     input 0 to stop the cycle
+import os
 
 from menu import wait_for_key_press
 from input import get_integer_input
@@ -24,7 +25,7 @@ def task_2():
     """ Organise cycle which takes integer numbers and calculates
     the amount of numbers which are greater than 12
     input 0 to stop the cycle """
-
+    os.system('clear')
     x = -1
     print("Enter 0 to stop the cycle")
     print("The number of elements greater than 12: ", number_of_elements_greater_than_12())

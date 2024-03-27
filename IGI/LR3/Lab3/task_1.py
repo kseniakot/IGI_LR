@@ -22,10 +22,13 @@ def arcsin(x, eps):
     """Calculate the value of the arcsin function using the power series"""
     n = 0
     result = 0
+
     term = x
     while abs(term) > eps:
         result += term
         n += 1
+        if n > 500:
+            break
         coeff = factorial(2 * n) / (4 ** n * (factorial(n)) ** 2)
         term = coeff * (x ** (2 * n + 1)) / (2 * n + 1)
     return result, n

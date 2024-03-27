@@ -10,3 +10,16 @@ def my_generator(size):
 def generate_list(generator):
     """Generate a list of random float numbers."""
     return [x / 10 for x in generator]
+
+
+def get_list(prompt):
+    """Get a list of float values from the user."""
+    while True:
+        user_input = input(prompt)
+        if not user_input.strip():
+            print("Input cannot be empty. Please enter a list of float values.")
+            continue
+        try:
+            return list(map(float, user_input.split()))
+        except ValueError:
+            print("Invalid input. Please enter a list of float values.")

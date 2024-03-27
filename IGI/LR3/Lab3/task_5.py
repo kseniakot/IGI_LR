@@ -5,20 +5,7 @@
 import os
 from menu import print_menu, navigate_menu, wait_for_key_press
 from input import get_integer_input
-from list_initializer import my_generator
-
-
-def get_list(prompt):
-    """Get a list of float values from the user."""
-    while True:
-        user_input = input(prompt)
-        if not user_input.strip():
-            print("Input cannot be empty. Please enter a list of float values.")
-            continue
-        try:
-            return list(map(float, user_input.split()))
-        except ValueError:
-            print("Invalid input. Please enter a list of float values.")
+from list_initializer import my_generator, generate_list, get_list
 
 
 def print_iterable(iterable, prompt="The sequence is: "):

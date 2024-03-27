@@ -3,7 +3,9 @@ import os
 
 
 def loop_function(function_to_loop):
+    """Decorator for looping functions"""
     def wrapper(selected, *args, **kwargs):
+        """Wrapper for looping functions"""
         while True:
             selected = function_to_loop(selected, *args, **kwargs)
             if not selected:
@@ -13,6 +15,7 @@ def loop_function(function_to_loop):
 
 
 def print_menu(index, options, prompt):
+    """Print the menu with the selected option highlighted"""
     os.system('clear')
     print(prompt)
     for i, option in enumerate(options, 1):
@@ -21,6 +24,7 @@ def print_menu(index, options, prompt):
 
 @loop_function
 def navigate_menu(selected, options, prompt, tasks):
+    """Navigate the menu with the arrow keys and execute the selected option"""
     print_menu(selected, options, prompt)
     key = readchar.readkey()
 

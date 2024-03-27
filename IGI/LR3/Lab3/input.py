@@ -1,5 +1,6 @@
 
 def get_float_input(prompt):
+    """Get a float input from the user."""
     while True:
         user_input = input(prompt)
         try:
@@ -9,6 +10,7 @@ def get_float_input(prompt):
 
 
 def get_integer_input(prompt):
+    """Get an integer input from the user."""
     while True:
         user_input = input(prompt)
         try:
