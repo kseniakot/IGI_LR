@@ -1,6 +1,7 @@
 # Task 4
 
 import os
+import textwrap
 from menu import wait_for_key_press
 
 
@@ -25,8 +26,8 @@ def search_word_with_z(s):
 
 def remove_words_starting_with_a(s):
     """Remove words starting with 'a' from the string"""
-    words = s.split()
-    return ' '.join(word for word in words if not word.startswith('a'))
+    result = ' '.join(word for word in s.split() if not word.startswith('a'))
+    return textwrap.fill(result, width=80)
 
 
 def task_4():

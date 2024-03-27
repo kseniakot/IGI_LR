@@ -9,7 +9,7 @@ def my_generator(size):
 
 def generate_list(generator):
     """Generate a list of random float numbers."""
-    return [x / 10 for x in generator]
+    return [round(x / 10, 2) for x in generator]
 
 
 def get_list(prompt):
