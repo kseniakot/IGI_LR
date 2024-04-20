@@ -54,14 +54,14 @@ class Calculations:
         """Calculate the standard deviation of a sequence"""
         return statistics.stdev(self.x_sequence)
 
-    def prepare_data_for_graph(self):
+    def __prepare_data_for_graph(self):
         self.x_list = np.arange(-1, 1, 0.01)
         for x in self.x_list:
             self.y_list.append(self.arcsin(x, 0.001)[0])
             self.math_y_list.append(math.asin(x))
 
     def draw_plot(self):
-        self.prepare_data_for_graph()
+        self.__prepare_data_for_graph()
         plt.plot(self.x_list, self.math_y_list, label="math.asin(x)")
         plt.plot(self.x_list, self.y_list, label="arcsin(x)")
         plt.xlabel("x")
