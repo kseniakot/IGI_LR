@@ -1,7 +1,16 @@
-# This is a sample Python script.
+# Ksenia Kotova 253503
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+class Country:
+    def __init__(self, name, population, area):
+        self.name = name
+        self.population = population
+        self.area = area
+
+    def density(self):
+        return self.population / self.area
+
+    def __str__(self):
+        return f'{self.name} (pop: {self.population}, area: {self.area})'
 
 
 def print_hi(name):
