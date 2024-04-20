@@ -1,6 +1,6 @@
 from country import Country
 from CountryManager import CountryManager
-from file_service import FileService
+from Services.file_service import FileService
 
 # Data for task 1
 data_countries = {
