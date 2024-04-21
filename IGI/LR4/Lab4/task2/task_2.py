@@ -2,7 +2,7 @@ import os
 from task2.Analyzer import Analyzer
 from Services.file_service import FileService
 from menu.menu import wait_for_key_press
-
+from datetime import datetime
 
 def task_2():
     """Analyze the data from the txt file and print the results"""
@@ -71,7 +71,7 @@ def task_2():
 
     # Get information about the zip file
     for item in FileService.get_zip_info('task2/text.zip'):
-        print(f"File Name: {item.filename} Date: {item.date_time} Size: {item.file_size}"
+        print(f"File Name: {item.filename} Date: {datetime(*item.date_time)} Size: {item.file_size}"
               f" Compressed Size: {item.compress_size}")
 
     wait_for_key_press()
