@@ -2,6 +2,7 @@ import re
 
 
 class Analyzer:
+    """A class that analyzes the given data"""
     def __init__(self, data):
         """Initializes the Analyzer object with the given data"""
         self._data = data

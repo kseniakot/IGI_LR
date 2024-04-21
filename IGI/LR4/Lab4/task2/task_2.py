@@ -1,15 +1,20 @@
+import os
 from task2.Analyzer import Analyzer
 from Services.file_service import FileService
+from menu.menu import wait_for_key_press
 
 
 def task_2():
     """Analyze the data from the txt file and print the results"""
+    os.system('clear')
+    file_service = FileService('task2/text.txt')
+
     try:
-        file_service = FileService('text.txt')
+        data = file_service.read_txt()
     except FileNotFoundError as e:
         print(e)
         return
-    data = file_service.read_txt()
+    print("Source text:", data)
     analyzer = Analyzer(data)
     file_service.file_path = 'results.txt'
     file_service.clear_file()
@@ -68,6 +73,8 @@ def task_2():
     for item in FileService.get_zip_info('text.zip'):
         print(f"File Name: {item.filename} Date: {item.date_time} Size: {item.file_size}"
               f" Compressed Size: {item.compress_size}")
+
+    wait_for_key_press()
 
 
 if __name__ == '__main__':
