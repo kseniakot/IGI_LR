@@ -1,5 +1,5 @@
 import numpy as np
-from Matrix import Matrix
+from task5.Matrix import Matrix
 from Services.InputService import InputService
 
 

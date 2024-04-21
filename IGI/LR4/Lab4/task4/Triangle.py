@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from figure import Figure
-from color import Color
+from task4.figure import Figure
+from task4.color import Color
 
 
 class Triangle(Figure):

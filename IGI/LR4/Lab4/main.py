@@ -1,25 +1,29 @@
-# Ksenia Kotova 253503
+# Laboratory work №4
+# Working with files, classes, serializers, regular expressions, and standard libraries.
 
-class Country:
-    def __init__(self, name, population, area):
-        self.name = name
-        self.population = population
-        self.area = area
+# Ksenia Kotova, 253503, 21.04.2024
+# version: 1.0
 
-    def density(self):
-        return self.population / self.area
-
-    def __str__(self):
-        return f'{self.name} (pop: {self.population}, area: {self.area})'
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from task1.task_1 import task_1
+from task2.task_2 import task_2
+from task3.task_3 import task_3
+from task4.task_4 import task_4
+from task5.task_5 import task_5
+from menu.menu import print_menu, navigate_menu
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    main_tasks = {
+        "Task 1": task_1,
+        "Task 2": task_2,
+        "Task 3": task_3,
+        "Task 4": task_4,
+        "Task 5": task_5,
+    }
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main_options = list(main_tasks.keys()) + ["Exit"]
+    main_choice = 1
+    main_prompt = '\t\t\t\tWhich task would you like to check?'
+
+    print_menu(main_choice, main_options, main_prompt)
+    navigate_menu(main_choice, main_options, main_prompt, main_tasks)

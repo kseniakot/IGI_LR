@@ -1,7 +1,7 @@
 from math import sqrt
 from matplotlib import colors as mcolors
 from Services.InputService import InputService
-from Triangle import Triangle
+from task4.Triangle import Triangle
 
 
 def task_4():

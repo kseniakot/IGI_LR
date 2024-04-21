@@ -1,6 +1,9 @@
-from country import Country
-from CountryManager import CountryManager
+from task1.country import Country
+from task1.CountryManager import CountryManager
 from Services.file_service import FileService
+import os
+from menu.menu import print_menu, navigate_menu, wait_for_key_press
+
 
 # Data for task 1
 data_countries = {
@@ -42,6 +45,8 @@ def print_city_info(countries, city):
 
 def task_1_csv():
     """Serialize source data to a csv file and deserialize it back from the csv file"""
+    os.system('clear')
+    print_source_data()
     countries = CountryManager()
     file_service = FileService('countries.csv')
     # Serialize the data to a csv file
@@ -55,10 +60,13 @@ def task_1_csv():
     # Print info about the city input by the user
     city = input_city()
     print_city_info(countries, city)
+    wait_for_key_press()
 
 
 def task_1_pickle():
     """Serialize source data to a pickle file and deserialize it back from the pickle file"""
+    os.system('clear')
+    print_source_data()
     countries = CountryManager()
     file_service = FileService('countries.pickle')
     # Serialize the data to a pickle file
@@ -72,8 +80,27 @@ def task_1_pickle():
     # Print info about the city input by the user
     city = input_city()
     print_city_info(countries, city)
+    wait_for_key_press()
 
 
-if __name__ == '__main__':
-    task_1_csv()
-    task_1_pickle()
+def task_1():
+    os.system('clear')
+
+    prompt = '\t\t\t\tWhat would you like to do?'
+    tasks = {
+        "Work with csv file": task_1_csv,
+        "Work with pickle": task_1_pickle,
+    }
+    options = list(tasks.keys()) + ["Exit"]
+    choice = 1
+
+    print_menu(choice, options, prompt)
+    navigate_menu(choice, options, prompt, tasks)
+
+
+def print_source_data():
+    """Print the source data"""
+    print('Source city list:')
+    for city in data_cities:
+        print(city, end=', ')
+    print()

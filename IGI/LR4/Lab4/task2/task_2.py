@@ -1,4 +1,4 @@
-from Analyzer import Analyzer
+from task2.Analyzer import Analyzer
 from Services.file_service import FileService
 
 

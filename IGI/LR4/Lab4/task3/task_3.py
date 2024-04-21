@@ -1,6 +1,6 @@
 from prettytable import PrettyTable
 from math import asin
-from Calculations import Calculations
+from task3.Calculations import Calculations
 from Services.InputService import InputService
 
 
