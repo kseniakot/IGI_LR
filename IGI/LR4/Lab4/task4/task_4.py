@@ -1,10 +1,14 @@
+import os
 from math import sqrt
 from matplotlib import colors as mcolors
 from Services.InputService import InputService
 from task4.Triangle import Triangle
+from menu.menu import wait_for_key_press
 
 
 def task_4():
+    """Task 4: Create a class Triangle with the following methods:"""
+    os.system('clear')
     input_service = InputService()
 
     a = InputService.get_integer_input("Enter base for the triangle: ")
@@ -33,6 +37,8 @@ def task_4():
         triangle.draw_triangle(title)
     else:
         print("A triangle cannot be formed.")
+
+    wait_for_key_press()
 
 
 if __name__ == "__main__":

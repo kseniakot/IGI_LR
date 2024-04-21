@@ -1,6 +1,8 @@
+import os
 import numpy as np
 from task5.Matrix import Matrix
 from Services.InputService import InputService
+from menu.menu import wait_for_key_press
 
 
 def test_numpy():
@@ -102,6 +104,7 @@ def test_numpy_math():
 
 
 def task_5():
+    os.system('clear')
     # Get the number of rows and columns
     n = InputService.get_integer_input("Enter the number of rows: ")
     while n <= 0:
@@ -137,6 +140,7 @@ def task_5():
     # Work with math and statistics
     print("Test math and statistics")
     test_numpy_math()
+    wait_for_key_press()
 
 
 if __name__ == '__main__':
