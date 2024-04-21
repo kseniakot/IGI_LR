@@ -3,9 +3,10 @@ import pickle
 import zipfile
 import os
 from zipfile import ZipFile
+from Mixin.time_logger_mixin import TimeLoggerMixin
 
 
-class FileService:
+class FileService(TimeLoggerMixin):
     def __init__(self, file_path):
         """Initializes the FileService object with the given file path"""
         self._file_path = file_path
@@ -29,19 +30,23 @@ class FileService:
         if not self.file_exists():
             raise FileNotFoundError(f"The file {self._file_path} does not exist.")
         else:
+            self.log_with_time("Start reading the CSV file")
             data = {}
             with open(self.file_path, 'r', encoding="utf-8", newline='') as file:
                 reader = csv.reader(file)
                 for row in reader:
                     data.update({row[0]: row[1:]})
+            self.log_with_time("Finished reading the CSV file")
             return data
 
     def write_csv(self, data):
         """Writes the data to the csv file"""
+        self.log_with_time("Start writing to the CSV file")
         with open(self.file_path, 'w', encoding="utf-8", newline='') as file:
             writer = csv.writer(file, quoting=csv.QUOTE_ALL)
             for country in data.keys():
                 writer.writerow([country] + data[country])
+        self.log_with_time("Finished writing to the CSV file")
 
     def read_pickle(self):
         """Reads the data from the pickle file and returns it as a dictionary"""
@@ -74,7 +79,6 @@ class FileService:
         with open(self.file_path, 'w') as file:
             pass
 
-
     @staticmethod
     def make_zip(zip_file_path, file_path):
         """Creates a zip file containing the file specified by the file_path property"""
@@ -86,4 +90,3 @@ class FileService:
         """Returns the list of files in the zip file specified by the zip_file_path parameter"""
         with ZipFile(zip_file_path, 'r') as zip_file:
             return zip_file.infolist()
-
