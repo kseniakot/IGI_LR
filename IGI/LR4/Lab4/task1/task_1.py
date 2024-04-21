@@ -48,7 +48,7 @@ def task_1_csv():
     os.system('clear')
     print_source_data()
     countries = CountryManager()
-    file_service = FileService('countries.csv')
+    file_service = FileService('task1/countries.csv')
     # Serialize the data to a csv file
     file_service.write_csv(data_countries)
     # Deserialize the data from the csv file
@@ -68,7 +68,7 @@ def task_1_pickle():
     os.system('clear')
     print_source_data()
     countries = CountryManager()
-    file_service = FileService('countries.pickle')
+    file_service = FileService('task1/countries.pickle')
     # Serialize the data to a pickle file
     file_service.write_pickle(data_countries)
     # Deserialize the data from the pickle file

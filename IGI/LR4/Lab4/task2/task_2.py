@@ -16,7 +16,7 @@ def task_2():
         return
     print("Source text:", data)
     analyzer = Analyzer(data)
-    file_service.file_path = 'results.txt'
+    file_service.file_path = 'task2/results.txt'
     file_service.clear_file()
     # Count the number of sentences in the data
     file_service.write_txt(f'Sentences: {analyzer.count_sentences()}\n')
@@ -70,7 +70,7 @@ def task_2():
     FileService.make_zip('text.zip', file_service.file_path)
 
     # Get information about the zip file
-    for item in FileService.get_zip_info('text.zip'):
+    for item in FileService.get_zip_info('task2/text.zip'):
         print(f"File Name: {item.filename} Date: {item.date_time} Size: {item.file_size}"
               f" Compressed Size: {item.compress_size}")
 

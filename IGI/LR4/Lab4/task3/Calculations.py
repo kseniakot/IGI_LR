@@ -72,7 +72,7 @@ class Calculations:
         plt.grid(True)
         plt.legend(loc="upper left", fontsize="small")
         plt.title("arcsin(x) vs math.asin(x)")
-        plt.savefig("plot.png")
+        plt.savefig("task3/plot.png")
         plt.show()
 
 

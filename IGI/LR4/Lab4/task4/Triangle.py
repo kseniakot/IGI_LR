@@ -33,7 +33,7 @@ class Triangle(Figure):
         plt.ylim(-1, self.h + 1)
         plt.xlabel('a')
         plt.ylabel('h')
-        plt.savefig("triangle.png")
+        plt.savefig("task4/triangle.png")
         plt.title(title)
         plt.show()
 
