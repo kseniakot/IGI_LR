@@ -17,23 +17,23 @@ class Analyzer:
 
     def count_sentences(self):
         """Counts the number of sentences in the data"""
-        return len(re.findall(r'[.!?](?:\s|$)', self.data))
+        return len(re.findall(r'[.!?](\s|$)', self.data))
 
     def count_narrative_sentences(self):
         """Counts the number of narrative sentences in the data"""
-        return len(re.findall(r'[.](?:\s|$)', self.data))
+        return len(re.findall(r'[.](\s|$)', self.data))
 
     def count_questions(self):
         """Counts the number of questions in the data"""
-        return len(re.findall(r'[?](?:\s|$)', self.data))
+        return len(re.findall(r'[?](\s|$)', self.data))
 
     def count_persuasive_sentences(self):
         """Counts the number of persuasive sentences in the data"""
-        return len(re.findall(r'!(?!\?)(?:\s|$)', self.data))
+        return len(re.findall(r'!(?!\?)(\s|$)', self.data))
 
     def count_average_sentence_length(self):
         """Counts the average sentence length in the data"""
-        sentences = re.findall(r'[.!?](?:\s|$)', self.data)
+        sentences = re.findall(r'[.!?](\s|$)', self.data)
         words = re.findall(r'\w+', self.data)
         words_characters = sum(len(word) for word in words)
         return words_characters / len(sentences) if len(sentences) > 0 else 0
