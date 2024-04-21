@@ -1,11 +1,14 @@
+import os
 from prettytable import PrettyTable
 from math import asin
 from task3.Calculations import Calculations
 from Services.InputService import InputService
+from menu.menu import wait_for_key_press
 
 
 def task_3():
     """Calculate the value of the arcsin function using the power series"""
+    os.system('clear')
     # Get x from the user
     x = InputService.get_float_input("Enter x: ")
     while not -1 <= x <= 1:
@@ -30,6 +33,7 @@ def task_3():
 
     # Graph
     calc.draw_plot()
+    wait_for_key_press()
 
 
 if __name__ == "__main__":

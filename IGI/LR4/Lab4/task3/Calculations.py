@@ -5,6 +5,7 @@ import math
 
 
 class Calculations:
+    """Class for calculations of the arcsin function using the power series and some statistics calculations"""
     x_sequence = []
     x_list = []
     y_list = []
@@ -55,12 +56,14 @@ class Calculations:
         return statistics.stdev(self.x_sequence)
 
     def __prepare_data_for_graph(self):
+        """Prepare data for the graph"""
         self.x_list = np.arange(-1, 1, 0.01)
         for x in self.x_list:
             self.y_list.append(self.arcsin(x, 0.001)[0])
             self.math_y_list.append(math.asin(x))
 
     def draw_plot(self):
+        """Draw a plot of the arcsin function using the power series and the math asin function"""
         self.__prepare_data_for_graph()
         plt.plot(self.x_list, self.math_y_list, label="math.asin(x)")
         plt.plot(self.x_list, self.y_list, label="arcsin(x)")
