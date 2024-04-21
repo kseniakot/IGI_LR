@@ -84,6 +84,7 @@ def task_1_pickle():
 
 
 def task_1():
+    """Task 1 menu"""
     os.system('clear')
 
     prompt = '\t\t\t\tWhat would you like to do?'

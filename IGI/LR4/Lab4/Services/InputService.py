@@ -1,4 +1,5 @@
 class InputService:
+    """Service for getting user input."""
 
     @staticmethod
     def get_float_input(prompt):

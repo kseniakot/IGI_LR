@@ -7,6 +7,7 @@ from Mixin.time_logger_mixin import TimeLoggerMixin
 
 
 class FileService(TimeLoggerMixin):
+    """A class that provides file-related services such as reading and writing to files, creating zip files, etc."""
     def __init__(self, file_path):
         """Initializes the FileService object with the given file path"""
         self._file_path = file_path
