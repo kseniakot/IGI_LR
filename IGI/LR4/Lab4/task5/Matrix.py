@@ -27,7 +27,9 @@ class Matrix:
     def find_line_with_min_element(matrix):
         """Find line with the smallest element in the matrix"""
         min_value = np.min(matrix)
-        min_index = np.argwhere(matrix == min_value)[0][1]
+        print("Smallest element in the matrix:", min_value, "\n")
+        min_index = np.argwhere(matrix == min_value)[0][0]
+        print(f"Line with the smallest element: {min_index}")
         return min_index
 
     @staticmethod

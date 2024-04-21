@@ -2,12 +2,12 @@ import os
 import numpy as np
 from task5.Matrix import Matrix
 from Services.InputService import InputService
-from menu.menu import wait_for_key_press
+from menu.menu import wait_for_key_press, print_menu, navigate_menu
 
 
 def test_numpy():
     """Test numpy functions."""
-
+    os.system('clear')
     # Create array of a specific type
     # Create an array of all zeros
     print("Create an array of all zeros")
@@ -74,10 +74,12 @@ def test_numpy():
 
     g = np.log(a)
     print("Natural log:", g)
+    wait_for_key_press()
 
 
 def test_numpy_math():
     """Work with math and statistics."""
+    os.system('clear')
     # Calculate the mean of an array
     a = np.array([1, 2, 3, 4, 5])
     print("First array", a)
@@ -101,9 +103,11 @@ def test_numpy_math():
     print("Second array", b)
     correlation = np.corrcoef(a, b)
     print("Correlation coefficient: ", correlation)
+    wait_for_key_press()
 
 
-def task_5():
+def task_5_matrix():
+    """Work with matrices."""
     os.system('clear')
     # Get the number of rows and columns
     n = InputService.get_integer_input("Enter the number of rows: ")
@@ -132,15 +136,23 @@ def task_5():
     # Calculate the median of the first row using the formula
     median_formula = Matrix.calculate_median_of_first_row_formula(matrix)
     print(f"Median of the first row using the formula: {median_formula}")
-
-    # Work with numpy
-    print("Test numpy")
-    test_numpy()
-
-    # Work with math and statistics
-    print("Test math and statistics")
-    test_numpy_math()
     wait_for_key_press()
+
+
+def task_5():
+    """Menu for task 5."""
+    os.system('clear')
+    prompt = '\t\t\t\tWhat would you like to do?'
+    tasks = {
+        "Work with matrix": task_5_matrix,
+        "Test numpy for arrays": test_numpy,
+        "Test numpy math and statistics functions": test_numpy_math
+    }
+    options = list(tasks.keys()) + ["Exit"]
+    choice = 1
+
+    print_menu(choice, options, prompt)
+    navigate_menu(choice, options, prompt, tasks)
 
 
 if __name__ == '__main__':
