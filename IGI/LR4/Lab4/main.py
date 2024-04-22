@@ -10,7 +10,7 @@ from task3.task_3 import task_3
 from task4.task_4 import task_4
 from task5.task_5 import task_5
 from menu.menu import print_menu, navigate_menu
-
+from task6.task_6 import task_6
 
 if __name__ == '__main__':
     main_tasks = {
@@ -19,6 +19,7 @@ if __name__ == '__main__':
         "Task 3": task_3,
         "Task 4": task_4,
         "Task 5": task_5,
+        "Task 6": task_6
     }
 
     main_options = list(main_tasks.keys()) + ["Exit"]

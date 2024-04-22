@@ -1,11 +1,14 @@
 import pandas as pd
 import numpy as np
 from IPython.display import display
+import os
+from menu.menu import wait_for_key_press
 
 
 def task_6():
+    os.system('clear')
     # Create a DataFrame with the following data:
-    ingredients_df = pd.read_csv('ingredients.csv', sep=',')
+    ingredients_df = pd.read_csv('task6/ingredients.csv', sep=',')
     print("Data Frame:")
     # Displaying DataFrame
     display(ingredients_df)
@@ -52,6 +55,7 @@ def task_6():
     # Find the average weight of drinks that are priced below the average
     average_weight_below_mean_price = ingredients_df.loc[ingredients_df['ing_price'] < mean_price, 'ing_weight'].mean()
     print("Average weight of drinks priced below the average: ", average_weight_below_mean_price)
+    wait_for_key_press()
 
 
 if __name__ == '__main__':
