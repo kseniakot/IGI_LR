@@ -4,6 +4,7 @@ from Services.file_service import FileService
 from menu.menu import wait_for_key_press
 from datetime import datetime
 
+
 def task_2():
     """Analyze the data from the txt file and print the results"""
     os.system('clear')
@@ -60,6 +61,9 @@ def task_2():
     file_service.write_txt(f'Vowel start vowel end words: {analyzer.list_vowel_start_vowel_end_words()}\n')
     print(f'Vowel start vowel end words: {analyzer.list_vowel_start_vowel_end_words()}')
 
+    # List words after comma
+    file_service.write_txt(f'Words after comma: {analyzer.list_words_after_comma()}\n')
+    print(f'Words after comma: {analyzer.list_words_after_comma()}')
     # Dublicates
     for character, count in analyzer.count_character_occurrences().items():
         file_service.write_txt(f'Character: {character} Count: {count}\n')

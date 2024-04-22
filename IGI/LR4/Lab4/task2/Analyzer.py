@@ -74,6 +74,6 @@ class Analyzer:
     def list_words_after_comma(self):
         """Returns the list of words after a comma in alphabetical order"""
         words = re.findall(r',\s*(\w+)', self.data)
-        return sorted(words)
+        return sorted(words, key=lambda word: word.lower())
 
 
