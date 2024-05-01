@@ -5,6 +5,7 @@ from task4.color import Color
 
 
 class Triangle(Figure):
+
     def __init__(self, a, h, color):
         """Initializes a Triangle object with base, height and color."""
         super().__init__("Triangle")
