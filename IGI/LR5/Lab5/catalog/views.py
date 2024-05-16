@@ -56,4 +56,29 @@ class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return ProductInstance.objects.filter(customer=self.request.user)   # .filter(status__exact='o').order_by('due_back')
+        return ProductInstance.objects.filter(
+            customer=self.request.user)  # .filter(status__exact='o').order_by('due_back')
+
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.views import generic
+from .models import ProductInstance
+
+
+class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
+    """
+    Generic class-based view listing all orders, accessible only to employees.
+    """
+    model = ProductInstance
+    template_name = 'catalog/productinstance_list_all_orders.html'
+    paginate_by = 10
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Employees').exists():
+            return HttpResponseRedirect(reverse('index'))
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return ProductInstance.objects.all()
