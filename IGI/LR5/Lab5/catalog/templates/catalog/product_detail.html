@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Title: {{ product.name }}</h1>
+
+  <p><strong>Manufacturer:</strong> <a href="">{{ product.manufacturer }}</a></p> <!-- manufacturer detail link not yet defined -->
+  <p><strong>Description:</strong> {{ product.description }}</p>
+  <p><strong>Category:</strong> {{ product.product_type }}</p>
+  <p><strong>Price:</strong> {{ product.price }}</p>
+
+{##}
+{#  <div style="margin-left:20px;margin-top:20px">#}
+{#    <h4>Details</h4>#}
+{##}
+{#    {% for detail in product.details.all %}#}
+{#    <hr>#}
+{#    <p><strong>Detail:</strong> {{ detail.name }}</p>#}
+{#    <p><strong>Description:</strong> {{ detail.description }}</p>#}
+{#    {% endfor %}#}
+{#  </div>#}
+{% endblock %}

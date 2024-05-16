@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Employee(models.Model):
@@ -23,6 +24,12 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
     manufacturer = models.ForeignKey('Manufacturer', on_delete=models.SET_NULL, null=True)
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular book instance.
+        """
+        return reverse('product-detail', args=[str(self.id)])
 
     def __str__(self):
         return self.name
@@ -51,9 +58,14 @@ class Order(models.Model):
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=100)
-    contact_name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     email = models.EmailField()
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular book instance.
+        """
+        return reverse('manufacturer-detail', args=[str(self.id)])
 
     def __str__(self):
         return self.name
