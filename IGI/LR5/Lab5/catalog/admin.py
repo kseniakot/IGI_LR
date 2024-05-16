@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Employee, ProductType, Product, Client, Order, Manufacturer
+from .models import Employee, ProductType, Product, Client, Order, Manufacturer, ProductInstance
 
 
 # admin.site.register(Employee)
@@ -52,3 +52,18 @@ class OrderAdmin(admin.ModelAdmin):
 class ManufacturerAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'email')
     search_fields = ('name', 'phone', 'email')
+
+
+@admin.register(ProductInstance)
+class ProductInstanceAdmin(admin.ModelAdmin):
+    list_display = ('product', 'quantity', 'customer', 'id')
+    # list_filter = ('status', 'due_back')
+
+    fieldsets = (
+        (None, {
+            'fields': ('product', 'id')
+        }),
+        ('Info', {
+            'fields': ('quantity', 'customer')
+        }),
+    )

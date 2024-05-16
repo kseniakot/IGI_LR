@@ -11,3 +11,6 @@ urlpatterns = [
     url(r'^manufacturer/(?P<pk>\d+)$', views.ManufacturerDetailView.as_view(), name='manufacturer-detail'),
     # path('books/', views.BookListView.as_view(), name='books'),
 ]
+urlpatterns += [
+    url(r'^myproducts/$', views.OrderedProductsByUserListView.as_view(), name='my-ordered'),
+]

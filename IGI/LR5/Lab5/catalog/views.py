@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
-from .models import Product, ProductType, Manufacturer, Order, Client
+from .models import Product, ProductType, Manufacturer, Order, Client, ProductInstance
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def index(request):
@@ -44,3 +45,15 @@ class ProductDetailView(generic.DetailView):
 
 class ManufacturerDetailView(generic.DetailView):
     model = Manufacturer
+
+
+class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
+    """
+    Generic class-based view listing books on loan to current user.
+    """
+    model = ProductInstance
+    template_name = 'catalog/productinstance_list_ordered_user.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return ProductInstance.objects.filter(customer=self.request.user)   # .filter(status__exact='o').order_by('due_back')
