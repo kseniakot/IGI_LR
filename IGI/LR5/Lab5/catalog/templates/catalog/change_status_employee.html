@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+{% block content %}
+
+<h1>Change Order Status</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Change Status</button>
+    </form>
+
+    <a href="{% url 'all-orders' %}">Back to All Orders</a>
+
+{% endblock %}

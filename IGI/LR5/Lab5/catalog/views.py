@@ -1,7 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import generic
-from .models import Product, ProductType, Manufacturer, Order, Client, ProductInstance
-from django.contrib.auth.mixins import LoginRequiredMixin
+
+from .models import Product, Manufacturer, ProductInstance
 
 
 def index(request):
@@ -61,8 +62,6 @@ class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from django.views import generic
 from .models import ProductInstance
 
@@ -82,3 +81,42 @@ class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return ProductInstance.objects.all()
+
+
+from django.contrib.auth.decorators import permission_required
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+import datetime
+from .models import Order
+from .forms import OrderStatusForm
+
+
+#@permission_required('catalog.product_instance.set_product_as_issued')
+def change_status_employee(request, pk):
+    """
+    View function for renewing a specific BookInstance by librarian
+    """
+    order = get_object_or_404(Order, pk=pk)
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = OrderStatusForm(request.POST, instance=order)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            # product_inst.status = form.cleaned_data['status']
+            # product_inst.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('all-orders'))
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+        form = OrderStatusForm(instance=order)
+
+    return render(request, 'catalog/change_status_employee.html', {'form': form, 'order': order})

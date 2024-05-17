@@ -18,3 +18,8 @@ urlpatterns += [
 urlpatterns += [
     url(r'^all-orders/$', views.AllOrdersForEmployeeView.as_view(), name='all-orders'),
 ]
+
+urlpatterns += [
+    url(r'^order/(?P<pk>[-\w]+)/change-status/$', views.change_status_employee, name='change-status-employee'),
+]
+

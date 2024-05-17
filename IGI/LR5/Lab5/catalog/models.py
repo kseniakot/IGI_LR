@@ -50,9 +50,21 @@ class Client(models.Model):
 
 
 class Order(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                          help_text="Unique ID for this particular order across whole shop")
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
     order_date = models.DateTimeField(auto_now_add=True)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+
+    LOAN_STATUS = (
+        ('p', 'Processing'),
+        ('s', 'Shipped'),
+        ('d', 'Delivered'),
+        ('i', 'Issued'),
+    )
+
+    status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='p', help_text='Order status')
 
     def __str__(self):
         return f"Order {self.id} by {self.client}"
