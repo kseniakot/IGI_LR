@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Employee, ProductType, Product, Client, Order, Manufacturer, ProductInstance
+from .models import Employee, ProductType, Product, Client, Order, Manufacturer, ProductInstance, Cart
 
 
 # admin.site.register(Employee)
@@ -53,6 +53,18 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('client', 'order_date', 'status', 'total_price')
     readonly_fields = ('total_price',)
     list_filter = ('order_date',)
+    search_fields = ('client',)
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # This is the case when obj is already created i.e. it's an edit
+            return self.readonly_fields + ('total_price',)
+        return self.readonly_fields
+
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('client', 'total_price')
+    readonly_fields = ('total_price',)
     search_fields = ('client',)
 
     def get_readonly_fields(self, request, obj=None):

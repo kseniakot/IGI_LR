@@ -25,8 +25,9 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+    path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('order/<uuid:order_id>/', OrderedProductsByUserListView.as_view(), name='order-detail'),
 ]
 urlpatterns += [url(r'^order/(?P<pk>[-\w]+)/change-status/$', views.change_status_employee, name='change-status-employee'),
-                    ]
+]
 

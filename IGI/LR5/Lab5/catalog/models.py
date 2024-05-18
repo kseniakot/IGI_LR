@@ -118,6 +118,20 @@ def update_total_price(sender, instance, action, **kwargs):
         instance.save()
 
 
+class Cart(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    products = models.ManyToManyField(ProductInstance)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+
+    def __str__(self):
+        return f"Cart for {self.client}"
+
+    def update_total_price(self):
+        self.total_price = sum(
+            product_instance.product.price * product_instance.quantity for product_instance in self.products.all())
+        self.save()
+
+
 class Manufacturer(models.Model):
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)

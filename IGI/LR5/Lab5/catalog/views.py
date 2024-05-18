@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.views.generic import FormView
 from django.contrib.auth.models import Group
-from .models import Product, Manufacturer, ProductInstance, Client, Order
+from .models import Product, Manufacturer, ProductInstance, Client, Order, ProductType, Cart
 from .forms import RegisterForm
 
 
@@ -33,17 +33,20 @@ def index(request):
     )
 
 
-# def profile_view(request):
-#     return render(request, 'catalog/profile.html')
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    client = get_object_or_404(Client, user=request.user)
+    product_instance, product_created = ProductInstance.objects.get_or_create(product=product, customer=client)
+    cart, cart_created = Cart.objects.get_or_create(client=client)
 
-
-# def sign_up(request):
-#     if request.method == 'POST':
-#         form = RegisterForm(request.POST)
-#     else:
-#         form = RegisterForm()
-#
-#     return render(request, 'registration/sign_up.html', {"form": form})
+    if not product_created:
+        product_instance.quantity += 1
+        product_instance.save()
+    else:
+        cart.products.add(product_instance)
+    cart.update_total_price()
+    cart.save()
+    return redirect('products')
 
 
 class RegisterView(FormView):
@@ -63,6 +66,28 @@ class RegisterView(FormView):
 class ProductListView(generic.ListView):
     model = Product
     paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        product_type_id = self.request.GET.get('product_type_id')
+        manufacturer_id = self.request.GET.get('manufacturer_id')
+        price_order = self.request.GET.get('price_order')
+        if product_type_id:
+            queryset = queryset.filter(product_type_id=product_type_id)
+        if manufacturer_id:
+            queryset = queryset.filter(manufacturer_id=manufacturer_id)
+        if price_order == 'as77c':
+            queryset = queryset.order_by('price')
+        elif price_order == 'desc':
+            queryset = queryset.order_by('-price')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['product_types'] = ProductType.objects.all()
+        context['manufacturers'] = Manufacturer.objects.all()
+        return context
 
 
 class ManufacturerListView(generic.ListView):
