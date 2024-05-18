@@ -9,6 +9,13 @@
         <button type="submit">Change Status</button>
     </form>
 
+    <h2>Order Details</h2>
+    <ul>
+    {% for product in order.products.all %}
+        <li>{{ product.product.name }} (Quantity: {{ product.quantity }})</li>
+    {% endfor %}
+    </ul>
+
     <a href="{% url 'all-orders' %}">Back to All Orders</a>
 
 {% endblock %}

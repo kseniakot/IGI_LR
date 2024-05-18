@@ -14,12 +14,9 @@ urlpatterns = [
 
     # path('books/', views.BookListView.as_view(), name='books'),
 ]
-urlpatterns += [
-    url(r'^myproducts/(?P<order_id>\d+)/$', views.OrderedProductsByUserListView.as_view(), name='my-ordered'),
-]
+
 
 urlpatterns += [
-    url(r'^myproducts/$', views.OrderedProductsByUserListView.as_view(), name='my-ordered'),
     url(r'^my-orders/$', views.OrdersByUserListView.as_view(), name='my-orders'),
 ]
 
@@ -30,4 +27,6 @@ urlpatterns += [
 urlpatterns += [
     path('order/<uuid:order_id>/', OrderedProductsByUserListView.as_view(), name='order-detail'),
 ]
+urlpatterns += [url(r'^order/(?P<pk>[-\w]+)/change-status/$', views.change_status_employee, name='change-status-employee'),
+                    ]
 

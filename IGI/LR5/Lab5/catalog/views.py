@@ -112,20 +112,19 @@ from .models import ProductInstance
 
 
 class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
-    """
-    Generic class-based view listing all orders, accessible only to employees.
-    """
-    model = ProductInstance
-    template_name = 'catalog/productinstance_list_all_orders.html'
+    model = Order
+    template_name = 'catalog/all_orders.html'
     paginate_by = 10
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.groups.filter(name='Employees').exists():
             return HttpResponseRedirect(reverse('index'))
+
         return super().dispatch(request, *args, **kwargs)
 
-    def get_queryset(self):
-        return ProductInstance.objects.all()
+
+def get_queryset(self):
+    return Order.objects.all()
 
 
 from django.contrib.auth.decorators import permission_required
