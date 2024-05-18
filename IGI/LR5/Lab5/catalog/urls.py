@@ -15,7 +15,6 @@ urlpatterns = [
     # path('books/', views.BookListView.as_view(), name='books'),
 ]
 
-
 urlpatterns += [
     url(r'^my-orders/$', views.OrdersByUserListView.as_view(), name='my-orders'),
 ]
@@ -28,6 +27,11 @@ urlpatterns += [
     path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('order/<uuid:order_id>/', OrderedProductsByUserListView.as_view(), name='order-detail'),
 ]
-urlpatterns += [url(r'^order/(?P<pk>[-\w]+)/change-status/$', views.change_status_employee, name='change-status-employee'),
-]
+urlpatterns += [
+    url(r'^order/(?P<pk>[-\w]+)/change-status/$', views.change_status_employee, name='change-status-employee'),
+    ]
 
+urlpatterns += [url(r'^cart/$', views.CartView.as_view(), name='cart'),
+                ]
+urlpatterns += [url('create-order/', views.create_order, name='create-order'),
+]

@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views import generic
-from django.views.generic import FormView
+from django.views.generic import FormView, DetailView
 from django.contrib.auth.models import Group
 from .models import Product, Manufacturer, ProductInstance, Client, Order, ProductType, Cart
 from .forms import RegisterForm
@@ -152,7 +152,7 @@ def get_queryset(self):
     return Order.objects.all()
 
 
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required, login_required
 
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
@@ -189,3 +189,23 @@ def change_status_employee(request, pk):
         form = OrderStatusForm(instance=order)
 
     return render(request, 'catalog/change_status_employee.html', {'form': form, 'order': order})
+
+
+class CartView(DetailView):
+    model = Cart
+    template_name = 'catalog/user_cart.html'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Cart, client=self.request.user.client)
+
+
+@login_required
+def create_order(request):
+    cart = get_object_or_404(Cart, client=request.user.client)
+    order = Order(client=request.user.client)
+    order.save()
+    for product_instance in cart.products.all():
+        order.products.add(product_instance)
+    cart.products.clear()
+    cart.save()
+    return redirect('my-orders')

@@ -82,6 +82,10 @@ class ProductInstance(models.Model):
         """
         return '%s (%s)' % (self.id, self.product.name)
 
+    @property
+    def total_price(self):
+        return self.product.price * self.quantity
+
 
 class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
