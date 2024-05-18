@@ -1,17 +1,17 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Title: {{ product.name }}</h1>
+  <h1>Name: {{ product.name }}</h1>
 
-  <p><strong>Manufacturer:</strong> <a href="">{{ product.manufacturer }}</a></p> <!-- manufacturer detail link not yet defined -->
   <p><strong>Description:</strong> {{ product.description }}</p>
-  <p><strong>Category:</strong> {{ product.product_type }}</p>
   <p><strong>Price:</strong> {{ product.price }}</p>
-
-
-      <form method="POST" action="{% url 'add_to_cart' product.id %}">
+  <p><strong>Product type:</strong> {{ product.product_type }}</p>
+  <p><strong>Unit of measure:</strong> {{ product.unit_of_measure }}</p>
+  <p><strong>Manufacturer:</strong> <a href="{% url 'manufacturer-detail' product.manufacturer.id %}">{{ product.manufacturer }}</a></p>
+  {% if user.is_authenticated and user.client %}
+  <form method="POST" action="{% url 'add_to_cart' product.id %}">
     {% csrf_token %}
     <input type="submit" value="Add to cart">
   </form>
-
+  {% endif %}
 {% endblock %}

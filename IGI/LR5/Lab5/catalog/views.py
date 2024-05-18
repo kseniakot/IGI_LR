@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
@@ -31,22 +32,6 @@ def index(request):
         context={'num_products': num_products, 'num_manufacturers': num_manufacturers,
                  'num_visits': num_visits},
     )
-
-
-def add_to_cart(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    client = get_object_or_404(Client, user=request.user)
-    product_instance, product_created = ProductInstance.objects.get_or_create(product=product, customer=client)
-    cart, cart_created = Cart.objects.get_or_create(client=client)
-
-    if not product_created:
-        product_instance.quantity += 1
-        product_instance.save()
-    else:
-        cart.products.add(product_instance)
-    cart.update_total_price()
-    cart.save()
-    return redirect('products')
 
 
 class RegisterView(FormView):
@@ -156,7 +141,7 @@ from django.contrib.auth.decorators import permission_required, login_required
 
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 import datetime
 from .models import Order
 from .forms import OrderStatusForm, RegisterForm
@@ -191,12 +176,32 @@ def change_status_employee(request, pk):
     return render(request, 'catalog/change_status_employee.html', {'form': form, 'order': order})
 
 
-class CartView(DetailView):
+class CartView(LoginRequiredMixin, DetailView):
     model = Cart
     template_name = 'catalog/user_cart.html'
 
     def get_object(self, queryset=None):
-        return get_object_or_404(Cart, client=self.request.user.client)
+        if self.request.user.is_authenticated:
+            cart, created = Cart.objects.get_or_create(client=self.request.user.client)
+            print(cart.products.all())
+            return cart
+
+
+@login_required
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    client = get_object_or_404(Client, user=request.user)
+    product_instance, product_created = ProductInstance.objects.get_or_create(product=product, customer=client)
+    cart, cart_created = Cart.objects.get_or_create(client=client)
+    cart.save()
+    if product_instance in cart.products.all():
+        product_instance.quantity += 1
+        product_instance.save()
+    else:
+        cart.products.add(product_instance)
+    cart.update_total_price()
+    cart.save()
+    return redirect('products')
 
 
 @login_required
@@ -208,4 +213,40 @@ def create_order(request):
         order.products.add(product_instance)
     cart.products.clear()
     cart.save()
+    order.calculate_total_price()
+    order.save()
     return redirect('my-orders')
+
+
+@login_required
+def increase_quantity(request, product_instance_id):
+    product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
+    product_instance.quantity += 1
+    product_instance.save()
+    cart = get_object_or_404(Cart, client=request.user.client)
+    cart.update_total_price()
+    cart.save()
+    return redirect('cart')
+
+
+@login_required
+def decrease_quantity(request, product_instance_id):
+    product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
+    if product_instance.quantity > 1:
+        product_instance.quantity -= 1
+        product_instance.save()
+    cart = get_object_or_404(Cart, client=request.user.client)
+    cart.update_total_price()
+    cart.save()
+    return redirect('cart')
+
+
+@login_required
+def remove_from_cart(request, product_instance_id):
+    product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
+    cart = get_object_or_404(Cart, client=request.user.client)
+    cart.products.remove(product_instance)
+    product_instance.delete()
+    cart.update_total_price()
+    cart.save()
+    return redirect('cart')

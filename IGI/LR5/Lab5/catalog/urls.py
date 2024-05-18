@@ -34,4 +34,11 @@ urlpatterns += [
 urlpatterns += [url(r'^cart/$', views.CartView.as_view(), name='cart'),
                 ]
 urlpatterns += [url('create-order/', views.create_order, name='create-order'),
+                url(r'^increase-quantity/(?P<product_instance_id>[0-9a-f-]+)/$', views.increase_quantity,
+                            name='increase-quantity'),
+                url(r'^decrease-quantity/(?P<product_instance_id>[0-9a-f-]+)/$', views.decrease_quantity,
+                            name='decrease-quantity'),
+                url(r'^remove-from-cart/(?P<product_instance_id>[0-9a-f-]+)/$', views.remove_from_cart,
+                            name='remove-from-cart'),
 ]
+

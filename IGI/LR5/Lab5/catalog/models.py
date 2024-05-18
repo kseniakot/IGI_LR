@@ -115,11 +115,11 @@ class Order(models.Model):
         return f"Order {self.id} by {self.client}"
 
 
-@receiver(m2m_changed, sender=Order.products.through)
-def update_total_price(sender, instance, action, **kwargs):
-    if action == "post_add" or action == "post_remove":
-        instance.total_price = instance.calculate_total_price()
-        instance.save()
+# @receiver(m2m_changed, sender=Order.products.through)
+# def update_total_price(sender, instance, action, **kwargs):
+#     if action == "post_add" or action == "post_remove":
+#         instance.total_price = instance.calculate_total_price()
+#         instance.save()
 
 
 class Cart(models.Model):

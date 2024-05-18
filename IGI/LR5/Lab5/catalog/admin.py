@@ -50,10 +50,14 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('client', 'order_date', 'status', 'total_price')
+    list_display = ('client', 'order_date', 'status', 'total_price', 'display_products')
     readonly_fields = ('total_price',)
     list_filter = ('order_date',)
     search_fields = ('client',)
+
+    def display_products(self, obj):
+        return ", ".join([str(product) for product in obj.products.all()])
+    display_products.short_description = 'Products'
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # This is the case when obj is already created i.e. it's an edit
@@ -63,9 +67,13 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('client', 'total_price')
+    list_display = ('client', 'total_price', 'display_products')
     readonly_fields = ('total_price',)
     search_fields = ('client',)
+
+    def display_products(self, obj):
+        return ", ".join([product.product.name for product in obj.products.all()])
+    display_products.short_description = 'Products'
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # This is the case when obj is already created i.e. it's an edit
