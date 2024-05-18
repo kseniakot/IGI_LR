@@ -14,6 +14,7 @@ urlpatterns = [
 ]
 urlpatterns += [
     url(r'^myproducts/$', views.OrderedProductsByUserListView.as_view(), name='my-ordered'),
+    url(r'^my-orders/$', views.OrdersByUserListView.as_view(), name='my-orders'),
 ]
 
 urlpatterns += [

@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.views.generic import FormView
 from django.contrib.auth.models import Group
-from .models import Product, Manufacturer, ProductInstance, Client
+from .models import Product, Manufacturer, ProductInstance, Client, Order
 from .forms import RegisterForm
 
 
@@ -89,6 +89,19 @@ class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return ProductInstance.objects.filter(
             customer=self.request.user)  # .filter(status__exact='o').order_by('due_back')
+
+
+class OrdersByUserListView(LoginRequiredMixin, generic.ListView):
+    """
+    Generic class-based view listing books on loan to current user.
+    """
+    model = Order
+    template_name = 'catalog/orders_by_user.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Order.objects.filter(
+            client__user=self.request.user)  # .filter(status__exact='o').order_by('due_back')
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
