@@ -19,12 +19,15 @@ from django.urls import path
 from django.urls import include
 from django.views.generic import RedirectView
 
+from catalog.views import RegisterView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
 urlpatterns += [
     path('catalog/', include('catalog.urls')),
+    path('sign-up', RegisterView.as_view(), name='sign-up'),
 ]
 urlpatterns += [
     path('', RedirectView.as_view(url='/catalog/', permanent=True)),

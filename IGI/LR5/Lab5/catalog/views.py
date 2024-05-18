@@ -1,8 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.views import generic
-
-from .models import Product, Manufacturer, ProductInstance
+from django.views.generic import FormView
+from django.contrib.auth.models import Group
+from .models import Product, Manufacturer, ProductInstance, Client
+from .forms import RegisterForm
 
 
 def index(request):
@@ -28,6 +31,33 @@ def index(request):
         context={'num_products': num_products, 'num_manufacturers': num_manufacturers,
                  'num_visits': num_visits},
     )
+
+
+# def profile_view(request):
+#     return render(request, 'catalog/profile.html')
+
+
+# def sign_up(request):
+#     if request.method == 'POST':
+#         form = RegisterForm(request.POST)
+#     else:
+#         form = RegisterForm()
+#
+#     return render(request, 'registration/sign_up.html', {"form": form})
+
+
+class RegisterView(FormView):
+    model = User
+    form_class = RegisterForm
+    template_name = 'registration/sign_up.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        user = form.save()
+
+        client = Client(user=user)
+        client.save()
+        return super().form_valid(form)
 
 
 class ProductListView(generic.ListView):
@@ -90,10 +120,10 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import datetime
 from .models import Order
-from .forms import OrderStatusForm
+from .forms import OrderStatusForm, RegisterForm
 
 
-#@permission_required('catalog.product_instance.set_product_as_issued')
+# @permission_required('catalog.product_instance.set_product_as_issued')
 def change_status_employee(request, pk):
     """
     View function for renewing a specific BookInstance by librarian

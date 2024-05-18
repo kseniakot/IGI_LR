@@ -36,8 +36,16 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email')
-    search_fields = ('first_name', 'last_name', 'email')
+    list_display = ('user_username', 'first_name', 'last_name', 'user_email')
+    search_fields = ('first_name', 'last_name')
+
+    def user_email(self, obj):
+        return obj.user.email
+    user_email.short_description = 'Email'
+
+    def user_username(self, obj):
+        return obj.user.username
+    user_username.short_description = 'Username'
 
 
 @admin.register(Order)
