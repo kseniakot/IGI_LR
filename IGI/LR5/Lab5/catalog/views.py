@@ -79,16 +79,18 @@ class ManufacturerDetailView(generic.DetailView):
 
 
 class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
-    """
-    Generic class-based view listing books on loan to current user.
-    """
     model = ProductInstance
-    template_name = 'catalog/productinstance_list_ordered_user.html'
+    template_name = 'catalog/order_detail.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return ProductInstance.objects.filter(
-            customer=self.request.user)  # .filter(status__exact='o').order_by('due_back')
+        self.order = get_object_or_404(Order, id=self.kwargs.get('order_id'), client__user=self.request.user)
+        return self.order.products.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['order'] = self.order
+        return context
 
 
 class OrdersByUserListView(LoginRequiredMixin, generic.ListView):
