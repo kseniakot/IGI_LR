@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import m2m_changed
+from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth.models import User, Group
 import uuid
@@ -11,7 +13,7 @@ class Employee(models.Model):
     position = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.user.username}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -57,7 +59,7 @@ class Client(models.Model):
         ordering = ["first_name", "last_name"]
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.user.username}"
 
 
 class Order(models.Model):
@@ -66,7 +68,7 @@ class Order(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
     order_date = models.DateTimeField(auto_now_add=True)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, editable=False)
 
     LOAN_STATUS = (
         ('p', 'Processing'),
@@ -77,8 +79,19 @@ class Order(models.Model):
 
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='p', help_text='Order status')
 
+    def save(self, *args, **kwargs):
+        self.total_price = sum(product.price for product in self.products.all())
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"Order {self.id} by {self.client}"
+
+
+@receiver(m2m_changed, sender=Order.products.through)
+def update_total_price(sender, instance, action, **kwargs):
+    if action == "post_add" or action == "post_remove":
+        instance.total_price = sum(product.price for product in instance.products.all())
+        instance.save()
 
 
 class ProductInstance(models.Model):
