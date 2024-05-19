@@ -1,14 +1,19 @@
-from django.contrib import messages
-from django.contrib.auth import logout
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 from django.shortcuts import render, redirect
-from django.views import generic
 from django.views.generic import FormView, DetailView
-from django.contrib.auth.models import Group
-from .models import Product, Manufacturer, ProductInstance, Client, Order, ProductType, Cart, PromoCode
-from .forms import RegisterForm
+from .models import Product, Manufacturer, Client, ProductType, Cart, PromoCode
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import generic
+from .models import ProductInstance
+from django.contrib.auth.decorators import login_required
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .models import Order
+from .forms import OrderStatusForm, RegisterForm
 
 
 def index(request):
@@ -118,11 +123,6 @@ class OrdersByUserListView(LoginRequiredMixin, generic.ListView):
             client__user=self.request.user).order_by('order_date')  # .filter(status__exact='o').order_by('due_back')
 
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import generic
-from .models import ProductInstance
-
-
 class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
     model = Order
     template_name = 'catalog/all_orders.html'
@@ -143,17 +143,6 @@ class PromoCodeListView(generic.ListView):
     model = PromoCode
     template_name = 'catalog/promocode_list.html'
     paginate_by = 10
-
-
-
-from django.contrib.auth.decorators import permission_required, login_required
-
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
-import datetime
-from .models import Order
-from .forms import OrderStatusForm, RegisterForm
 
 
 # @permission_required('catalog.product_instance.set_product_as_issued')
@@ -289,3 +278,33 @@ def apply_promo_code(request):
         pass
         # messages.error(request, 'Invalid promo code.')
     return redirect('cart')
+
+
+class AllClientsForEmployeeView(LoginRequiredMixin, generic.ListView):
+    """
+    Generic class-based view listing all clients, accessible only to employees.
+    """
+    model = User
+    template_name = 'catalog/client_list_for_employee.html'
+    paginate_by = 10
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Employees').exists():
+            return HttpResponseRedirect(reverse('index'))
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return User.objects.filter(groups__name='Shop Members').exclude(username='user').order_by('username')
+
+
+def client_list(request):
+    search_query = request.GET.get('search', '')
+    if search_query:
+        clients = Client.objects.filter(
+            Q(user__username__istartswith=search_query) | Q(user__email__istartswith=search_query))
+    else:
+        clients = Client.objects.all().order_by('user__username')
+    return render(request, 'catalog/client_list_for_employee.html', {'object_list': clients})
+
+
+
