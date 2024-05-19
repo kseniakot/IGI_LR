@@ -3,7 +3,7 @@ from . import views
 from django.urls import re_path as url
 
 from .views import OrderedProductsByUserListView, AllClientsForEmployeeView, client_list, EmployeeListView, \
-    ReviewListView, ReviewCreateView
+    ReviewListView, ReviewCreateView, ClientsGroupedByCityView, LogoutView
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -48,5 +48,10 @@ urlpatterns += [url('create-order/', views.create_order, name='create-order'),
                 path('contacts/', EmployeeListView.as_view(), name='contacts'),
                 path('reviews/', ReviewListView.as_view(), name='reviews'),
                 path('reviews/add/', ReviewCreateView.as_view(), name='add-review'),
+                path('clients_grouped_by_city/', ClientsGroupedByCityView.as_view() , name='clients_grouped_by_city'),
+]
+
+urlpatterns += [
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
 

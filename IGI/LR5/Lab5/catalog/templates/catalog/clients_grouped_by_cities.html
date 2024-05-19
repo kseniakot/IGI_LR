@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Statistics</h1>
+  {% for city, clients in clients_grouped_by_city.items %}
+    <h2>{{ city }}</h2>
+    <ul>
+      {% for client in clients %}
+        <li>{{ client.user__username }} - {{ client.num_orders }} orders</li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+    <hr>
+    <p><b>Most demanded product:</b> {{ most_demanded_product.name }} - {{ most_demanded_product.manufacturer }}</p>
+    <p><b>Products with no demand:</b> </p>
+    {% for product in no_demand_product %}
+  <p>{{ product.name }} - {{ product.manufacturer }}</p>
+{% endfor %}
+
+    <h3>Monthly sales</h3>
+    {% for sale in monthly_sales %}
+  <p>{{ sale.year }}-{{ sale.month }}: {{ sale.product_type__name }} - {{ sale.total_quantity }}</p>
+{% endfor %}
+
+    <h3>Annual Sales</h3>
+{% for sale in annual_sales %}
+  <p>{{ sale.year }}: {{ sale.total_revenue }}</p>
+{% endfor %}
+
+
+{% endblock %}

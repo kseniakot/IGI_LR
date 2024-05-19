@@ -1,18 +1,22 @@
+from datetime import datetime
 
+from django.contrib.auth import logout
 from django.contrib.auth.models import User
-from django.db.models import Q
-from django.views.generic import ListView
+from django.db.models import Q, Count, Sum
+from django.db.models.functions import ExtractMonth, ExtractYear
+from django.middleware.csrf import logger
+from django.views.generic import ListView, View
 from django.shortcuts import render, redirect
 from django.views.generic import FormView, DetailView, CreateView
 from .models import Product, Manufacturer, Client, ProductType, Cart, PromoCode, Employee, Review
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import generic
 from .models import ProductInstance
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from .models import Order
 from .forms import OrderStatusForm, RegisterForm, ReviewForm
 
@@ -53,8 +57,9 @@ class RegisterView(FormView):
 
         dob = form.cleaned_data.get('date_of_birth')
         phone = form.cleaned_data.get('phone_number')
+        city = form.cleaned_data.get('city')
 
-        client = Client(user=user, date_of_birth=dob, phone_number=phone)
+        client = Client(user=user, date_of_birth=dob, phone_number=phone, city=city)
         client.save()
 
         return super().form_valid(form)
@@ -331,3 +336,57 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class ClientsGroupedByCityView(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def get(self, request, *args, **kwargs):
+        clients_with_orders = Client.objects.annotate(num_orders=Count('order')).filter(num_orders__gt=0)
+        clients_list = clients_with_orders.values('city', 'user__username', 'num_orders').order_by('city')
+
+        # Create a dictionary where each key is a city and the value is a list of clients in that city
+        clients_grouped_by_city = {}
+        for client in clients_list:
+            if client['city'] in clients_grouped_by_city:
+                clients_grouped_by_city[client['city']].append(client)
+            else:
+                clients_grouped_by_city[client['city']] = [client]
+
+        most_demanded_product = Product.objects.annotate(total_quantity=Sum('productinstance__quantity')).order_by(
+            '-total_quantity').first()
+
+        no_demand_product = Product.objects.filter(productinstance__isnull=True)
+
+        monthly_sales = Product.objects.filter(productinstance__order__isnull=False).annotate(
+            month=ExtractMonth('productinstance__order__order_date'),
+            year=ExtractYear('productinstance__order__order_date')
+        ).values('month', 'year', 'product_type__name').annotate(
+            total_quantity=Sum('productinstance__quantity')
+        ).order_by('year', 'month', 'product_type__name')
+
+        annual_sales = Order.objects.annotate(
+            year=ExtractYear('order_date')
+        ).values('year').annotate(
+            total_revenue=Sum('total_price')
+        ).order_by('year')
+
+        return render(request, 'catalog/clients_grouped_by_cities.html', {
+            'clients_grouped_by_city': clients_grouped_by_city,
+            'most_demanded_product': most_demanded_product,
+            'no_demand_product': no_demand_product,
+            'monthly_sales': monthly_sales,
+            'annual_sales': annual_sales,
+        })
+
+
+class LogoutView(View):
+    success_url = reverse_lazy('users:login')
+
+    def get(self, request):
+        logout(request)
+
+        #logger.info(f'User logged out')
+
+        return redirect(self.success_url)

@@ -40,6 +40,9 @@
                     {% endif %}
 
                 {% endfor %}
+                 {% if user.is_superuser %}
+                     <li><a href="{% url 'clients_grouped_by_city' %}">Statistics</a></li>
+{% endif %}
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ request.path }}">

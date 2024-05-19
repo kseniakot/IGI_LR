@@ -1,25 +1,15 @@
-from datetime import date
-
-from django import forms
 from django.core.validators import RegexValidator
-
 from .models import Order, Review
+from datetime import date
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Client
 
 
 class OrderStatusForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['status']
-
-
-from datetime import date
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 
 
 class RegisterForm(UserCreationForm):
@@ -37,6 +27,16 @@ class RegisterForm(UserCreationForm):
             )
         ]
     )
+
+    CITIES = [
+        ('Minsk', 'Minsk'),
+        ('Brest', 'Brest'),
+        ('Gomel', 'Gomel'),
+        ('Grodno', 'Grodno'),
+        ('Mogilev', 'Mogilev'),
+        ('Vitebsk', 'Vitebsk'),
+    ]
+    city = forms.ChoiceField(choices=CITIES, required=True)
 
     class Meta(UserCreationForm.Meta):
         model = User
