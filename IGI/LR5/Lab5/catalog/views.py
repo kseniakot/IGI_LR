@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+
 from django.db.models import Q, Count, Sum
 from django.db.models.functions import ExtractMonth, ExtractYear
 from django.middleware.csrf import logger
@@ -13,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import generic
 from .models import ProductInstance
 from django.contrib.auth.decorators import login_required
-
+import requests
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -21,29 +22,36 @@ from .models import Order
 from .forms import OrderStatusForm, RegisterForm, ReviewForm
 
 
-def index(request):
-    """
-        Функция отображения для домашней страницы сайта.
+def get_random_joke():
+    response = requests.get('https://official-joke-api.appspot.com/random_joke')
+    if response.status_code == 200:
+        data = response.json()
+        return f"{data['setup']} - {data['punchline']}"
+    else:
+        return None
 
-        """
-    # Генерация "количеств" некоторых главных объектов
-    num_products = Product.objects.all().count()
-    # Number of visits to this view, as counted in the session variable.
+
+def get_public_ip():
+    response = requests.get('https://api.ipify.org?format=json')
+    if response.status_code == 200:
+        return response.json()['ip']
+    else:
+        return None
+
+
+def index(request):
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
 
-    # Доступные продукты (статус = 'a')
-    # num_instances_available = BookInstance.objects.filter(status__exact='a').count()
-    num_manufacturers = Manufacturer.objects.count()  # Метод 'all()' применён по умолчанию.
+    context = {
+        'num_products': Product.objects.count(),
+        'num_manufacturers': Manufacturer.objects.count(),
+        'num_visits': num_visits,
+        'public_ip': get_public_ip(),
+        'joke': get_random_joke(),
+    }
 
-    # Отрисовка HTML-шаблона index.html с данными внутри
-    # переменной контекста context
-    return render(
-        request,
-        'index.html',
-        context={'num_products': num_products, 'num_manufacturers': num_manufacturers,
-                 'num_visits': num_visits},
-    )
+    return render(request, 'index.html', context)
 
 
 class RegisterView(FormView):

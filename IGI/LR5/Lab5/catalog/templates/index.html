@@ -13,10 +13,11 @@
     <li><strong>Manufacturers:</strong> {{ num_manufacturers }}</li>
   </ul>
 
-    <p>
+  <p>
   You have visited this page {{ num_visits }}{% if num_visits == 1 %} time
         {% else %} times{% endif %}.
-</p>
+  </p>
 
-
+  <p>Your public IP address is: {{ public_ip }}</p>
+    <p>Here is a random joke for you: {{ joke }}</p>
 {% endblock %}
