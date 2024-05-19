@@ -9,8 +9,7 @@ from django.db.models.functions import ExtractMonth, ExtractYear
 from django.views.generic import ListView, View, TemplateView
 from django.shortcuts import render, redirect
 from django.views.generic import FormView, DetailView, CreateView
-
-
+from django.utils import timezone
 from .models import Product, Manufacturer, Client, ProductType, Cart, PromoCode, Employee, Review, Article, CompanyInfo, \
     FAQ, Job
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -63,6 +62,16 @@ def get_public_ip():
         return None
 
 
+def get_user_time():
+    current_time = timezone.localtime(timezone.now())
+    user_time_data = {
+        "user_timezone": str(timezone.get_current_timezone()),
+        "current_date_formatted": current_time.strftime("%d/%m/%Y %H:%M:%S"),
+        "calendar_text": current_time.strftime("%B %Y"),
+    }
+    return user_time_data
+
+
 def index(request):
     logger.info('Executing index view')
     num_visits = request.session.get('num_visits', 0)
@@ -70,15 +79,20 @@ def index(request):
 
     # Get the latest article
     latest_article = Article.objects.latest('publication_date')
-
-
+    current_user_time_data = get_user_time()
+    user_timezone = current_user_time_data["user_timezone"]
+    current_date_formatted = current_user_time_data["current_date_formatted"]
+    calendar_text = current_user_time_data["calendar_text"]
     context = {
         'num_products': Product.objects.count(),
         'num_manufacturers': Manufacturer.objects.count(),
         'num_visits': num_visits,
         'public_ip': get_public_ip(),
         'joke': get_random_joke(),
-        'latest_article': latest_article,  # Add the latest article to the context
+        'latest_article': latest_article,
+        'user_timezone': user_timezone,
+        'current_date_formatted': current_date_formatted,
+        'calendar_text': calendar_text,
     }
 
     return render(request, 'index.html', context)
@@ -87,6 +101,7 @@ def index(request):
 def jobs(request):
     jobs = Job.objects.all()
     return render(request, 'catalog/jobs.html', {'jobs': jobs})
+
 
 class RegisterView(FormView):
     logger.info('Executing RegisterView class')
