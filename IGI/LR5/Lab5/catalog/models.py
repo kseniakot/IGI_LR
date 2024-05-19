@@ -32,6 +32,13 @@ class Review(models.Model):
     text = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        stars = '*' * self.rating
+        return f'{self.user}: {stars} {self.text}'
+
+    def get_rating(self):
+        return '*' * self.rating
+
 
 class ProductType(models.Model):
     name = models.CharField(max_length=100)

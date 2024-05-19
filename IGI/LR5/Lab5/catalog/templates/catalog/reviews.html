@@ -6,7 +6,7 @@
   {% for review in object_list %}
     <div>
       <h2>{{ review.user.username }}</h2>
-      <p>Rating: {{ review.rating }}</p>
+    <p>{{ review.get_rating }}</p>
       <p>{{ review.text }}</p>
       <p>Date: {{ review.date }}</p>
     </div>
