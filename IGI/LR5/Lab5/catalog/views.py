@@ -99,28 +99,37 @@ class RegisterView(FormView):
 class ProductListView(generic.ListView):
     model = Product
     paginate_by = 10
-    logger.info('Executing ProductListView class')
 
     def get_queryset(self):
         queryset = super().get_queryset()
-
         product_type_id = self.request.GET.get('product_type_id')
-        manufacturer_id = self.request.GET.get('manufacturer_id')
+        manufacturer_id = self.request.GET.get('manufacturer_id')  # New line
         price_order = self.request.GET.get('price_order')
+        search_query = self.request.GET.get('search')
+
         if product_type_id:
             queryset = queryset.filter(product_type_id=product_type_id)
-        if manufacturer_id:
+
+        if manufacturer_id:  # New lines
             queryset = queryset.filter(manufacturer_id=manufacturer_id)
-        if price_order == 'as77c':
+
+        if self.request.user.is_superuser or self.request.user.groups.filter(name='Employees').exists():
+            queryset = queryset.order_by('name')
+        elif price_order == 'asc':
             queryset = queryset.order_by('price')
         elif price_order == 'desc':
             queryset = queryset.order_by('-price')
+
+        if search_query:
+            queryset = queryset.filter(Q(name__istartswith=search_query))
+
+        logger.info(f'Filtering products with product_type_id={product_type_id}, manufacturer_id={manufacturer_id}, price_order={price_order}, search_query={search_query}')  # Updated line
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['product_types'] = ProductType.objects.all()
-        context['manufacturers'] = Manufacturer.objects.all()
+        context['manufacturers'] = Manufacturer.objects.all()  # New line
         return context
 
 
