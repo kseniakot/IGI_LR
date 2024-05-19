@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Employee, ProductType, Product, Client, Order, Manufacturer, ProductInstance, Cart, PromoCode
+from .models import Employee, ProductType, Product, Client, Order, Manufacturer, ProductInstance, Cart, PromoCode, \
+    Review
 
 
 # admin.site.register(Employee)
@@ -114,3 +115,9 @@ class ProductInstanceAdmin(admin.ModelAdmin):
             'fields': ('quantity', 'customer')
         }),
     )
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('user', 'rating', 'text', 'date')
+    pass

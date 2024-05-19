@@ -1,9 +1,10 @@
+
 from django.contrib.auth.models import User
 from django.db.models import Q
-
+from django.views.generic import ListView
 from django.shortcuts import render, redirect
-from django.views.generic import FormView, DetailView
-from .models import Product, Manufacturer, Client, ProductType, Cart, PromoCode
+from django.views.generic import FormView, DetailView, CreateView
+from .models import Product, Manufacturer, Client, ProductType, Cart, PromoCode, Employee, Review
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from .models import ProductInstance
@@ -13,7 +14,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Order
-from .forms import OrderStatusForm, RegisterForm
+from .forms import OrderStatusForm, RegisterForm, ReviewForm
 
 
 def index(request):
@@ -280,6 +281,11 @@ def apply_promo_code(request):
     return redirect('cart')
 
 
+class EmployeeListView(generic.ListView):
+    model = Employee
+    template_name = 'catalog/employee_list.html'
+
+
 class AllClientsForEmployeeView(LoginRequiredMixin, generic.ListView):
     """
     Generic class-based view listing all clients, accessible only to employees.
@@ -307,4 +313,17 @@ def client_list(request):
     return render(request, 'catalog/client_list_for_employee.html', {'object_list': clients})
 
 
+class ReviewListView(ListView):
+    model = Review
+    template_name = 'catalog/reviews.html'  # update this to your template
 
+
+class ReviewCreateView(LoginRequiredMixin, CreateView):
+    model = Review
+    form_class = ReviewForm
+    template_name = 'catalog/add_review.html'  # update this to your template
+    success_url = '/catalog/reviews/'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

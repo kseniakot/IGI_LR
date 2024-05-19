@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 from django.urls import re_path as url
 
-from .views import OrderedProductsByUserListView, AllClientsForEmployeeView, client_list
+from .views import OrderedProductsByUserListView, AllClientsForEmployeeView, client_list, EmployeeListView, \
+    ReviewListView, ReviewCreateView
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -44,5 +45,8 @@ urlpatterns += [url('create-order/', views.create_order, name='create-order'),
                 path('promo-codes/', views.PromoCodeListView.as_view(), name='promo-codes'),
                 path('clients/all/', views.AllClientsForEmployeeView.as_view(), name='all-clients'),
                 path('clients/', views.client_list, name='clients'),
+                path('contacts/', EmployeeListView.as_view(), name='contacts'),
+                path('reviews/', ReviewListView.as_view(), name='reviews'),
+                path('reviews/add/', ReviewCreateView.as_view(), name='add-review'),
 ]
 

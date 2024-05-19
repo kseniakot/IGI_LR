@@ -12,14 +12,25 @@ class Employee(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
+    photo = models.ImageField(upload_to='', null=True, blank=True)
+    job_description = models.TextField(default='No description')
+    phone = models.CharField(max_length=20, null=True)
+    email = models.EmailField(default='default@gmail.com')
 
     def __str__(self):
         return f"{self.user.username}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        group = Group.objects.get(name='Shop Members')
+        group, created = Group.objects.get_or_create(name='Employees')
         self.user.groups.add(group)
+
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    text = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
 
 
 class ProductType(models.Model):
