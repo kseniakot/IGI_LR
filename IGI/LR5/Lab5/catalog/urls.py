@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^product/(?P<pk>\d+)$', views.ProductDetailView.as_view(), name='product-detail'),
     url(r'^manufacturers/$', views.ManufacturerListView.as_view(), name='manufacturers'),
     url(r'^manufacturer/(?P<pk>\d+)$', views.ManufacturerDetailView.as_view(), name='manufacturer-detail'),
-
+    url(r'^faq/$', views.faq, name='faq'),
     # path('books/', views.BookListView.as_view(), name='books'),
 ]
 

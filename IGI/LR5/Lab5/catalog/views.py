@@ -9,7 +9,8 @@ from django.db.models.functions import ExtractMonth, ExtractYear
 from django.views.generic import ListView, View, TemplateView
 from django.shortcuts import render, redirect
 from django.views.generic import FormView, DetailView, CreateView
-from .models import Product, Manufacturer, Client, ProductType, Cart, PromoCode, Employee, Review, Article, CompanyInfo
+from .models import Product, Manufacturer, Client, ProductType, Cart, PromoCode, Employee, Review, Article, CompanyInfo, \
+    FAQ
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import generic
 from .models import ProductInstance
@@ -470,3 +471,6 @@ def about(request):
     return render(request, 'catalog/company_info.html', {'info': info})
 
 
+def faq(request):
+    faqs = FAQ.objects.all()
+    return render(request, 'catalog/faq.html', {'faqs': faqs})

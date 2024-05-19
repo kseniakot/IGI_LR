@@ -222,3 +222,12 @@ class CompanyInfo(models.Model):
     logo = models.ImageField(upload_to='logos/', blank=True, null=True)
     history = models.TextField(blank=True, null=True)
     details = models.TextField(blank=True, null=True)
+
+
+class FAQ(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+    date_added = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.question
