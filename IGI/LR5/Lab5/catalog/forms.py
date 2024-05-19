@@ -6,7 +6,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-
 class OrderStatusForm(forms.ModelForm):
     class Meta:
         model = Order
@@ -60,3 +59,33 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['rating', 'text']
+
+
+from django.test import TestCase
+from .forms import RegisterForm
+from datetime import date, timedelta
+
+class RegisterFormTest(TestCase):
+    def test_register_form_valid(self):
+        form = RegisterForm(data={
+            'username': 'testuser',
+            'email': 'testuser@example.com',
+            'password1': 'testpassword123',
+            'password2': 'testpassword123',
+            'date_of_birth': (date.today() - timedelta(days=365*20)).strftime('%Y-%m-%d'),  # 20 years old
+            'phone_number': '+375 (29) 123-45-67',
+            'city': 'Minsk'
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_register_form_invalid(self):
+        form = RegisterForm(data={
+            'username': 'testuser',
+            'email': 'testuser@example.com',
+            'password1': 'testpassword123',
+            'password2': 'testpassword123',
+            'date_of_birth': date.today().strftime('%Y-%m-%d'),  # Today's date, i.e., less than 18 years old
+            'phone_number': '+375 (29) 123-45-67',
+            'city': 'Minsk'
+        })
+        self.assertFalse(form.is_valid())

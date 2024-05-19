@@ -223,9 +223,8 @@ class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
 
         return super().dispatch(request, *args, **kwargs)
 
-
-def get_queryset(self):
-    return Order.objects.all()
+    def get_queryset(self):
+        return Order.objects.all()
 
 
 class PromoCodeListView(generic.ListView):
@@ -410,7 +409,7 @@ def client_list(request):
 
 class ReviewListView(ListView):
     model = Review
-    template_name = 'catalog/reviews.html'  # update this to your template
+    template_name = 'catalog/reviews.html'
 
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
