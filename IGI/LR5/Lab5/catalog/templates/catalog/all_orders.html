@@ -7,6 +7,7 @@
     <ul>
       {% for order in order_list %}
       <li>
+      <p>Id: {{ order.id }}</p>
          <a href="{% url 'change-status-employee' order.id %}">Order {{ order.order_date|date:"d.m.Y" }} - {{ order.get_status_display }}</a> (Total price: {{ order.total_price }}, Ordered by: {{ order.client.user.username }})
       </li>
       {% endfor %}

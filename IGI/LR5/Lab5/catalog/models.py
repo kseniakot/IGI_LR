@@ -109,7 +109,7 @@ class Order(models.Model):
         super().save(*args, **kwargs)
 
     def calculate_total_price(self):
-        return sum(product_instance.product.price for product_instance in self.products.all())
+        return sum(product_instance.product.price * product_instance.quantity for product_instance in self.products.all())
 
     def __str__(self):
         return f"Order {self.id} by {self.client}"

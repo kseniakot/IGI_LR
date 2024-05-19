@@ -152,6 +152,7 @@ def change_status_employee(request, pk):
     """
     View function for renewing a specific BookInstance by librarian
     """
+    print(pk)
     order = get_object_or_404(Order, pk=pk)
 
     # If this is a POST request then process the Form data
@@ -162,9 +163,7 @@ def change_status_employee(request, pk):
 
         # Check if the form is valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-            # product_inst.status = form.cleaned_data['status']
-            # product_inst.save()
+            order.save()
 
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('all-orders'))
@@ -198,6 +197,8 @@ def add_to_cart(request, product_id):
         product_instance.quantity += 1
         product_instance.save()
     else:
+        product_instance.quantity = 1
+        product_instance.save()
         cart.products.add(product_instance)
     cart.update_total_price()
     cart.save()
