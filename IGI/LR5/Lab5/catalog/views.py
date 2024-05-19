@@ -9,8 +9,10 @@ from django.db.models.functions import ExtractMonth, ExtractYear
 from django.views.generic import ListView, View, TemplateView
 from django.shortcuts import render, redirect
 from django.views.generic import FormView, DetailView, CreateView
+
+
 from .models import Product, Manufacturer, Client, ProductType, Cart, PromoCode, Employee, Review, Article, CompanyInfo, \
-    FAQ
+    FAQ, Job
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import generic
 from .models import ProductInstance
@@ -81,6 +83,10 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+
+def jobs(request):
+    jobs = Job.objects.all()
+    return render(request, 'catalog/jobs.html', {'jobs': jobs})
 
 class RegisterView(FormView):
     logger.info('Executing RegisterView class')

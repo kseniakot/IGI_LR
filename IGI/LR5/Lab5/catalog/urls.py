@@ -30,17 +30,17 @@ urlpatterns += [
 ]
 urlpatterns += [
     url(r'^order/(?P<pk>[-\w]+)/change-status/$', views.change_status_employee, name='change-status-employee'),
-    ]
+]
 
 urlpatterns += [url(r'^cart/$', views.CartView.as_view(), name='cart'),
                 ]
 urlpatterns += [url('create-order/', views.create_order, name='create-order'),
                 url(r'^increase-quantity/(?P<product_instance_id>[0-9a-f-]+)/$', views.increase_quantity,
-                            name='increase-quantity'),
+                    name='increase-quantity'),
                 url(r'^decrease-quantity/(?P<product_instance_id>[0-9a-f-]+)/$', views.decrease_quantity,
-                            name='decrease-quantity'),
+                    name='decrease-quantity'),
                 url(r'^remove-from-cart/(?P<product_instance_id>[0-9a-f-]+)/$', views.remove_from_cart,
-                            name='remove-from-cart'),
+                    name='remove-from-cart'),
                 url(r'^privacy/$', privacy, name='privacy'),
                 url(r'^news/$', views.news, name='news'),
                 url(r'^news/(?P<article_id>\d+)/$', views.article_detail, name='article_detail'),
@@ -52,10 +52,10 @@ urlpatterns += [url('create-order/', views.create_order, name='create-order'),
                 path('contacts/', EmployeeListView.as_view(), name='contacts'),
                 path('reviews/', ReviewListView.as_view(), name='reviews'),
                 path('reviews/add/', ReviewCreateView.as_view(), name='add-review'),
-                path('clients_grouped_by_city/', ClientsGroupedByCityView.as_view() , name='clients_grouped_by_city'),
-]
+                path('clients_grouped_by_city/', ClientsGroupedByCityView.as_view(), name='clients_grouped_by_city'),
+                url(r'^jobs/$', views.jobs, name='jobs'),
+                ]
 
 urlpatterns += [
     path('logout/', LogoutView.as_view(), name='logout'),
 ]
-
