@@ -13,6 +13,11 @@
     <li><strong>Manufacturers:</strong> {{ num_manufacturers }}</li>
   </ul>
 
+    <h2>Latest Article</h2>
+<h3>{{ latest_article.title }}</h3>
+<p>{{ latest_article.summary }}</p>
+<a href="{% url 'article_detail' latest_article.id %}">Read more</a>
+
   <p>
   You have visited this page {{ num_visits }}{% if num_visits == 1 %} time
         {% else %} times{% endif %}.

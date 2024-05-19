@@ -65,12 +65,17 @@ def index(request):
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
 
+    # Get the latest article
+    latest_article = Article.objects.latest('publication_date')
+
+
     context = {
         'num_products': Product.objects.count(),
         'num_manufacturers': Manufacturer.objects.count(),
         'num_visits': num_visits,
         'public_ip': get_public_ip(),
         'joke': get_random_joke(),
+        'latest_article': latest_article,  # Add the latest article to the context
     }
 
     return render(request, 'index.html', context)
@@ -463,3 +468,5 @@ def article_detail(request, article_id):
 def about(request):
     info = CompanyInfo.objects.first()
     return render(request, 'catalog/company_info.html', {'info': info})
+
+

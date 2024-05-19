@@ -69,6 +69,7 @@ class Article(models.Model):
     summary = models.CharField(max_length=200)
     image = models.ImageField(upload_to='articles/')
     content = models.TextField()
+    publication_date = models.DateTimeField(default=datetime.now())
 
     def __str__(self):
         return self.title
