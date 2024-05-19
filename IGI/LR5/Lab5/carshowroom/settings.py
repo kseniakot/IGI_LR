@@ -122,7 +122,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = reverse_lazy('login')
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 MEDIA_URL = '/employee_photos/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'employee_photos')

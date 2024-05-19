@@ -382,11 +382,7 @@ class ClientsGroupedByCityView(UserPassesTestMixin, View):
 
 
 class LogoutView(View):
-    success_url = reverse_lazy('users:login')
-
     def get(self, request):
         logout(request)
-
-        #logger.info(f'User logged out')
-
-        return redirect(self.success_url)
+        # logger.info(f'User logged out')
+        return render(request, 'registration/logged_out.html')
