@@ -40,6 +40,7 @@ urlpatterns += [url('create-order/', views.create_order, name='create-order'),
                             name='decrease-quantity'),
                 url(r'^remove-from-cart/(?P<product_instance_id>[0-9a-f-]+)/$', views.remove_from_cart,
                             name='remove-from-cart'),
-path('onlineshop/cart/apply-promo-code/', views.apply_promo_code, name='apply-promo-code'),
+                path('onlineshop/cart/apply-promo-code/', views.apply_promo_code, name='apply-promo-code'),
+                path('promo-codes/', views.PromoCodeListView.as_view(), name='promo-codes'),
 ]
 

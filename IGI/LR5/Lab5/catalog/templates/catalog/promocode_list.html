@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+ 
+{% block content %} 
+  <h1>Promo Codes</h1> 
+  <ul> 
+    {% for promo_code in object_list %} 
+      <li>
+        <p>{{ promo_code.code }} - {{ promo_code.discount }}% discount</p>
+      </li> 
+    {% empty %} 
+      <li>No promo codes available.</li> 
+    {% endfor %} 
+  </ul> 
+{% endblock %}

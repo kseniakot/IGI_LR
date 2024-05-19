@@ -139,6 +139,13 @@ def get_queryset(self):
     return Order.objects.all()
 
 
+class PromoCodeListView(generic.ListView):
+    model = PromoCode
+    template_name = 'catalog/promocode_list.html'
+    paginate_by = 10
+
+
+
 from django.contrib.auth.decorators import permission_required, login_required
 
 from django.shortcuts import get_object_or_404
