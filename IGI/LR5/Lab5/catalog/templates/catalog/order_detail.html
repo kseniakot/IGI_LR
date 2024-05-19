@@ -6,6 +6,7 @@
   <p><strong>Date:</strong> {{ order.order_date }}</p>
   <p><strong>Total Price:</strong> {{ order.total_price }}</p>
   <p><strong>Status:</strong> {{ order.get_status_display }}</p>
+    <p><strong>Promocode: </strong>{{ order.promo_code }}</p>
 
   <h2>Products:</h2>
   {% if order.products.all %}

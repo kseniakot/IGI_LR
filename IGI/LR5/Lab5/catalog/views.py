@@ -1,11 +1,13 @@
+from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.views.generic import FormView, DetailView
 from django.contrib.auth.models import Group
-from .models import Product, Manufacturer, ProductInstance, Client, Order, ProductType, Cart
+from .models import Product, Manufacturer, ProductInstance, Client, Order, ProductType, Cart, PromoCode
 from .forms import RegisterForm
 
 
@@ -113,7 +115,7 @@ class OrdersByUserListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return Order.objects.filter(
-            client__user=self.request.user)  # .filter(status__exact='o').order_by('due_back')
+            client__user=self.request.user).order_by('order_date')  # .filter(status__exact='o').order_by('due_back')
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -190,32 +192,46 @@ class CartView(LoginRequiredMixin, DetailView):
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     client = get_object_or_404(Client, user=request.user)
-    product_instance, product_created = ProductInstance.objects.get_or_create(product=product, customer=client)
     cart, cart_created = Cart.objects.get_or_create(client=client)
     cart.save()
-    if product_instance in cart.products.all():
-        product_instance.quantity += 1
-        product_instance.save()
-    else:
-        product_instance.quantity = 1
-        product_instance.save()
+
+    product_in_cart = cart.products.filter(
+        product__name=product.name,
+        product__manufacturer=product.manufacturer,
+        product__price=product.price
+    ).first()
+
+    if not product_in_cart:
+        # If there is no such product yet, create a new product instance
+        product_instance = ProductInstance.objects.create(product=product, customer=client, quantity=1)
         cart.products.add(product_instance)
-    cart.update_total_price()
+    else:
+        product_in_cart.quantity += 1
+        product_in_cart.save()
     cart.save()
+    cart.update_total_price()  # Update the total price in the cart
+
     return redirect('products')
 
 
 @login_required
 def create_order(request):
-    cart = get_object_or_404(Cart, client=request.user.client)
-    order = Order(client=request.user.client)
+    client = get_object_or_404(Client, user=request.user)
+    cart = Cart.objects.get(client=client)  # Get the cart from the database again
+    total_price = cart.total_price  # Save the total_price before clearing the cart
+    promo_code = cart.promo_code  # Save the promo code before clearing the cart
+    order = Order(client=client)
+    order.total_price = total_price
+    order.promo_code = promo_code
+    print(promo_code)
     order.save()
     for product_instance in cart.products.all():
         order.products.add(product_instance)
-    cart.products.clear()
-    cart.save()
-    order.calculate_total_price()
     order.save()
+    cart.products.clear()
+    cart.update_total_price()  # Update the total_price in the cart after clearing the products
+    cart.promo_code = None  # Clear the promo code in the cart
+    cart.save()
     return redirect('my-orders')
 
 
@@ -250,4 +266,19 @@ def remove_from_cart(request, product_instance_id):
     product_instance.delete()
     cart.update_total_price()
     cart.save()
+    return redirect('cart')
+
+
+def apply_promo_code(request):
+    promo_code = request.POST.get('promo_code')
+    try:
+        promo = PromoCode.objects.get(code=promo_code)
+        cart = Cart.objects.get(client=request.user.client)
+        cart.promo_code = promo  # save the promo code in the cart
+        cart.update_total_price()
+        cart.save()
+    # messages.success(request, 'Promo code applied successfully!')
+    except PromoCode.DoesNotExist:
+        pass
+        # messages.error(request, 'Invalid promo code.')
     return redirect('cart')

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Employee, ProductType, Product, Client, Order, Manufacturer, ProductInstance, Cart
+from .models import Employee, ProductType, Product, Client, Order, Manufacturer, ProductInstance, Cart, PromoCode
 
 
 # admin.site.register(Employee)
@@ -41,10 +41,12 @@ class ClientAdmin(admin.ModelAdmin):
 
     def user_email(self, obj):
         return obj.user.email
+
     user_email.short_description = 'Email'
 
     def user_username(self, obj):
         return obj.user.username
+
     user_username.short_description = 'Username'
 
 
@@ -57,12 +59,17 @@ class OrderAdmin(admin.ModelAdmin):
 
     def display_products(self, obj):
         return ", ".join([str(product) for product in obj.products.all()])
+
     display_products.short_description = 'Products'
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # This is the case when obj is already created i.e. it's an edit
             return self.readonly_fields + ('total_price',)
         return self.readonly_fields
+
+    def save_model(self, request, obj, form, change):
+        obj.total_price = sum(product_instance.product.price for product_instance in obj.products.all())
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(Cart)
@@ -73,6 +80,7 @@ class CartAdmin(admin.ModelAdmin):
 
     def display_products(self, obj):
         return ", ".join([product.product.name for product in obj.products.all()])
+
     display_products.short_description = 'Products'
 
     def get_readonly_fields(self, request, obj=None):
@@ -85,6 +93,12 @@ class CartAdmin(admin.ModelAdmin):
 class ManufacturerAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'email')
     search_fields = ('name', 'phone', 'email')
+
+
+@admin.register(PromoCode)
+class PromoCodeAdmin(admin.ModelAdmin):
+    list_display = ('code', 'discount')
+    search_fields = ('code',)
 
 
 @admin.register(ProductInstance)
