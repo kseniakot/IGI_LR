@@ -68,6 +68,8 @@ class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    date_of_birth = models.DateField(null=True, blank=True)
+    phone_number = models.CharField(max_length=20, default='', blank=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
