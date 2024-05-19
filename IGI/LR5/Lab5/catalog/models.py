@@ -213,3 +213,11 @@ class Manufacturer(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class CompanyInfo(models.Model):
+    text = models.TextField()
+    video = models.URLField(blank=True, null=True)
+    logo = models.ImageField(upload_to='logos/', blank=True, null=True)
+    history = models.TextField(blank=True, null=True)
+    details = models.TextField(blank=True, null=True)

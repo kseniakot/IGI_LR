@@ -3,7 +3,7 @@ from . import views
 from django.urls import re_path as url
 
 from .views import OrderedProductsByUserListView, AllClientsForEmployeeView, client_list, EmployeeListView, \
-    ReviewListView, ReviewCreateView, ClientsGroupedByCityView, LogoutView, privacy
+    ReviewListView, ReviewCreateView, ClientsGroupedByCityView, LogoutView, privacy, about
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -44,6 +44,7 @@ urlpatterns += [url('create-order/', views.create_order, name='create-order'),
                 url(r'^privacy/$', privacy, name='privacy'),
                 url(r'^news/$', views.news, name='news'),
                 url(r'^news/(?P<article_id>\d+)/$', views.article_detail, name='article_detail'),
+                url(r'^about/$', about, name='about'),
                 path('onlineshop/cart/apply-promo-code/', views.apply_promo_code, name='apply-promo-code'),
                 path('promo-codes/', views.PromoCodeListView.as_view(), name='promo-codes'),
                 path('clients/all/', views.AllClientsForEmployeeView.as_view(), name='all-clients'),

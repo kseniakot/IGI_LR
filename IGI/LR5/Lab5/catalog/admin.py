@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Employee, ProductType, Product, Client, Order, Manufacturer, ProductInstance, Cart, PromoCode, \
-    Review, Article
+    Review, Article, CompanyInfo
 
 
 # admin.site.register(Employee)
@@ -127,3 +127,8 @@ class ReviewAdmin(admin.ModelAdmin):
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'summary', 'image', 'content')
     search_fields = ('title', 'summary')
+
+
+@admin.register(CompanyInfo)
+class CompanyInfoAdmin(admin.ModelAdmin):
+    list_display = ('text', 'video', 'logo', 'history', 'details')

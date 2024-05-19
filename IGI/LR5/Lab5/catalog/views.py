@@ -6,10 +6,10 @@ import os
 import logging
 from django.db.models import Q, Count, Sum
 from django.db.models.functions import ExtractMonth, ExtractYear
-from django.views.generic import ListView, View
+from django.views.generic import ListView, View, TemplateView
 from django.shortcuts import render, redirect
 from django.views.generic import FormView, DetailView, CreateView
-from .models import Product, Manufacturer, Client, ProductType, Cart, PromoCode, Employee, Review, Article
+from .models import Product, Manufacturer, Client, ProductType, Cart, PromoCode, Employee, Review, Article, CompanyInfo
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import generic
 from .models import ProductInstance
@@ -123,7 +123,8 @@ class ProductListView(generic.ListView):
         if search_query:
             queryset = queryset.filter(Q(name__istartswith=search_query))
 
-        logger.info(f'Filtering products with product_type_id={product_type_id}, manufacturer_id={manufacturer_id}, price_order={price_order}, search_query={search_query}')  # Updated line
+        logger.info(
+            f'Filtering products with product_type_id={product_type_id}, manufacturer_id={manufacturer_id}, price_order={price_order}, search_query={search_query}')  # Updated line
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -453,6 +454,12 @@ def news(request):
     articles = Article.objects.all()
     return render(request, 'catalog/news.html', {'articles': articles})
 
+
 def article_detail(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
     return render(request, 'catalog/article_detail.html', {'article': article})
+
+
+def about(request):
+    info = CompanyInfo.objects.first()
+    return render(request, 'catalog/company_info.html', {'info': info})
