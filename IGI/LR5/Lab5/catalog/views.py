@@ -2,10 +2,10 @@ from datetime import datetime
 
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
-
+import os
+import logging
 from django.db.models import Q, Count, Sum
 from django.db.models.functions import ExtractMonth, ExtractYear
-from django.middleware.csrf import logger
 from django.views.generic import ListView, View
 from django.shortcuts import render, redirect
 from django.views.generic import FormView, DetailView, CreateView
@@ -21,8 +21,28 @@ from django.urls import reverse, reverse_lazy
 from .models import Order
 from .forms import OrderStatusForm, RegisterForm, ReviewForm
 
+log_level_name = os.getenv('LOG_LEVEL', 'INFO')
+log_level = getattr(logging, log_level_name.upper(), logging.INFO)
+
+logger = logging.getLogger(__name__)
+logger.setLevel(log_level)
+
+handler = logging.FileHandler('app.log')
+handler.setLevel(log_level)
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+logger.addHandler(handler)
+
+
+def privacy(request):
+    logger.info('Executing privacy view')
+    return render(request, 'catalog/privacy.html')
+
 
 def get_random_joke():
+    logger.info('Executing get_random_joke function')
     response = requests.get('https://official-joke-api.appspot.com/random_joke')
     if response.status_code == 200:
         data = response.json()
@@ -32,6 +52,7 @@ def get_random_joke():
 
 
 def get_public_ip():
+    logger.info('Executing get_public_ip function')
     response = requests.get('https://api.ipify.org?format=json')
     if response.status_code == 200:
         return response.json()['ip']
@@ -40,6 +61,7 @@ def get_public_ip():
 
 
 def index(request):
+    logger.info('Executing index view')
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
 
@@ -55,6 +77,7 @@ def index(request):
 
 
 class RegisterView(FormView):
+    logger.info('Executing RegisterView class')
     model = User
     form_class = RegisterForm
     template_name = 'registration/sign_up.html'
@@ -76,7 +99,7 @@ class RegisterView(FormView):
 class ProductListView(generic.ListView):
     model = Product
     paginate_by = 10
-
+    logger.info('Executing ProductListView class')
     def get_queryset(self):
         queryset = super().get_queryset()
 
@@ -103,26 +126,31 @@ class ProductListView(generic.ListView):
 class ManufacturerListView(generic.ListView):
     model = Manufacturer
     paginate_by = 10
-
+logger.info('Executing ManufacturerListView class')
 
 class ProductDetailView(generic.DetailView):
+    logger.info('Executing ProductDetailView class')
     model = Product
 
 
 class ManufacturerDetailView(generic.DetailView):
+    logger.info('Executing ManufacturerDetailView class')
     model = Manufacturer
 
 
 class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
     model = ProductInstance
+    logger.info('Executing OrderedProductsByUserListView class')
     template_name = 'catalog/order_detail.html'
     paginate_by = 10
 
     def get_queryset(self):
+        logger.info('Executing get_queryset method')
         self.order = get_object_or_404(Order, id=self.kwargs.get('order_id'), client__user=self.request.user)
         return self.order.products.all()
 
     def get_context_data(self, **kwargs):
+        logger.info('Executing get_context_data method')
         context = super().get_context_data(**kwargs)
         context['order'] = self.order
         return context
@@ -135,6 +163,7 @@ class OrdersByUserListView(LoginRequiredMixin, generic.ListView):
     model = Order
     template_name = 'catalog/orders_by_user.html'
     paginate_by = 10
+    logger.info('Executing OrdersByUserListView class')
 
     def get_queryset(self):
         return Order.objects.filter(
@@ -145,7 +174,7 @@ class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
     model = Order
     template_name = 'catalog/all_orders.html'
     paginate_by = 10
-
+    logger.info('Executing AllOrdersForEmployeeView class')
     def dispatch(self, request, *args, **kwargs):
         if not request.user.groups.filter(name='Employees').exists():
             return HttpResponseRedirect(reverse('index'))
@@ -161,6 +190,7 @@ class PromoCodeListView(generic.ListView):
     model = PromoCode
     template_name = 'catalog/promocode_list.html'
     paginate_by = 10
+    logger.info('Executing PromoCodeListView class')
 
 
 # @permission_required('catalog.product_instance.set_product_as_issued')
@@ -168,6 +198,7 @@ def change_status_employee(request, pk):
     """
     View function for renewing a specific BookInstance by librarian
     """
+    logger.info('Executing change_status_employee view')
     print(pk)
     order = get_object_or_404(Order, pk=pk)
 
@@ -194,7 +225,7 @@ def change_status_employee(request, pk):
 class CartView(LoginRequiredMixin, DetailView):
     model = Cart
     template_name = 'catalog/user_cart.html'
-
+    logger.info('Executing CartView class')
     def get_object(self, queryset=None):
         if self.request.user.is_authenticated:
             cart, created = Cart.objects.get_or_create(client=self.request.user.client)
@@ -204,6 +235,7 @@ class CartView(LoginRequiredMixin, DetailView):
 
 @login_required
 def add_to_cart(request, product_id):
+    logger.info('Executing add_to_cart view')
     product = get_object_or_404(Product, id=product_id)
     client = get_object_or_404(Client, user=request.user)
     cart, cart_created = Cart.objects.get_or_create(client=client)
@@ -230,6 +262,7 @@ def add_to_cart(request, product_id):
 
 @login_required
 def create_order(request):
+    logger.info('Executing create_order view')
     client = get_object_or_404(Client, user=request.user)
     cart = Cart.objects.get(client=client)  # Get the cart from the database again
     total_price = cart.total_price  # Save the total_price before clearing the cart
@@ -251,6 +284,7 @@ def create_order(request):
 
 @login_required
 def increase_quantity(request, product_instance_id):
+    logger.info('Executing increase_quantity view')
     product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
     product_instance.quantity += 1
     product_instance.save()
@@ -336,6 +370,7 @@ class ReviewListView(ListView):
 
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
+    logger.info('Executing ReviewCreateView class')
     model = Review
     form_class = ReviewForm
     template_name = 'catalog/add_review.html'  # update this to your template
@@ -390,6 +425,7 @@ class ClientsGroupedByCityView(UserPassesTestMixin, View):
 
 
 class LogoutView(View):
+    logger.info('Executing LogoutView class')
     def get(self, request):
         logout(request)
         # logger.info(f'User logged out')

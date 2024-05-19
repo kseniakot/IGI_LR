@@ -51,6 +51,7 @@
     </li>
              {% else %}
                  <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+                 <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
              {% endif %}
           </ul>
         {% endblock %}

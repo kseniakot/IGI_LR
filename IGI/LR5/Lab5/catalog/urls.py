@@ -3,7 +3,7 @@ from . import views
 from django.urls import re_path as url
 
 from .views import OrderedProductsByUserListView, AllClientsForEmployeeView, client_list, EmployeeListView, \
-    ReviewListView, ReviewCreateView, ClientsGroupedByCityView, LogoutView
+    ReviewListView, ReviewCreateView, ClientsGroupedByCityView, LogoutView, privacy
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -41,6 +41,7 @@ urlpatterns += [url('create-order/', views.create_order, name='create-order'),
                             name='decrease-quantity'),
                 url(r'^remove-from-cart/(?P<product_instance_id>[0-9a-f-]+)/$', views.remove_from_cart,
                             name='remove-from-cart'),
+                url(r'^privacy/$', privacy, name='privacy'),
                 path('onlineshop/cart/apply-promo-code/', views.apply_promo_code, name='apply-promo-code'),
                 path('promo-codes/', views.PromoCodeListView.as_view(), name='promo-codes'),
                 path('clients/all/', views.AllClientsForEmployeeView.as_view(), name='all-clients'),
