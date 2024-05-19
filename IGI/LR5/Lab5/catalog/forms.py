@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
+
 class OrderStatusForm(forms.ModelForm):
     class Meta:
         model = Order
@@ -47,6 +48,7 @@ class RegisterForm(UserCreationForm):
         today = date.today()
         if (dob.year + 18, dob.month, dob.day) > (today.year, today.month, today.day):
             raise forms.ValidationError('You must be at least 18 years old to register.')
+
         return dob
 
 

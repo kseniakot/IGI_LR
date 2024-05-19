@@ -21,7 +21,7 @@ from django.urls import reverse, reverse_lazy
 from .models import Order
 from .forms import OrderStatusForm, RegisterForm, ReviewForm
 
-log_level_name = os.getenv('LOG_LEVEL', 'INFO')
+log_level_name = os.getenv('LOG_LEVEL', 'DEBUG')
 log_level = getattr(logging, log_level_name.upper(), logging.INFO)
 
 logger = logging.getLogger(__name__)
@@ -42,7 +42,7 @@ def privacy(request):
 
 
 def get_random_joke():
-    logger.info('Executing get_random_joke function')
+    logger.debug('Executing get_random_joke function')
     response = requests.get('https://official-joke-api.appspot.com/random_joke')
     if response.status_code == 200:
         data = response.json()
@@ -100,6 +100,7 @@ class ProductListView(generic.ListView):
     model = Product
     paginate_by = 10
     logger.info('Executing ProductListView class')
+
     def get_queryset(self):
         queryset = super().get_queryset()
 
@@ -126,7 +127,10 @@ class ProductListView(generic.ListView):
 class ManufacturerListView(generic.ListView):
     model = Manufacturer
     paginate_by = 10
+
+
 logger.info('Executing ManufacturerListView class')
+
 
 class ProductDetailView(generic.DetailView):
     logger.info('Executing ProductDetailView class')
@@ -175,6 +179,7 @@ class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
     template_name = 'catalog/all_orders.html'
     paginate_by = 10
     logger.info('Executing AllOrdersForEmployeeView class')
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.groups.filter(name='Employees').exists():
             return HttpResponseRedirect(reverse('index'))
@@ -226,6 +231,7 @@ class CartView(LoginRequiredMixin, DetailView):
     model = Cart
     template_name = 'catalog/user_cart.html'
     logger.info('Executing CartView class')
+
     def get_object(self, queryset=None):
         if self.request.user.is_authenticated:
             cart, created = Cart.objects.get_or_create(client=self.request.user.client)
@@ -327,6 +333,7 @@ def apply_promo_code(request):
         cart.save()
     # messages.success(request, 'Promo code applied successfully!')
     except PromoCode.DoesNotExist:
+        logger.exception('Invalid promo code')
         pass
         # messages.error(request, 'Invalid promo code.')
     return redirect('cart')
@@ -426,6 +433,7 @@ class ClientsGroupedByCityView(UserPassesTestMixin, View):
 
 class LogoutView(View):
     logger.info('Executing LogoutView class')
+
     def get(self, request):
         logout(request)
         # logger.info(f'User logged out')
