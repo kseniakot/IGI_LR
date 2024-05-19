@@ -64,6 +64,16 @@ class Product(models.Model):
         return self.name
 
 
+class Article(models.Model):
+    title = models.CharField(max_length=200)
+    summary = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='articles/')
+    content = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+
 class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=100)
@@ -121,6 +131,7 @@ class ProductInstance(models.Model):
 class PromoCode(models.Model):
     code = models.CharField(max_length=10)
     discount = models.DecimalField(max_digits=10, decimal_places=2)
+
     # expiration_date = models.DateField(default=datetime.date(datetime.now()))
 
     def __str__(self):

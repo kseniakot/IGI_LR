@@ -9,7 +9,7 @@ from django.db.models.functions import ExtractMonth, ExtractYear
 from django.views.generic import ListView, View
 from django.shortcuts import render, redirect
 from django.views.generic import FormView, DetailView, CreateView
-from .models import Product, Manufacturer, Client, ProductType, Cart, PromoCode, Employee, Review
+from .models import Product, Manufacturer, Client, ProductType, Cart, PromoCode, Employee, Review, Article
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import generic
 from .models import ProductInstance
@@ -438,3 +438,12 @@ class LogoutView(View):
         logout(request)
         # logger.info(f'User logged out')
         return render(request, 'registration/logged_out.html')
+
+
+def news(request):
+    articles = Article.objects.all()
+    return render(request, 'catalog/news.html', {'articles': articles})
+
+def article_detail(request, article_id):
+    article = get_object_or_404(Article, pk=article_id)
+    return render(request, 'catalog/article_detail.html', {'article': article})

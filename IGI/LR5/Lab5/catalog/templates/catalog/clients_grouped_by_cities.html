@@ -14,7 +14,7 @@
     <p><b>Most demanded product:</b> {{ most_demanded_product.name }} - {{ most_demanded_product.manufacturer }}</p>
     <p><b>Products with no demand:</b> </p>
     {% for product in no_demand_product %}
-  <p>{{ product.name }} - {{ product.manufacturer }}</p>
+  <li>{{ product.name }} - {{ product.manufacturer }}</li>
 {% endfor %}
 
     <h3>Monthly sales</h3>
@@ -22,9 +22,9 @@
   <p>{{ sale.year }}-{{ sale.month }}: {{ sale.product_type__name }} - {{ sale.total_quantity }}</p>
 {% endfor %}
 
-    <h3>Annual Sales</h3>
+    <h3>Annual Profit</h3>
 {% for sale in annual_sales %}
-  <p>{{ sale.year }}: {{ sale.total_revenue }}</p>
+  <p>{{ sale.year }}: {{ sale.total_revenue }}$</p>
 {% endfor %}
 
 

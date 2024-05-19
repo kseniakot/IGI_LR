@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Employee, ProductType, Product, Client, Order, Manufacturer, ProductInstance, Cart, PromoCode, \
-    Review
+    Review, Article
 
 
 # admin.site.register(Employee)
@@ -121,3 +121,9 @@ class ProductInstanceAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('user', 'rating', 'text', 'date')
     pass
+
+
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ('title', 'summary', 'image', 'content')
+    search_fields = ('title', 'summary')
