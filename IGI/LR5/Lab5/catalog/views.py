@@ -489,6 +489,9 @@ class ClientsGroupedByCityView(UserPassesTestMixin, View):
         print(pivot_table)
         pivot_table_dict = pivot_table.to_dict('index')
         print(pivot_table_dict)
+        print(pivot_table_dict.keys())
+        print(pivot_table_dict.values())
+        print(pivot_table_dict.items())
 
         # New diagram
         city_orders = Order.objects.values('client__city').annotate(total_price=Sum('total_price'))
@@ -512,7 +515,7 @@ class ClientsGroupedByCityView(UserPassesTestMixin, View):
             'annual_sales': annual_sales,
             'image_string': image_string,
             'image_string_2': image_string_2,
-            'pivot_table': pivot_table_dict
+            'pivot_table_dict': pivot_table_dict
         })
 
 

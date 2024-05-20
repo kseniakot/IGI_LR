@@ -14,24 +14,22 @@
     <hr>
 <h2>Orders by city</h2>
 <table>
-  <thead>
+  {% for product, quantities in pivot_table_dict.items %}
+    {% if forloop.first %}
+        <tr>
+            <th>Product Name</th>
+            {% for city in quantities.keys %}
+                <th>{{ city }}</th>
+            {% endfor %}
+        </tr>
+    {% endif %}
     <tr>
-      <th>Product</th>
-      <th>Gomel</th>
-      <th>Grodno</th>
-      <th>Minsk</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for product, cities in pivot_table.items %}
-      <tr>
         <td>{{ product }}</td>
-        <td>{{ cities.Gomel }}</td>
-        <td>{{ cities.Grodno }}</td>
-        <td>{{ cities.Minsk }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
+        {% for quantity in quantities.values %}
+            <td>{{ quantity }}</td>
+        {% endfor %}
+    </tr>
+{% endfor %}
 </table>
 
     <hr>
