@@ -69,7 +69,7 @@ class Article(models.Model):
     title = models.CharField(max_length=200)
     summary = models.CharField(max_length=200)
     image = models.ImageField(upload_to='articles/')
-    content = models.TextField()
+    content = models.TextField(max_length=10000)
     publication_date = models.DateTimeField(default=datetime.now())
 
     def __str__(self):

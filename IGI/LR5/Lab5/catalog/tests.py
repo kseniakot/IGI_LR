@@ -130,6 +130,37 @@ class ArticleModelTest(TestCase):
         self.assertEqual(expected_object_name, str(article))
 
 
+    def test_title_label(self):
+        article = Article.objects.get(id=1)
+        field_label = article._meta.get_field('title').verbose_name
+        self.assertEqual(field_label, 'title')
+
+    def test_summary_label(self):
+        article = Article.objects.get(id=1)
+        field_label = article._meta.get_field('summary').verbose_name
+        self.assertEqual(field_label, 'summary')
+
+    def test_content_label(self):
+        article = Article.objects.get(id=1)
+        field_label = article._meta.get_field('content').verbose_name
+        self.assertEqual(field_label, 'content')
+
+    def test_title_max_length(self):
+        article = Article.objects.get(id=1)
+        max_length = article._meta.get_field('title').max_length
+        self.assertEqual(max_length, 200)  # Replace 200 with the actual max_length
+
+    def test_summary_max_length(self):
+        article = Article.objects.get(id=1)
+        max_length = article._meta.get_field('summary').max_length
+        self.assertEqual(max_length, 200)  # Replace 500 with the actual max_length
+
+    def test_content_max_length(self):
+        article = Article.objects.get(id=1)
+        max_length = article._meta.get_field('content').max_length
+        self.assertEqual(max_length, 10000)
+
+
 class ClientModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -169,6 +200,21 @@ class PromoCodeModelTest(TestCase):
         expected_object_name = promo_code.code
         self.assertEqual(expected_object_name, str(promo_code))
 
+    def test_code_label(self):
+        promo_code = PromoCode.objects.get(id=1)
+        field_label = promo_code._meta.get_field('code').verbose_name
+        self.assertEqual(field_label, 'code')
+
+    def test_discount_label(self):
+        promo_code = PromoCode.objects.get(id=1)
+        field_label = promo_code._meta.get_field('discount').verbose_name
+        self.assertEqual(field_label, 'discount')
+
+    def test_code_max_length(self):
+        promo_code = PromoCode.objects.get(id=1)
+        max_length = promo_code._meta.get_field('code').max_length
+        self.assertEqual(max_length, 10)
+
 
 from django.test import TestCase
 from .models import Cart, Manufacturer, CompanyInfo, FAQ, Job
@@ -187,7 +233,30 @@ class CartModelTest(TestCase):
         field_label = cart._meta.get_field('client').verbose_name
         self.assertEqual(field_label, 'client')
 
-    # Add more tests for other Cart fields here
+    def test_total_price_label(self):
+        cart = Cart.objects.get(id=1)
+        field_label = cart._meta.get_field('total_price').verbose_name
+        self.assertEqual(field_label, 'total price')
+
+    def test_promo_code_label(self):
+        cart = Cart.objects.get(id=1)
+        field_label = cart._meta.get_field('promo_code').verbose_name
+        self.assertEqual(field_label, 'promo code')
+
+    def test_str_method(self):
+        cart = Cart.objects.get(id=1)
+        expected_object_name = f"Cart for {cart.client}"
+        self.assertEqual(expected_object_name, str(cart))
+
+    def test_update_total_price(self):
+        cart = Cart.objects.get(id=1)
+        product_type = ProductType.objects.create(name='Test Product Type')
+        product = Product.objects.create(name='Test Product', description='Test Description', price=100.00,
+                                         product_type=product_type)
+        product_instance = ProductInstance.objects.create(product=product, quantity=1)
+        cart.products.add(product_instance)
+        cart.update_total_price()
+        self.assertEqual(cart.total_price, 100.00)
 
 
 class ManufacturerModelTest(TestCase):
