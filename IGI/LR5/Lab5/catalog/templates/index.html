@@ -12,12 +12,13 @@
     <li><strong>Products:</strong> {{ num_products }}</li>
     <li><strong>Manufacturers:</strong> {{ num_manufacturers }}</li>
   </ul>
-
+<hr>
     <h2>Latest Article</h2>
-<h3>{{ latest_article.title }}</h3>
+    <img src="{{ latest_article.image.url }}" alt="{{ latest_article.title }}" width="200">
+<h3>{{ latest_article.title.upper }}</h3>
 <p>{{ latest_article.summary }}</p>
 <a href="{% url 'article_detail' latest_article.id %}">Read more</a>
-
+<hr>
   <p>
   You have visited this page {{ num_visits }}{% if num_visits == 1 %} time
         {% else %} times{% endif %}.
