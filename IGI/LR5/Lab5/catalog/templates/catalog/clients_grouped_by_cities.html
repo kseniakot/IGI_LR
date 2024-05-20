@@ -12,7 +12,7 @@
   {% endfor %}
     <img src="data:image/png;base64,{{ image_string }}" alt="Client Distribution by City">
     <hr>
-
+<h2>Orders by city</h2>
 <table>
   <thead>
     <tr>
@@ -35,7 +35,8 @@
 </table>
 
     <hr>
-
+    <h2>Profit distribution by City</h2>
+<img src="data:image/png;base64,{{ image_string_2 }}" alt="Orders Distribution by City">
 
     <p><b>Most demanded product:</b> {{ most_demanded_product.name }} - {{ most_demanded_product.manufacturer }}</p>
     <p><b>Products with no demand:</b> </p>
