@@ -52,6 +52,7 @@ class Product(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to='products/', null=True)
     manufacturer = models.ForeignKey('Manufacturer', on_delete=models.SET_NULL, null=True)
 
     def get_absolute_url(self):
