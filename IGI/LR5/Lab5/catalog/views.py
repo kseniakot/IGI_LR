@@ -50,7 +50,7 @@ def get_random_joke():
     logger.debug('Executing get_random_joke function')
     response = requests.get('https://official-joke-api.appspot.com/random_joke')
     if response.status_code == 200:
-        data = response.json()
+        data = response.json()   # convert the response to a dictionary
         return f"{data['setup']} - {data['punchline']}"
     else:
         return None
