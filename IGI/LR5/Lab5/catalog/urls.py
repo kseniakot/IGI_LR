@@ -3,7 +3,7 @@ from . import views
 from django.urls import re_path as url
 
 from .views import OrderedProductsByUserListView, AllClientsForEmployeeView, client_list, EmployeeListView, \
-    ReviewListView, ReviewCreateView, ClientsGroupedByCityView, LogoutView, privacy, about
+    ReviewListView, ReviewCreateView, ClientsGroupedByCityView, privacy, about, Logout
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -57,5 +57,5 @@ urlpatterns += [url('create-order/', views.create_order, name='create-order'),
                 ]
 
 urlpatterns += [
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', Logout.as_view(), name='logout'),
 ]

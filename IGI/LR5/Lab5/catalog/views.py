@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 import os
 
 import logging
+
+from django.contrib.auth.views import LogoutView
 from django.db.models import Q, Count, Sum
 from django.db.models.functions import ExtractMonth, ExtractYear, ExtractDay
 from django.views.generic import ListView, View, TemplateView
@@ -519,7 +521,7 @@ class ClientsGroupedByCityView(UserPassesTestMixin, View):
         })
 
 
-class LogoutView(TemplateView):
+class Logout(LogoutView):
     logger.info('Executing LogoutView class')
     template = 'registration/logged_out.html'
 
