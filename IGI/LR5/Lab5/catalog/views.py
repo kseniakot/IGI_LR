@@ -50,7 +50,7 @@ def get_random_joke():
     logger.debug('Executing get_random_joke function')
     response = requests.get('https://official-joke-api.appspot.com/random_joke')
     if response.status_code == 200:
-        data = response.json()   # convert the response to a dictionary
+        data = response.json()  # convert the response to a dictionary
         return f"{data['setup']} - {data['punchline']}"
     else:
         return None
@@ -519,13 +519,9 @@ class ClientsGroupedByCityView(UserPassesTestMixin, View):
         })
 
 
-class LogoutView(View):
+class LogoutView(TemplateView):
     logger.info('Executing LogoutView class')
-
-    def get(self, request):
-        logout(request)
-        # logger.info(f'User logged out')
-        return render(request, 'registration/logged_out.html')
+    template = 'registration/logged_out.html'
 
 
 def news(request):
