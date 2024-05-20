@@ -10,7 +10,33 @@
       {% endfor %}
     </ul>
   {% endfor %}
+    <img src="data:image/png;base64,{{ image_string }}" alt="Client Distribution by City">
     <hr>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Gomel</th>
+      <th>Grodno</th>
+      <th>Minsk</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product, cities in pivot_table.items %}
+      <tr>
+        <td>{{ product }}</td>
+        <td>{{ cities.Gomel }}</td>
+        <td>{{ cities.Grodno }}</td>
+        <td>{{ cities.Minsk }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+    <hr>
+
+
     <p><b>Most demanded product:</b> {{ most_demanded_product.name }} - {{ most_demanded_product.manufacturer }}</p>
     <p><b>Products with no demand:</b> </p>
     {% for product in no_demand_product %}

@@ -1,5 +1,7 @@
-from datetime import datetime
-
+import base64
+from io import BytesIO
+import pandas as pd
+import matplotlib.pyplot as plt
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 import os
@@ -457,6 +459,35 @@ class ClientsGroupedByCityView(UserPassesTestMixin, View):
         ).values('year').annotate(
             total_revenue=Sum('total_price')
         ).order_by('year')
+        # Diagram
+        clients_with_orders = Client.objects.annotate(num_orders=Count('order')).filter(num_orders__gt=0)
+        city_counts = clients_with_orders.values('city').annotate(count=Count('city'))
+
+        # Create a pie chart
+        fig, ax = plt.subplots()
+        ax.pie([city['count'] for city in city_counts], labels=[city['city'] for city in city_counts],
+               autopct='%1.1f%%')
+        ax.axis('equal')
+
+        buf = BytesIO()
+        plt.savefig(buf, format='png')
+        plt.close(fig)
+
+        image_string = base64.b64encode(buf.getvalue()).decode()
+
+        # Table
+        orders = Order.objects.values('products__product__name', 'products__product__description', 'products__quantity',
+                              'client__city')
+
+        for order in orders:
+            print(order)
+
+        df = pd.DataFrame(orders)
+
+        pivot_table = pd.pivot_table(df, values='products__quantity', index='products__product__name', columns='client__city', aggfunc='sum').fillna(0)
+        print(pivot_table)
+        pivot_table_dict = pivot_table.to_dict('index')
+        print(pivot_table_dict)
 
         return render(request, 'catalog/clients_grouped_by_cities.html', {
             'clients_grouped_by_city': clients_grouped_by_city,
@@ -464,6 +495,8 @@ class ClientsGroupedByCityView(UserPassesTestMixin, View):
             'no_demand_product': no_demand_product,
             'monthly_sales': monthly_sales,
             'annual_sales': annual_sales,
+            'image_string': image_string,
+            'pivot_table': pivot_table_dict
         })
 
 
