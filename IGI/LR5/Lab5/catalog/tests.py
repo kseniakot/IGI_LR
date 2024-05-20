@@ -129,7 +129,6 @@ class ArticleModelTest(TestCase):
         expected_object_name = article.title
         self.assertEqual(expected_object_name, str(article))
 
-
     def test_title_label(self):
         article = Article.objects.get(id=1)
         field_label = article._meta.get_field('title').verbose_name
@@ -498,3 +497,34 @@ class GetPublicIpTest(TestCase):
 
         ip = get_public_ip()
         self.assertIsNone(ip)
+
+
+from django.test import TestCase
+from .forms import RegisterForm
+from datetime import date, timedelta
+
+
+class RegisterFormTest(TestCase):
+    def test_register_form_valid(self):
+        form = RegisterForm(data={
+            'username': 'testuser',
+            'email': 'testuser@example.com',
+            'password1': 'testpassword123',
+            'password2': 'testpassword123',
+            'date_of_birth': (date.today() - timedelta(days=365 * 20)).strftime('%Y-%m-%d'),  # 20 years old
+            'phone_number': '+375 (29) 123-45-67',
+            'city': 'Minsk'
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_register_form_invalid(self):
+        form = RegisterForm(data={
+            'username': 'testuser',
+            'email': 'testuser@example.com',
+            'password1': 'testpassword123',
+            'password2': 'testpassword123',
+            'date_of_birth': date.today().strftime('%Y-%m-%d'),  # Today's date, i.e., less than 18 years old
+            'phone_number': '+375 (29) 123-45-67',
+            'city': 'Minsk'
+        })
+        self.assertFalse(form.is_valid())
