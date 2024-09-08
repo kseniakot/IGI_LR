@@ -8,7 +8,7 @@
       <h2>{{ review.user.username }}</h2>
     <p>{{ review.get_rating }}</p>
       <p>{{ review.text }}</p>
-      <p>Date: {{ review.date }}</p>
+        <time datetime="{{ review.date.isoformat }}">{{ review.date }}</time>
     </div>
   {% empty %}
     <p>No reviews found.</p>
