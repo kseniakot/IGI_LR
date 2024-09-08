@@ -2,11 +2,14 @@
 <html lang="en">
   <head>
     {% block title %}<title>Online Shop</title>{% endblock %}
+
+      {% load static %}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
 
-    <!-- Добавление дополнительного статического CSS файла -->
-    {% load static %}
+
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
 
