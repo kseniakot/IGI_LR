@@ -105,8 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Europe/Minsk'
-
 USE_I18N = True
 
 USE_TZ = True
@@ -127,3 +125,4 @@ LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 MEDIA_URL = '/employee_photos/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'employee_photos')
+5
