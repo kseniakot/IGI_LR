@@ -7,17 +7,20 @@
 
     {% if articles %}
         {% for article in articles %}
-            <article>
+            <article itemscope itemtype="https://schema.org/NewsArticle">
                 <header>
-                    <h2><mark>{{ article.title }}</mark></h2>
-                    <p>{{ article.summary }}</p>
+                    <h2 itemprop="headline"><mark>{{ article.title }}</mark></h2>
+                    <p itemprop="description">{{ article.summary }}</p>
                 </header>
                 <section>
-                    <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
+                    <img itemprop="image" src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
                 </section>
                 <footer>
                     <a href="{% url 'article_detail' article.id %}">Read more</a>
                 </footer>
+                <meta itemprop="datePublished" content="{{ article.date.isoformat }}">
+                <meta itemprop="dateModified" content="{{ article.updated_date.isoformat }}">
+                <meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{% url 'article_detail' article.id %}">
             </article>
         {% endfor %}
     {% else %}

@@ -1,14 +1,14 @@
 {% extends "base_generic.html" %}
 {% block head %}
-
     <meta name="description" content="Open positions">
 {% endblock %}
 {% block content %}
     <h1>Jobs</h1>
     {% for job in jobs %}
-        <div>
-            <h2>{{ job.title }}</h2>
-            <p>{{ job.description }}</p>
+        <div itemscope itemtype="https://schema.org/JobPosting">
+            <h2 itemprop="title">{{ job.title }}</h2>
+            <p itemprop="description">{{ job.description }}</p>
+
         </div>
     {% empty %}
         <p>There are no jobs</p>

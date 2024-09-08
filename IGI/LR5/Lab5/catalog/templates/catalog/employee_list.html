@@ -8,7 +8,7 @@
       {% if employee.photo %} 
         <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" width="200"> 
       {% endif %} 
-      <h2>{{ employee.first_name }} {{ employee.last_name }}</h2> 
+      <h2 translate="no">{{ employee.first_name }} {{ employee.last_name }}</h2>
       <p>{{ employee.position }}</p> 
       {% if employee.job_description %} 
         <p>{{ employee.job_description }}</p> 
