@@ -1,21 +1,26 @@
 {% extends "base_generic.html" %}
 {% block head %}
-    <meta name="description" content="Fresh news about cars">
 {% endblock %}
 {% block content %}
     <h1>News</h1>
+    <meta name="description" content="Fresh news about cars">
 
     {% if articles %}
         {% for article in articles %}
-            <div>
-                <h2>{{ article.title }}</h2>
-                <p>{{ article.summary }}</p>
-                <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
-                <a href="{% url 'article_detail' article.id %}">Read more</a>
-            </div>
+            <article>
+                <header>
+                    <h2><mark>{{ article.title }}</mark></h2>
+                    <p>{{ article.summary }}</p>
+                </header>
+                <section>
+                    <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
+                </section>
+                <footer>
+                    <a href="{% url 'article_detail' article.id %}">Read more</a>
+                </footer>
+            </article>
         {% endfor %}
     {% else %}
-        <p>No articles available.</p>
     {% endif %}
+    <p>No articles available.</p>
 {% endblock %}
-
