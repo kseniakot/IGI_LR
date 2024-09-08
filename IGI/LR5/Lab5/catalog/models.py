@@ -219,7 +219,7 @@ class Manufacturer(models.Model):
 
 class CompanyInfo(models.Model):
     text = models.TextField()
-    video = models.URLField(blank=True, null=True)
+    video = models.FileField(upload_to='company_info')
     logo = models.ImageField(upload_to='logos/', blank=True, null=True)
     history = models.TextField(blank=True, null=True)
     details = models.TextField(blank=True, null=True)
