@@ -1,5 +1,7 @@
 {% extends "base_generic.html" %}
-
+{% block head %}
+    <meta name="description" content="detailed info about our products">
+{% endblock %}
 {% block content %}
   <h1>Name: {{ product.name }}</h1>
     {% if  product.photo %}
