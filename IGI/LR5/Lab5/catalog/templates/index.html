@@ -1,35 +1,42 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>Car Salon Home</h1>
+    <h1>Car Salon Home</h1>
 
-  <p>Welcome to <em>Car Salon</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
+    <p>Welcome to <em>Car Salon</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
 
-<h2>Dynamic content</h2>
+    <h2>Dynamic content</h2>
+    <p>The salon has the following record counts:</p>
+    <ul>
+        <li><strong>Products:</strong> {{ num_products }}</li>
+        <li><strong>Manufacturers:</strong> {{ num_manufacturers }}</li>
+    </ul>
+    <hr>
 
-  <p>The salon has the following record counts:</p>
-  <ul>
-    <li><strong>Products:</strong> {{ num_products }}</li>
-    <li><strong>Manufacturers:</strong> {{ num_manufacturers }}</li>
-  </ul>
-<hr>
     <h2>Latest Article</h2>
-    <img src="{{ latest_article.image.url }}" alt="{{ latest_article.title }}" width="200">
-<h3>{{ latest_article.title.upper }}</h3>
-<p>{{ latest_article.summary }}</p>
-<a href="{% url 'article_detail' latest_article.id %}">Read more</a>
-<hr>
-  <p>
-  You have visited this page {{ num_visits }}{% if num_visits == 1 %} time
-        {% else %} times{% endif %}.
-  </p>
+
+
+
+        <summary>{{ latest_article.title.upper }}</summary>
+        <img src="{{ latest_article.image.url }}" alt="{{ latest_article.title }}" width="200">
+    <details>
+        <summary>Read more</summary>
+        <p itemprop="articleBody">{{ latest_article.content }}</p>
+    </details>
+    <hr>
+
+    <p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time
+    {% else %} times{% endif %}.
+    </p>
 
     <p spellcheck="true" contenteditable="true">Change me</p>
 
-  <p>Your public IP address is: {{ public_ip }}</p>
+    <p>Your public IP address is: {{ public_ip }}</p>
+
     <p>Here is a random joke for you: {{ joke }}</p>
 
     <p>Your timezone is: {{ user_timezone }}</p>
-  <p>The current date and time is: {{ current_date_formatted }}</p>
-  <p>The current month and year is: {{ calendar_text }}</p>
+    <p>The current date and time is: {{ current_date_formatted }}</p>
+    <p>The current month and year is: {{ calendar_text }}</p>
+
 {% endblock %}

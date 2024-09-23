@@ -15,6 +15,7 @@
                     <img itemprop="image" src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
                 </section>
                 <footer>
+                    <!-- Используем <details> для раскрытия полного текста статьи -->
                     <details>
                         <summary>Read more</summary>
                         <p itemprop="articleBody">{{ article.content }}</p>
@@ -24,6 +25,7 @@
                 <meta itemprop="dateModified" content="{{ article.updated_date.isoformat }}">
                 <meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{% url 'article_detail' article.id %}">
             </article>
+            <hr>
         {% endfor %}
     {% else %}
         <p>No articles available.</p>
