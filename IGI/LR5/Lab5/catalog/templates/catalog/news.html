@@ -1,5 +1,6 @@
 {% extends "base_generic.html" %}
 
+{% block content %}
     <h1>News</h1>
     <meta name="description" content="Fresh news about cars">
 
@@ -14,7 +15,10 @@
                     <img itemprop="image" src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
                 </section>
                 <footer>
-                    <a href="{% url 'article_detail' article.id %}">Read more</a>
+                    <details>
+                        <summary>Read more</summary>
+                        <p itemprop="articleBody">{{ article.content }}</p>
+                    </details>
                 </footer>
                 <meta itemprop="datePublished" content="{{ article.date.isoformat }}">
                 <meta itemprop="dateModified" content="{{ article.updated_date.isoformat }}">
@@ -22,6 +26,6 @@
             </article>
         {% endfor %}
     {% else %}
+        <p>No articles available.</p>
     {% endif %}
-    <p>No articles available.</p>
 {% endblock %}
