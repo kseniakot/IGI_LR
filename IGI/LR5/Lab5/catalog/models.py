@@ -206,6 +206,8 @@ class Manufacturer(models.Model):
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     email = models.EmailField()
+    logo = models.ImageField(upload_to='logos/', blank=True, null=True)
+    link = models.URLField(null=True)
 
     def get_absolute_url(self):
         """
@@ -223,6 +225,8 @@ class CompanyInfo(models.Model):
     logo = models.ImageField(upload_to='logos/', blank=True, null=True)
     history = models.TextField(blank=True, null=True)
     details = models.TextField(blank=True, null=True)
+    banner1 = models.ImageField(upload_to='banners/', blank=True, null=True)
+    banner2 = models.ImageField(upload_to='banners/', blank=True, null=True)
 
 
 class FAQ(models.Model):

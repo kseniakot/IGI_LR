@@ -4,16 +4,29 @@
     <h1>Manufacturer List</h1>
 
     {% if manufacturer_list %}
-    <ul>
+        <ul>
 
-      {% for manufacturer in manufacturer_list %}
-      <li>
-        <a href="{{ manufacturer.get_absolute_url }}">{{ manufacturer.name }}</a> ({{manufacturer.phone}})
-      </li>
-      {% endfor %}
+            {% for manufacturer in manufacturer_list %}
+                <li>
+                    <!-- Логотип компании (если доступен) -->
+                    {% if manufacturer.logo %}
+                        <img src="{{ manufacturer.logo.url }}" alt="{{ manufacturer.name }} Logo" style="width: 100px; height: auto;">
+                    {% endif %}
 
-    </ul>
+                    <!-- Название компании с ссылкой на детальную страницу -->
+                    <a href="{{ manufacturer.get_absolute_url }}">{{ manufacturer.name }}</a> ({{ manufacturer.phone }})
+
+                    <!-- Ссылка на внешний сайт компании (если доступна) -->
+                    {% if manufacturer.link %}
+                        <p>
+                            <a href="{{ manufacturer.link }}" target="_blank">Visit website</a>
+                        </p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+
+        </ul>
     {% else %}
-      <p>There are no manufacturers.</p>
+        <p>There are no manufacturers.</p>
     {% endif %}
 {% endblock %}

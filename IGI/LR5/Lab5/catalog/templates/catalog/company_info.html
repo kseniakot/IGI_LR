@@ -2,15 +2,29 @@
 
 {% block content %}
     <h1>О компании</h1>
-    <img src="{{ info.logo.url }}" alt="Company Logo" height=200px width=200px>
+
+    <!-- Логотип компании -->
+    {% if info.logo %}
+        <img src="{{ info.logo.url }}" alt="Company Logo" height="200" width="200">
+    {% endif %}
+
     <p>{{ info.text }}</p>
-    <video width="320" height="240" controls>
-        <source src="{{ info.video.url}}" type="video/mp4">
-    </video>
+
+    <!-- Видео компании -->
+    {% if info.video %}
+        <video width="320" height="240" controls>
+            <source src="{{ info.video.url }}" type="video/mp4">
+        </video>
+    {% endif %}
+
+    <!-- История компании -->
     <h2>История</h2>
     <p>{{ info.history }}</p>
+
+    <!-- Реквизиты компании -->
     <h2>Реквизиты</h2>
     <p>{{ info.details }}</p>
+
     <!-- Сертификат компании -->
     <div style="border: 2px solid black; padding: 10px; width: 50%; margin: auto;">
         <h2>Certificate</h2>
@@ -27,4 +41,18 @@
             <p>Seal</p>
         </div>
     </div>
+
+    <!-- Баннеры компании -->
+    <h2>Наши баннеры</h2>
+
+    <!-- Первый баннер -->
+    {% if info.banner1 %}
+        <img src="{{ info.banner1.url }}" alt="Company Banner 1" style="max-width:100%; height:auto;">
+    {% endif %}
+
+    <!-- Второй баннер -->
+    {% if info.banner2 %}
+        <img src="{{ info.banner2.url }}" alt="Company Banner 2" style="max-width:100%; height:auto;">
+    {% endif %}
+
 {% endblock %}
