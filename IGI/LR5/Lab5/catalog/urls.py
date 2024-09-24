@@ -59,3 +59,4 @@ urlpatterns += [url('create-order/', views.create_order, name='create-order'),
 urlpatterns += [
     path('logout/', Logout.as_view(), name='logout'),
 ]
+

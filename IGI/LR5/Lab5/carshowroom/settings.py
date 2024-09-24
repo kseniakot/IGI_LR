@@ -120,9 +120,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 MEDIA_URL = '/employee_photos/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'employee_photos')
-5

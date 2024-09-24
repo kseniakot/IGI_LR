@@ -1,8 +1,123 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>Privacy Policy</h1>
+    <h1>Privacy Policy</h1>
 
-<p>My site's privacy policy.</p>
+    <!-- Секция определений -->
+    <section>
+        <h2>Definitions</h2>
+        <dl>
+            <dt>Personal Data</dt>
+            <dd>Information that can be used to identify an individual, such as name, email, or phone number.</dd>
+
+            <dt>Usage Data</dt>
+            <dd>Data collected automatically when you visit our website, including IP address and browser type.</dd>
+        </dl>
+    </section>
+
+    <!-- Список сокращений -->
+    <section>
+        <h2>Abbreviations</h2>
+        <p><abbr title="Personally Identifiable Information">PII</abbr> is the abbreviation for Personally Identifiable Information.</p>
+    </section>
+
+    <!-- Блок цитаты -->
+    <blockquote cite="https://example.com">
+        "We value your privacy and are committed to protecting your personal data." – CEO, Car Salon
+    </blockquote>
+
+    <!-- Информация о дате и времени -->
+    <p>Last updated on: <time datetime="2023-09-01">September 1, 2023</time></p>
+
+    <!-- Четверостишие с фиксированными и возможными переносами строк -->
+    <pre>
+We protect your data,
+And keep it secure,
+Rest assured,
+Your privacy is pure.
+</pre>
+
+    <!-- Якоря и ссылки -->
+    <section>
+        <h2>Quick Navigation</h2>
+        <nav>
+            <ul>
+                <li><a href="#personal-data">Personal Data Collection</a></li>
+                <li><a href="#cookies">Use of Cookies</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <h3 id="personal-data">Personal Data Collection</h3>
+        <p>We collect your personal data only with your consent. Learn more in our <a href="/docs/privacy_policy.pdf" download>full privacy policy document</a>.</p>
+
+        <h3 id="cookies">Use of Cookies</h3>
+        <p>We use cookies to improve user experience. You can manage your cookie preferences <a href="#cookie-settings">here</a>.</p>
+
+        <h3 id="contact">Contact Us</h3>
+        <p>If you have any questions, feel free to <a href="mailto:support@carsalon.com">email us</a>.</p>
+    </section>
+
+    <!-- Контейнер и таблица с объединёнными ячейками и заголовками -->
+    <section>
+        <h2>Data Usage Overview</h2>
+        <table>
+            <thead>
+            <tr>
+                <th id="data-type">Data Type</th>
+                <th id="usage">Usage</th>
+                <th id="retention">Retention Period</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td headers="data-type">Personal Data</td>
+                <td headers="usage">Used for customer service and support</td>
+                <td headers="retention" colspan="2">Up to 5 years</td>
+            </tr>
+            <tr>
+                <td headers="data-type">Usage Data</td>
+                <td headers="usage">Used to improve site performance</td>
+                <td headers="retention">Up to 1 year</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+
+
+    <!-- Встроенные медиа элементы: видео, аудио и iframe -->
+    <section>
+        <h2>Video and Audio Media</h2>
+        <h3>Promotional Video</h3>
+        <video width="320" height="240" controls>
+            <source src="/media/promo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <h3>Customer Feedback Audio</h3>
+        <audio controls>
+            <source src="/media/feedback.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <h3>Map to Our Office</h3>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.687332328803!2d-122.08424968454405!3d37.42206517982579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb5b5bb473a1f%3A0x19fa1c09f9383fdb!2sGoogleplex!5e0!3m2!1sen!2sus!4v1618311589292!5m2!1sen!2sus"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </section>
+
+    <!-- Адаптивные изображения -->
+    <section>
+        <h2>Our Partners</h2>
+        <figure>
+            <img src="/media/partner1.png" alt="Partner 1 Logo" style="max-width: 100%; height: auto;">
+            <figcaption>Partner 1</figcaption>
+        </figure>
+        <figure>
+            <img src="/media/partner2.png" alt="Partner 2 Logo" style="max-width: 100%; height: auto;">
+            <figcaption>Partner 2</figcaption>
+        </figure>
+    </section>
 
 {% endblock %}
