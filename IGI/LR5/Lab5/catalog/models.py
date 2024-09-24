@@ -84,6 +84,8 @@ class Client(models.Model):
     date_of_birth = models.DateField(null=True, blank=True)
     phone_number = models.CharField(max_length=20, default='', blank=True)
     city = models.CharField(max_length=100, default='Minsk')
+    gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')],
+                              null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

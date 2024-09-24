@@ -122,8 +122,9 @@ class RegisterView(FormView):
         dob = form.cleaned_data.get('date_of_birth')
         phone = form.cleaned_data.get('phone_number')
         city = form.cleaned_data.get('city')
+        gender = form.cleaned_data.get('gender')
 
-        client = Client(user=user, date_of_birth=dob, phone_number=phone, city=city)
+        client = Client(user=user, date_of_birth=dob, phone_number=phone, city=city, gender=gender)
         client.save()
 
         return super().form_valid(form)

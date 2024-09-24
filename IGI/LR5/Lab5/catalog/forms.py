@@ -14,11 +14,13 @@ class OrderStatusForm(forms.ModelForm):
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
+
     date_of_birth = forms.DateField(
         help_text="Required. Format: YYYY-MM-DD",
         input_formats=['%Y-%m-%d'],
         widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date', 'max': date.today().strftime('%Y-%m-%d')})
     )
+
     phone_number = forms.CharField(
         validators=[
             RegexValidator(
@@ -37,6 +39,18 @@ class RegisterForm(UserCreationForm):
         ('Vitebsk', 'Vitebsk'),
     ]
     city = forms.ChoiceField(choices=CITIES, required=True)
+
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
+    ]
+    gender = forms.ChoiceField(
+        choices=GENDER_CHOICES,
+        widget=forms.RadioSelect,
+        required=True,
+        label="Gender"
+    )
 
     class Meta(UserCreationForm.Meta):
         model = User
