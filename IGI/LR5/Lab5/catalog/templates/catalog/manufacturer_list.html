@@ -8,9 +8,12 @@
 
             {% for manufacturer in manufacturer_list %}
                 <li>
-                    <!-- Логотип компании (если доступен) -->
+                    <!-- Логотип компании (адаптивное изображение) -->
                     {% if manufacturer.logo %}
-                        <img src="{{ manufacturer.logo.url }}" alt="{{ manufacturer.name }} Logo" style="width: 100px; height: auto;">
+                        <figure>
+                            <img src="{{ manufacturer.logo.url }}" alt="{{ manufacturer.name }} Logo" style="max-width: 100px; height: auto;">
+                            <figcaption>{{ manufacturer.name }}</figcaption>
+                        </figure>
                     {% endif %}
 
                     <!-- Название компании с ссылкой на детальную страницу -->

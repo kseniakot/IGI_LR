@@ -16,6 +16,7 @@ class Employee(models.Model):
     job_description = models.TextField(default='No description')
     phone = models.CharField(max_length=20, null=True)
     email = models.EmailField(default='default@gmail.com')
+    department = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return f"{self.user.username}"
@@ -224,6 +225,8 @@ class CompanyInfo(models.Model):
     video = models.FileField(upload_to='company_info')
     logo = models.ImageField(upload_to='logos/', blank=True, null=True)
     history = models.TextField(blank=True, null=True)
+    audio = models.FileField(upload_to='company_info/', null=True, blank=True)
+    policy = models.FileField(upload_to='company_info/', null=True, blank=True)
     details = models.TextField(blank=True, null=True)
     banner1 = models.ImageField(upload_to='banners/', blank=True, null=True)
     banner2 = models.ImageField(upload_to='banners/', blank=True, null=True)

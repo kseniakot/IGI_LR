@@ -44,8 +44,9 @@ logger.addHandler(handler)
 
 
 def privacy(request):
+    info = CompanyInfo.objects.first()
     logger.info('Executing privacy view')
-    return render(request, 'catalog/privacy.html')
+    return render(request, 'catalog/privacy.html', {'info': info})
 
 
 def get_random_joke():
