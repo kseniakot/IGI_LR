@@ -42,6 +42,12 @@ handler.setFormatter(formatter)
 
 logger.addHandler(handler)
 
+from yookassa import Payment, Configuration
+from django.http import HttpResponse
+
+
+Configuration.account_id = '464141'
+Configuration.secret_key = 'test_cbDd6mwFyezh6gAPUGUeIBn4Jklgm6-99wvCjkdpUuk'
 
 def privacy(request):
     info = CompanyInfo.objects.first()
@@ -312,23 +318,60 @@ def add_to_cart(request, product_id):
 @login_required
 def create_order(request):
     logger.info('Executing create_order view')
+
+    # Retrieve client and cart
     client = get_object_or_404(Client, user=request.user)
-    cart = Cart.objects.get(client=client)  # Get the cart from the database again
-    total_price = cart.total_price  # Save the total_price before clearing the cart
-    promo_code = cart.promo_code  # Save the promo code before clearing the cart
-    order = Order(client=client)
-    order.total_price = total_price
-    order.promo_code = promo_code
-    print(promo_code)
+    cart = get_object_or_404(Cart, client=client)
+
+    if not cart.products.exists():
+        logger.warning(f'Cart is empty for client {client}. Cannot create order.')
+        return redirect('cart')
+
+    # Calculate total price and promo code
+    total_price = cart.total_price
+    promo_code = cart.promo_code
+
+    # Create the pending order
+    order = Order(client=client, total_price=total_price, promo_code=promo_code, payment_status='p')
     order.save()
+
+    # Add products to the order
     for product_instance in cart.products.all():
         order.products.add(product_instance)
     order.save()
+
+    return_url = request.build_absolute_uri(reverse('cart'))
+    print(return_url)
+
+    # Create payment with YooMoney
+    payment = Payment.create({
+        "amount": {
+            "value": str(total_price),
+            "currency": "RUB"
+        },
+        "confirmation": {
+            "type": "redirect",
+            "return_url":  return_url
+        },
+        "capture": True,
+        "description": f"Payment for order {order.id}"
+    })
+
+    # Save payment ID in the order
+    order.payment_id = payment.id
+    order.save()
+    order.payment_status = 's'
+    order.save()
+
+    # Clear the cart since the order was successful
+    cart = Cart.objects.get(client=order.client)
     cart.products.clear()
-    cart.update_total_price()  # Update the total_price in the cart after clearing the products
-    cart.promo_code = None  # Clear the promo code in the cart
+    cart.promo_code = None
+    cart.update_total_price()
     cart.save()
-    return redirect('my-orders')
+
+    # Redirect user to the YooMoney payment page
+    return redirect(payment.confirmation.confirmation_url)
 
 
 @login_required
@@ -342,6 +385,57 @@ def increase_quantity(request, product_instance_id):
     cart.save()
     return redirect('cart')
 
+@login_required
+def payment_callback_view(request):
+    """
+    YooMoney will call this view to notify the result of the payment.
+    If the payment is canceled or failed, return the products to the cart.
+    """
+    if request.method == 'POST':
+        payment_id = request.POST.get('object.id')
+        payment = Payment.find_one(payment_id)
+
+        try:
+            order = Order.objects.get(payment_id=payment_id)
+        except Order.DoesNotExist:
+            return HttpResponse(status=404)
+
+        if payment.status == 'succeeded':
+            # Mark the order as successful
+            order.payment_status = 's'
+            order.save()
+
+            # Clear the cart since the order was successful
+            cart = Cart.objects.get(client=order.client)
+            cart.products.clear()
+            cart.promo_code = None
+            cart.update_total_price()
+            cart.save()
+
+            return HttpResponse(status=200)
+
+        elif payment.status == 'canceled' or payment.status == 'failed':
+            # If the payment was canceled or failed, mark the order as failed
+            order.payment_status = 'f'
+            order.save()
+
+            # Get or create the user's cart
+            cart, created = Cart.objects.get_or_create(client=order.client)
+
+            # Return the products from the order to the cart
+            for product_instance in order.products.all():
+                cart.products.add(product_instance)
+
+            # Restore the promo code to the cart, if any
+            cart.promo_code = order.promo_code
+            cart.update_total_price()
+            cart.save()
+
+            return HttpResponse(status=200)
+
+        return HttpResponse(status=200)
+
+    return HttpResponse(status=400)
 
 @login_required
 def decrease_quantity(request, product_instance_id):

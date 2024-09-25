@@ -60,3 +60,10 @@ urlpatterns += [
     path('logout/', Logout.as_view(), name='logout'),
 ]
 
+from django.urls import path
+from .views import create_order, payment_callback_view
+
+urlpatterns += [
+    path('create-order/', create_order, name='create-order'),
+    path('payment-callback/', payment_callback_view, name='payment-callback'),
+]

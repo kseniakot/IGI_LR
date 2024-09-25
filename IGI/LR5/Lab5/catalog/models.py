@@ -144,13 +144,22 @@ class PromoCode(models.Model):
 
 
 class Order(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          help_text="Unique ID for this particular order across whole shop")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for this particular order across whole shop")
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     products = models.ManyToManyField(ProductInstance)
     order_date = models.DateTimeField(auto_now_add=True)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, editable=False)
     promo_code = models.ForeignKey(PromoCode, on_delete=models.SET_NULL, null=True, blank=True)
+
+    PAYMENT_STATUS = (
+        ('p', 'Pending'),
+        ('s', 'Succeeded'),
+        ('f', 'Failed'),
+        ('c', 'Canceled'),
+    )
+    payment_status = models.CharField(
+        max_length=1, choices=PAYMENT_STATUS, default='p', help_text="Payment status"
+    )
 
     LOAN_STATUS = (
         ('p', 'Processing'),
@@ -158,8 +167,9 @@ class Order(models.Model):
         ('d', 'Delivered'),
         ('i', 'Issued'),
     )
-
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='p', help_text='Order status')
+
+    payment_id = models.CharField(max_length=255, null=True, blank=True)  # To store payment ID
 
     def save(self, *args, **kwargs):
         self.total_price = sum(
@@ -168,16 +178,9 @@ class Order(models.Model):
             self.total_price *= (1 - self.promo_code.discount / 100)
         super().save(*args, **kwargs)
 
-    def calculate_total_price(self):
-        total_price = sum(
-            product_instance.product.price * product_instance.quantity for product_instance in self.products.all())
-        if self.promo_code:
-            total_price *= (1 - self.promo_code.discount / 100)
-        self.total_price = total_price
-        self.save()
-
     def __str__(self):
         return f"Order {self.id} by {self.client}"
+
 
 
 # @receiver(m2m_changed, sender=Order.products.through)
