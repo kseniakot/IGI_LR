@@ -42,19 +42,28 @@
 
     <section>
         <h2>C++ Code Listing</h2>
-        <p>Below is an example of a simple C++ program that prints "Hello, World!" to the console:</p>
-        <pre>
-        <code>
-        // C++ program to print "Hello, World!"
-        #include &lt;iostream&gt;
+        <p>Below is an example of a simple C++ program that prints "<samp>Hello, World!</samp>" to the console:</p>
 
-        int main() {
-            // Output message to the console
-            std::cout &lt;&lt; "Hello, World!" &lt;&lt; std::endl;
-            return 0;
-        }
-        </code>
-    </pre>
+        <pre><code>
+    // C++ program to print "Hello, World!"
+    #include &lt;iostream&gt;
+
+    int main() {
+        // Output message to the console
+        std::cout &lt;&lt; "<samp>Hello, World!</samp>" &lt;&lt; std::endl;
+        return 0;
+    }
+    </code></pre>
+
+        <p>To compile this program, enter the following command:</p>
+        <kbd>g++ hello.cpp -o hello</kbd>
+
+        <p>In this example:</p>
+        <ul>
+            <li><code>std::cout</code> is a standard output stream in C++.</li>
+            <li><code>&lt;&lt;</code> is an operator that inserts data into the output stream.</li>
+            <li><var>message</var> refers to the string "<samp>Hello, World!</samp>" that will be printed.</li>
+        </ul>
     </section>
 
 {% endblock %}
