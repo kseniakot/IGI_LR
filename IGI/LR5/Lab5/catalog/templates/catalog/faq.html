@@ -5,12 +5,14 @@
     {% for faq in faqs %}
         <article>
             <header>
-                <h2>{{ faq.question }}</h2>
+                <details>
+                    <summary>{{ faq.question }}</summary>
+                    <section>
+                        <p>{{ faq.answer }}</p>
+                        <p>Date added: <time datetime="{{ faq.date_added|date:'c' }}">{{ faq.date_added }}</time></p>
+                    </section>
+                </details>
             </header>
-            <section>
-                <p>{{ faq.answer }}</p>
-                <p>Date added: <time datetime="{{ faq.date_added|date:'c' }}">{{ faq.date_added }}</time></p>
-            </section>
         </article>
     {% empty %}
         <p>No FAQs available.</p>

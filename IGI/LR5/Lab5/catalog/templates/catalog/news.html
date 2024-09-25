@@ -8,18 +8,20 @@
         {% for article in articles %}
             <article itemscope itemtype="https://schema.org/NewsArticle">
                 <header>
-                    <h2 itemprop="headline"><mark>{{ article.title }}</mark></h2>
+                    <!-- Заголовок статьи с ссылкой на детальную страницу -->
+                    <h2 itemprop="headline">
+                        <a href="{% url 'article_detail' article.id %}">
+                            <mark>{{ article.title }}</mark>
+                        </a>
+                    </h2>
                     <p itemprop="description">{{ article.summary }}</p>
                 </header>
                 <section>
                     <img itemprop="image" src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
                 </section>
                 <footer>
-                    <!-- Используем <details> для раскрытия полного текста статьи -->
-                    <details>
-                        <summary>Read more</summary>
-                        <p itemprop="articleBody">{{ article.content }}</p>
-                    </details>
+                    <!-- Ссылка для перехода на детальную страницу статьи -->
+                    <a href="{% url 'article_detail' article.id %}">Read more</a>
                 </footer>
                 <meta itemprop="datePublished" content="{{ article.date.isoformat }}">
                 <meta itemprop="dateModified" content="{{ article.updated_date.isoformat }}">
