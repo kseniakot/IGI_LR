@@ -340,8 +340,8 @@ def create_order(request):
         order.products.add(product_instance)
     order.save()
 
-    return_url = request.build_absolute_uri(reverse('cart'))
-    print(return_url)
+    return_url = request.build_absolute_uri(reverse('my-orders'))
+    # print(return_url)
 
     # Create payment with YooMoney
     payment = Payment.create({
