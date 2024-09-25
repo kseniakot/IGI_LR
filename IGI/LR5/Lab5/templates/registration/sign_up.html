@@ -4,58 +4,80 @@
 
     <form method="post" action="{% url 'sign-up' %}">
         {% csrf_token %}
-        <table>
+    <table>
+        <!-- Username Field -->
+        <tr>
+            <td><label for="username">Username:</label></td>
+            <td><input type="text" id="username" name="username" required minlength="4"></td>
+            <td>{% if form.username.errors %}{{ form.username.errors }}{% endif %}</td>
+        </tr>
 
-            <tr>
-                <td>{{ form.username.label_tag }}</td>
-                <td>{{ form.username }}</td>
-                <td>{{ form.username.errors }}</td>
-            </tr>
+        <!-- Email Field -->
+        <tr>
+            <td><label for="email">Email:</label></td>
+            <td><input type="email" id="email" name="email" required></td>
+            <td>{% if form.email.errors %}{{ form.email.errors }}{% endif %}</td>
+        </tr>
 
-            <tr>
-                <td>{{ form.email.label_tag }}</td>
-                <td>{{ form.email }}</td>
-                <td>{{ form.email.errors }}</td>
-            </tr>
+        <!-- Password Field 1 -->
+        <tr>
+            <td><label for="password1">Password:</label></td>
+            <td><input type="password" id="password1" name="password1" required minlength="6"></td>
+            <td>{% if form.password1.errors %}{{ form.password1.errors }}{% endif %}</td>
+        </tr>
 
-            <tr>
-                <td>{{ form.password1.label_tag }}</td>
-                <td>{{ form.password1 }}</td>
-                <td>{{ form.password1.errors }}</td>
-            </tr>
+        <!-- Password Field 2 -->
+        <tr>
+            <td><label for="password2">Confirm Password:</label></td>
+            <td><input type="password" id="password2" name="password2" required minlength="6"></td>
+            <td>{% if form.password2.errors %}{{ form.password2.errors }}{% endif %}</td>
+        </tr>
 
-            <tr>
-                <td>{{ form.password2.label_tag }}</td>
-                <td>{{ form.password2 }}</td>
-                <td>{{ form.password2.errors }}</td>
-            </tr>
+        <!-- Date of Birth -->
+        <tr>
+            <td><label for="date_of_birth">Date of Birth:</label></td>
+            <td><input type="date" id="date_of_birth" name="date_of_birth" required></td>
+            <td>{% if form.date_of_birth.errors %}{{ form.date_of_birth.errors }}{% endif %}</td>
+        </tr>
 
-            <tr>
-                <td>{{ form.date_of_birth.label_tag }}</td>
-                <td>{{ form.date_of_birth }}</td>
-                <td>{{ form.date_of_birth.errors }}</td>
-            </tr>
+        <!-- Phone Number -->
+        <tr>
+            <td><label for="phone_number">Phone Number:</label></td>
+            <td><input type="tel" id="phone_number" name="phone_number" pattern="^\+375 \((29|33|44|25)\) \d{3}-\d{2}-\d{2}$" placeholder="+375 (XX) XXX-XX-XX" required></td>
+            <td>{% if form.phone_number.errors %}{{ form.phone_number.errors }}{% endif %}</td>
+        </tr>
 
-            <tr>
-                <td>{{ form.phone_number.label_tag }}</td>
-                <td>{{ form.phone_number }}</td>
-                <td>{{ form.phone_number.errors }}</td>
-            </tr>
+        <!-- City Dropdown -->
+        <tr>
+            <td><label for="city">City:</label></td>
+            <td>
+                <select id="city" name="city" required>
+                    <option value="" disabled selected>Select your city</option>
+                    <option value="Minsk">Minsk</option>
+                    <option value="Brest">Brest</option>
+                    <option value="Gomel">Gomel</option>
+                    <option value="Grodno">Grodno</option>
+                    <option value="Mogilev">Mogilev</option>
+                    <option value="Vitebsk">Vitebsk</option>
+                </select>
+            </td>
+            <td>{% if form.city.errors %}{{ form.city.errors }}{% endif %}</td>
+        </tr>
 
-            <tr>
-                <td>{{ form.city.label_tag }}</td>
-                <td>{{ form.city }}</td>
-                <td>{{ form.city.errors }}</td>
-            </tr>
-
-            <!-- Gender Radio Buttons -->
-            <tr>
-                <td>{{ form.gender.label_tag }}</td>
-                <td>{{ form.gender }}</td>
-                <td>{{ form.gender.errors }}</td>
-            </tr>
+        <!-- Gender Radio Buttons -->
+        <tr>
+            <td><label>Gender:</label></td>
+            <td>
+                <input type="radio" id="male" name="gender" value="male" required>
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="female" required>
+                <label for="female">Female</label>
+            </td>
+            <td>{% if form.gender.errors %}{{ form.gender.errors }}{% endif %}</td>
+        </tr>
 
         </table>
+
         <input type="submit" value="sign up" />
     </form>
 
