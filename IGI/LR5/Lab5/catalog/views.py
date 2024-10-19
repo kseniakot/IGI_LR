@@ -45,9 +45,9 @@ logger.addHandler(handler)
 from yookassa import Payment, Configuration
 from django.http import HttpResponse
 
-
 Configuration.account_id = '464141'
 Configuration.secret_key = 'test_cbDd6mwFyezh6gAPUGUeIBn4Jklgm6-99wvCjkdpUuk'
+
 
 def privacy(request):
     info = CompanyInfo.objects.first()
@@ -351,7 +351,7 @@ def create_order(request):
         },
         "confirmation": {
             "type": "redirect",
-            "return_url":  return_url
+            "return_url": return_url
         },
         "capture": True,
         "description": f"Payment for order {order.id}"
@@ -384,6 +384,7 @@ def increase_quantity(request, product_instance_id):
     cart.update_total_price()
     cart.save()
     return redirect('cart')
+
 
 @login_required
 def payment_callback_view(request):
@@ -436,6 +437,7 @@ def payment_callback_view(request):
         return HttpResponse(status=200)
 
     return HttpResponse(status=400)
+
 
 @login_required
 def decrease_quantity(request, product_instance_id):
@@ -628,8 +630,9 @@ def news(request):
 
 
 def article_detail(request, article_id):
-    article = get_object_or_404(Article, pk=article_id)
-    return render(request, 'catalog/article_detail.html', {'article': article})
+    article = get_object_or_404(Article, id=article_id)
+    paragraphs = article.content.split('\n')
+    return render(request, 'catalog/article_detail.html', {'article': article, 'paragraphs': paragraphs})
 
 
 def about(request):

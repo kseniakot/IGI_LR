@@ -136,3 +136,58 @@ article a:hover {
     min-height: auto; /* Снимаем ограничение по высоте */
   }
 }
+
+
+/*article details многоколоночность*/
+/* Стили для кнопки "Back to all news" */
+.back-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #b3a497; /* Бежевый оттенок кнопки */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.back-button:hover {
+  background-color: #9a8d7b; /* Более темный бежевый оттенок при наведении */
+}
+
+/* Контейнер для статьи */
+.article-container {
+  column-count: 2; /* Две колонки */
+  column-gap: 40px; /* Расстояние между колонками */
+  text-align: justify; /* Выравнивание текста по ширине */
+  line-height: 1.6; /* Удобочитаемость */
+}
+
+/* Красная строка для всех абзацев */
+.article-content {
+  text-indent: 30px; /* Размер отступа для красной строки */
+  margin-bottom: 20px; /* Отступ между абзацами */
+  break-inside: avoid;
+}
+
+/* Выделение первой буквы только в первом абзаце */
+.article-container p:first-of-type::first-letter {
+
+  font-size: 200%; /* Увеличение размера первой буквы */
+  font-weight: bold; /* Жирное начертание */
+  color: #b3a497; /* Бежевый оттенок */
+  line-height: 1; /* Корректное выравнивание */
+  padding-right: 5px; /* Отступ справа от первой буквы */
+}
+
+
+/* Стили для изображения */
+.article-image {
+  max-width: 50%; /
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(102, 51, 153, 0.2); /* Легкий фиолетовый тень */
+}
+
+
+
