@@ -3,33 +3,28 @@
 {% block content %}
     <h1>News</h1>
     <meta name="description" content="Fresh news about cars">
-
-    {% if articles %}
-        {% for article in articles %}
-            <article itemscope itemtype="https://schema.org/NewsArticle">
-                <header>
-                    <!-- Заголовок статьи с ссылкой на детальную страницу -->
-                    <h2 itemprop="headline">
-                        <a href="{% url 'article_detail' article.id %}">
-                            <mark>{{ article.title }}</mark>
-                        </a>
-                    </h2>
-                    <p itemprop="description">{{ article.summary }}</p>
-                </header>
-                <section>
-                    <img itemprop="image" src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
-                </section>
-                <footer>
-
-                    <a href="{% url 'article_detail' article.id %}">Read more</a>
-                </footer>
-                <meta itemprop="datePublished" content="{{ article.date.isoformat }}">
-                <meta itemprop="dateModified" content="{{ article.updated_date.isoformat }}">
-                <meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{% url 'article_detail' article.id %}">
-            </article>
-            <hr>
-        {% endfor %}
-    {% else %}
-        <p>No articles available.</p>
-    {% endif %}
+    <div class="news-container">
+        {% if articles %}
+            {% for article in articles %}
+                <article itemscope itemtype="https://schema.org/NewsArticle">
+                    <header>
+                        <h2 itemprop="headline">
+                            <a href="{% url 'article_detail' article.id %}">
+                                {{ article.title }}
+                            </a>
+                        </h2>
+                        <p itemprop="description">{{ article.summary }}</p>
+                    </header>
+                    <section>
+                        <img itemprop="image" src="{{ article.image.url }}" alt="{{ article.title }}">
+                    </section>
+                    <footer>
+                        <a href="{% url 'article_detail' article.id %}">Read more</a>
+                    </footer>
+                </article>
+            {% endfor %}
+        {% else %}
+            <p>No articles available.</p>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -1,14 +1,25 @@
+/*side bar*/
 .container {
   display: flex;
 }
 
 .sidebar {
-  width: 20%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12%;
+  height: 100%;
+  background-color: #f8f8f8;
+  overflow-y: auto;
+  z-index: 1000;
+  padding-top: 20px;
 }
 
 .content {
-  width: 80%;
+  margin-left: 12%;
+  padding: 15px;
 }
+
 
 .sidebar-nav {
   list-style-type: none;
@@ -16,9 +27,112 @@
 }
 
 .sidebar-nav li {
+  margin-left: 7%;
   padding: 10px 0;
 }
 
 .sidebar-nav li a {
   text-decoration: none;
+}
+
+/*news page*/
+
+/* Основные стили для страницы */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f3f2ef; /* Светлый бежево-серый фон */
+  color: #333;
+  padding: 30px 50px; /* Отступы по краям страницы для симметрии */
+}
+
+/* Заголовок страницы */
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #b3a497;
+}
+
+/* Контейнер для статей */
+.news-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: left;
+  padding: 0 50px; /* Отступы внутри контейнера */
+}
+
+/* Стили для каждой статьи */
+article {
+  width: 20%; /* Уменьшили ширину карточки */
+  border: 1px solid #ddd;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #f8f7f5; /* Бежево-серый фон карточки */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 20px;
+  height: auto; /* Убираем фиксированную высоту */
+  min-height: 400px; /* Устанавливаем минимальную высоту */
+}
+
+/* Стили для заголовка статьи */
+article h2 {
+  font-size: 1.2em;
+  margin: 0 0 10px;
+  color: #444;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal; /* Разрешаем перенос текста */
+  word-wrap: break-word; /* Перенос длинных слов */
+}
+
+/* Стили для описания статьи */
+article p {
+  overflow: hidden;
+  color: #555;
+  font-size: 0.9em;
+  line-height: 1.5em; /* Настройка высоты строки для лучшего чтения */
+  word-wrap: break-word;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* Ограничение количества строк */
+  flex: 1; /* Заполняет пространство между заголовком и кнопкой */
+}
+
+/* Стили для изображений */
+article img {
+  width: 100%; /* Занимает всю ширину контейнера */
+  height: 220px; /* Увеличенная высота изображения */
+  object-fit: cover; /* Обрезает изображение, чтобы оно вписывалось в блок, сохраняя пропорции */
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+/* Стили для кнопки "Read more" */
+article a {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #b3a497; /* Бежевый оттенок кнопки */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  margin-top: auto; /* Прижимает ссылку к нижней части статьи */
+}
+
+article a:hover {
+  background-color: #9a8d7b; /* Темный оттенок при наведении */
+}
+
+/* Адаптивность: на маленьких экранах статьи будут занимать всю ширину */
+@media (max-width: 1024px) {
+  article {
+    width: 100%; /* На маленьких экранах карточки занимают всю ширину */
+    min-height: auto; /* Снимаем ограничение по высоте */
+  }
 }
