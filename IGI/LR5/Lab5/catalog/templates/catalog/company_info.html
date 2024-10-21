@@ -2,12 +2,12 @@
 
 {% block content %}
     <h1>О компании</h1>
-
+    <div class="logo-container">
     <!-- Логотип компании -->
     {% if info.logo %}
-        <img src="{{ info.logo.url }}" alt="Company Logo" height="200" width="200">
+        <img src="{{ info.logo.url }}" alt="Company Logo" height="200" width="200" class="company-logo">
     {% endif %}
-
+    </div>
     <p>{{ info.text }}</p>
 
     <!-- Видео компании -->
@@ -58,6 +58,29 @@
     <!-- Второй баннер -->
     {% if info.banner2 %}
         <img src="{{ info.banner2.url }}" alt="Company Banner 2" style="max-width:100%; height:auto;">
+    {% endif %}
+
+    <!-- Секция производителей -->
+    <h1>НАШИ ПАРТНЕРЫ</h1>
+    {% if manufacturer_list %}
+        <ul class="manufacturer-list">
+            {% for manufacturer in manufacturer_list %}
+                <li>
+                    <!-- Логотип компании -->
+                    {% if manufacturer.logo %}
+                        <figure>
+                            <img src="{{ manufacturer.logo.url }}" alt="{{ manufacturer.name }} Logo" class="manufacturer-logo">
+                            <figcaption>
+                                <a  href="{{ manufacturer.link }}" target="_blank">{{ manufacturer.name }}</a>
+                            </figcaption>
+                        </figure>
+                    {% endif %}
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No manufacturers available.</p>
     {% endif %}
 
 {% endblock %}

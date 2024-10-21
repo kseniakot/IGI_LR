@@ -636,8 +636,15 @@ def article_detail(request, article_id):
 
 
 def about(request):
+    # Получаем информацию о компании
     info = CompanyInfo.objects.first()
-    return render(request, 'catalog/company_info.html', {'info': info})
+    # Получаем список производителей
+    manufacturer_list = Manufacturer.objects.all()
+    # Передаем оба объекта в шаблон
+    return render(request, 'catalog/company_info.html', {
+        'info': info,
+        'manufacturer_list': manufacturer_list
+    })
 
 
 def faq(request):

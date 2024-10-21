@@ -3,12 +3,12 @@
 {% block content %}
     <h1>Contacts</h1>
 
-    <div style="display: flex;">
+    <div class="contacts-container">
         <!-- Вертикальная навигация по отделам -->
-        <aside style="width: 200px; margin-right: 20px; border-right: 1px solid #ccc; padding-right: 10px;">
+        <aside class="departments-nav">
             <nav>
                 <h3>Departments</h3>
-                <ul style="list-style-type: none; padding: 0;">
+                <ul>
                     <li><a href="#management">Management</a></li>
                     <li><a href="#sales">Sales</a></li>
                     <li><a href="#engineering">Engineering</a></li>
@@ -18,112 +18,114 @@
         </aside>
 
         <!-- Основной контент -->
-        <div style="flex-grow: 1;">
-
+        <div class="main-content">
             <!-- Раздел Management -->
             <section id="management">
                 <h2>Management</h2>
-                {% for employee in object_list %}
-                    {% if employee.department == 'Management' %}
-                        <div>
-                            {% if employee.photo %}
-                                <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" width="200">
-                            {% endif %}
-                            <h2 translate="no">{{ employee.first_name }} {{ employee.last_name }}</h2>
-                            <p>{{ employee.position }}</p>
-                            {% if employee.job_description %}
-                                <p>{{ employee.job_description }}</p>
-                            {% endif %}
-                            {% if employee.phone %}
-                                <p>Phone: {{ employee.phone }}</p>
-                            {% endif %}
-                            {% if employee.email %}
-                                <p>Email: <a href="mailto:{{ employee.email }}">{{ employee.email }}</a></p>
-                            {% endif %}
-                        </div>
-                        <hr>
-                    {% endif %}
-                {% endfor %}
+                <div class="employee-section">
+                    {% for employee in object_list %}
+                        {% if employee.department == 'Management' %}
+                            <div class="employee-card">
+                                {% if employee.photo %}
+                                    <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" class="employee-photo">
+                                {% endif %}
+                                <h2 translate="no">{{ employee.first_name }} {{ employee.last_name }}</h2>
+                                <p>{{ employee.position }}</p>
+                                {% if employee.job_description %}
+                                    <p>{{ employee.job_description }}</p>
+                                {% endif %}
+                                {% if employee.phone %}
+                                    <p>Phone: {{ employee.phone }}</p>
+                                {% endif %}
+                                {% if employee.email %}
+                                    <p>Email: <a href="mailto:{{ employee.email }}">{{ employee.email }}</a></p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </section>
 
             <!-- Раздел Sales -->
             <section id="sales">
                 <h2>Sales</h2>
-                {% for employee in object_list %}
-                    {% if employee.department == 'Sales' %}
-                        <div>
-                            {% if employee.photo %}
-                                <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" width="200">
-                            {% endif %}
-                            <h2 translate="no">{{ employee.first_name }} {{ employee.last_name }}</h2>
-                            <p>{{ employee.position }}</p>
-                            {% if employee.job_description %}
-                                <p>{{ employee.job_description }}</p>
-                            {% endif %}
-                            {% if employee.phone %}
-                                <p>Phone: {{ employee.phone }}</p>
-                            {% endif %}
-                            {% if employee.email %}
-                                <p>Email: <a href="mailto:{{ employee.email }}">{{ employee.email }}</a></p>
-                            {% endif %}
-                        </div>
-                        <hr>
-                    {% endif %}
-                {% endfor %}
+                <div class="employee-section">
+                    {% for employee in object_list %}
+                        {% if employee.department == 'Sales' %}
+                            <div class="employee-card">
+                                {% if employee.photo %}
+                                    <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" class="employee-photo">
+                                {% endif %}
+                                <h2 translate="no">{{ employee.first_name }} {{ employee.last_name }}</h2>
+                                <p>{{ employee.position }}</p>
+                                {% if employee.job_description %}
+                                    <p>{{ employee.job_description }}</p>
+                                {% endif %}
+                                {% if employee.phone %}
+                                    <p>Phone: {{ employee.phone }}</p>
+                                {% endif %}
+                                {% if employee.email %}
+                                    <p>Email: <a href="mailto:{{ employee.email }}">{{ employee.email }}</a></p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </section>
 
             <!-- Раздел Engineering -->
             <section id="engineering">
                 <h2>Engineering</h2>
-                {% for employee in object_list %}
-                    {% if employee.department == 'Engineering' %}
-                        <div>
-                            {% if employee.photo %}
-                                <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" width="200">
-                            {% endif %}
-                            <h2 translate="no">{{ employee.first_name }} {{ employee.last_name }}</h2>
-                            <p>{{ employee.position }}</p>
-                            {% if employee.job_description %}
-                                <p>{{ employee.job_description }}</p>
-                            {% endif %}
-                            {% if employee.phone %}
-                                <p>Phone: {{ employee.phone }}</p>
-                            {% endif %}
-                            {% if employee.email %}
-                                <p>Email: <a href="mailto:{{ employee.email }}">{{ employee.email }}</a></p>
-                            {% endif %}
-                        </div>
-                        <hr>
-                    {% endif %}
-                {% endfor %}
+                <div class="employee-section">
+                    {% for employee in object_list %}
+                        {% if employee.department == 'Engineering' %}
+                            <div class="employee-card">
+                                {% if employee.photo %}
+                                    <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" class="employee-photo">
+                                {% endif %}
+                                <h2 translate="no">{{ employee.first_name }} {{ employee.last_name }}</h2>
+                                <p>{{ employee.position }}</p>
+                                {% if employee.job_description %}
+                                    <p>{{ employee.job_description }}</p>
+                                {% endif %}
+                                {% if employee.phone %}
+                                    <p>Phone: {{ employee.phone }}</p>
+                                {% endif %}
+                                {% if employee.email %}
+                                    <p>Email: <a href="mailto:{{ employee.email }}">{{ employee.email }}</a></p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </section>
 
             <!-- Раздел Support -->
             <section id="support">
                 <h2>Support</h2>
-                {% for employee in object_list %}
-                    {% if employee.department == 'Support' %}
-                        <div>
-                            {% if employee.photo %}
-                                <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" width="200">
-                            {% endif %}
-                            <h2 translate="no">{{ employee.first_name }} {{ employee.last_name }}</h2>
-                            <p>{{ employee.position }}</p>
-                            {% if employee.job_description %}
-                                <p>{{ employee.job_description }}</p>
-                            {% endif %}
-                            {% if employee.phone %}
-                                <p>Phone: {{ employee.phone }}</p>
-                            {% endif %}
-                            {% if employee.email %}
-                                <p>Email: <a href="mailto:{{ employee.email }}">{{ employee.email }}</a></p>
-                            {% endif %}
-                        </div>
-                        <hr>
-                    {% endif %}
-                {% endfor %}
+                <div class="employee-section">
+                    {% for employee in object_list %}
+                        {% if employee.department == 'Support' %}
+                            <div class="employee-card">
+                                {% if employee.photo %}
+                                    <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" class="employee-photo">
+                                {% endif %}
+                                <h2 translate="no">{{ employee.first_name }} {{ employee.last_name }}</h2>
+                                <p>{{ employee.position }}</p>
+                                {% if employee.job_description %}
+                                    <p>{{ employee.job_description }}</p>
+                                {% endif %}
+                                {% if employee.phone %}
+                                    <p>Phone: {{ employee.phone }}</p>
+                                {% endif %}
+                                {% if employee.email %}
+                                    <p>Email: <a href="mailto:{{ employee.email }}">{{ employee.email }}</a></p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </section>
-
         </div>
     </div>
 {% endblock %}
