@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+    {% load static %}
     <div class="home-container">
         <!-- Прелоадер с вращающимися кругами -->
         <div class="preloader">
@@ -9,6 +10,64 @@
             </div>
             <div class="circle-wrapper circle-move-vertical-2">
                 <div class="circle circle-red"></div>
+            </div>
+        </div>
+
+
+
+{#        <div class="scene">#}
+{#            <div class="car">#}
+{#                <!-- Кубическая основа машины -->#}
+{#                <div class="face front"></div>#}
+{#                <div class="face back"></div>#}
+{#                <div class="face left"></div>#}
+{#                <div class="face right"></div>#}
+{#                <div class="face top"></div>#}
+{#                <div class="face bottom"></div>#}
+{##}
+{#                <!-- Купол машины -->#}
+{#                <div class="dome"></div>#}
+{##}
+{#                <!-- Фары -->#}
+{#                <div class="headlight front-left"></div>#}
+{#                <div class="headlight front-right"></div>#}
+{##}
+{#                <!-- Колеса -->#}
+{#                <div class="wheel front-left"></div>#}
+{#                <div class="wheel front-right"></div>#}
+{#                <div class="wheel back-left"></div>#}
+{#                <div class="wheel back-right"></div>#}
+{#            </div>#}
+{#        </div>#}
+
+
+
+        <div class="scene">
+            <div class="animation-container">
+                <div class="company-name">Auto Belezza</div>
+                <img src="{% static 'images/pngegg.png' %}" class="car" alt="Car">
+
+                <!-- Волнообразные брызги -->
+                <div class="splash splash-right"></div>
+                <div class="splash splash-right"></div>
+                <div class="splash splash-right"></div>
+                <div class="splash splash-right"></div>
+                <div class="splash splash-right"></div>
+                <div class="splash splash-right"></div>
+                <div class="splash splash-right"></div>
+                <div class="splash splash-right"></div>
+                <div class="splash splash-right"></div>
+                <div class="splash splash-right"></div>
+
+
+
+
+
+
+
+
+
+
             </div>
         </div>
 

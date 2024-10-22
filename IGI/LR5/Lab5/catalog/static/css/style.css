@@ -435,3 +435,323 @@ article a:hover {
   0%, 100% { transform: translateY(-100px); } /* Начинает и заканчивает вверху */
   50% { transform: translateY(100px); } /* Опускается вниз */
 }
+
+
+
+
+/*Animation*/
+/*.scene {*/
+/*  width: 300px;*/
+/*  height: 300px;*/
+/*  perspective: 1000px; !* Задает перспективу для 3D-объекта *!*/
+/*}*/
+
+/*.car {*/
+/*  width: 200px;*/
+/*  height: 100px;*/
+/*  position: relative;*/
+/*  transform-style: preserve-3d;*/
+/*  transform: rotateX(0deg) rotateY(0deg);*/
+/*  animation: rotate 10s infinite linear;*/
+/*}*/
+
+/*!* Базовая часть куба *!*/
+/*.face {*/
+/*  position: absolute;*/
+/*  width: 200px;*/
+/*  height: 100px;*/
+/*  background-color: blue;*/
+/*  border: 2px solid #ccc;*/
+/*  opacity: 0.9;*/
+/*}*/
+
+/*.front  { transform: rotateY(0deg) translateZ(100px); }*/
+/*.back   { transform: rotateY(180deg) translateZ(100px); }*/
+/*.left   { transform: rotateY(-90deg) translateZ(100px); }*/
+/*.right  { transform: rotateY(90deg) translateZ(100px); }*/
+/*.top    { transform: rotateX(90deg) translateZ(50px); background-color: rgba(0, 128, 255, 0.8); }*/
+/*.bottom { transform: rotateX(-90deg) translateZ(50px); background-color: #555; }*/
+
+/*!* Купол — верхняя часть машины *!*/
+/*.dome {*/
+/*  position: absolute;*/
+/*  top: -80px;*/
+/*  left: 90px;*/
+/*  width: 180px;*/
+/*  height: 100px;*/
+/*  background-color: lightblue;*/
+/*  border-radius: 100px 100px 0 0; !* Скругленный купол *!*/
+/*  transform: translateZ(0) rotateY(90deg); !* Установим купол над верхней частью куба *!*/
+/*  border: 2px solid #ccc;*/
+/*}*/
+
+/*!* Фары *!*/
+/*.headlight {*/
+/*  position: absolute;*/
+/*  width: 30px;*/
+/*  height: 15px;*/
+/*  background-color: yellow; !* Цвет фар *!*/
+/*  border-radius: 5px; !* Скругление углов *!*/
+/*  opacity: 0.8;*/
+
+/*}*/
+
+/*.headlight.front-left{*/
+/*  top: 30px; !* Позиция над колесами *!*/
+/*  left: 10px; !* Сместим влево *!*/
+/*  transform: translateZ(0) translateX(150px) rotateY(90deg); !* Повернем фары вправо *!*/
+/*}*/
+
+/*.headlight.front-right {*/
+/*  top: 30px; !* Позиция над колесами *!*/
+/*  right: 10px; !* Сместим вправо *!*/
+/*  transform: translateZ(0) translateX(50px) rotateY(90deg); !* Повернем фары вправо *!*/
+/*}*/
+
+
+/*!* Колеса *!*/
+/*.wheel {*/
+/*  width: 40px;*/
+/*  height: 40px;*/
+/*  background-color: black;*/
+/*  border-radius: 50%;*/
+/*  position: absolute;*/
+/*  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);*/
+/*}*/
+
+/*.wheel.front-left {*/
+/*  bottom: -20px;*/
+/*  left: 20px;*/
+/*  transform: translateZ(100px);*/
+/*}*/
+
+/*.wheel.front-right {*/
+/*  bottom: -20px;*/
+/*  right: 20px;*/
+/*  transform: translateZ(100px);*/
+/*}*/
+
+/*.wheel.back-left {*/
+/*  bottom: -20px;*/
+/*  left: 20px;*/
+/*  transform: translateZ(-100px);*/
+/*}*/
+
+/*.wheel.back-right {*/
+/*  bottom: -20px;*/
+/*  right: 20px;*/
+/*  transform: translateZ(-100px);*/
+/*}*/
+
+/*!* Анимация вращения всей машины *!*/
+/*@keyframes rotate {*/
+/*  from {*/
+/*    transform: rotateY(0deg);*/
+/*  }*/
+/*  to {*/
+/*    transform: rotateY(360deg);*/
+/*  }*/
+/*}*/
+
+.scene {
+  position: relative;
+  width: 450px;
+  height: 400px;
+  overflow: hidden;
+  background: #222;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.animation-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.car {
+  position: absolute;
+  width: 400px;
+  transform: translateX(-150%) rotate(0deg);
+  animation: carMove 8s ease-in-out forwards, blinkLights 1s 9s 3;
+  bottom: 20px;
+}
+
+.splash {
+  position: absolute;
+  width: 3px; /* Небольшие капли */
+  height: 3px; /* Небольшие капли */
+  background-color: #00f;
+
+  opacity: 0;
+  transform: scale(0);
+}
+
+.splash-right {
+  top: 90%;
+  right: 75%;
+  transform-origin: left bottom;
+  animation: splashStream 1s 2s ease-out forwards; /* Запуск раньше */
+}
+
+.splash-right:nth-child(1) {
+  top: 90%;
+  right: 80%;
+  animation: splashStream 1s 1.6s ease-out forwards;
+}
+
+.splash-right:nth-child(2) {
+  top: 80%;
+  right: 78%;
+  animation: splashStream 1s 1.7s ease-out forwards;
+}
+
+.splash-right:nth-child(3) {
+  top: 90%;
+  right: 67%;
+  animation: splashStream 1s 1.8s ease-out forwards;
+}
+
+.splash-right:nth-child(4) {
+  top: 90%;
+  right: 66%;
+  animation: splashStream 1.2s 1.9s ease-out forwards;
+}
+
+
+.splash-right:nth-child(5) {
+  top: 80%;
+  right: 80%;
+  animation: splashStream 1s 1.6s ease-out forwards;
+}
+
+.splash-right:nth-child(6) {
+  top: 87%;
+  right: 76%;
+  animation: splashStream 1s 1.7s ease-out forwards;
+}
+
+.splash-right:nth-child(7) {
+  top: 89%;
+  right: 70%;
+  animation: splashStream 1s 1.8s ease-out forwards;
+}
+
+.splash-right:nth-child(8) {
+  top: 80%;
+  right: 70%;
+  animation: splashStream 1.2s 1.9s ease-out forwards;
+}
+
+.splash-right:nth-child(9) {
+  top: 86%;
+  right: 65%;
+  animation: splashStream 1s 1.8s ease-out forwards;
+}
+
+.splash-right:nth-child(10) {
+  top: 88%;
+  right: 69%;
+  animation: splashStream 1.2s 1.9s ease-out forwards;
+}
+
+
+.company-name {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+  color: #fff;
+  font-weight: bold;
+  opacity: 0;
+  animation: fadeInSlow 3s 9s forwards;
+}
+
+@keyframes carMove {
+  0% {
+    transform: translateX(-100%) rotate(0deg);
+  }
+  50% {
+    transform: translateX(30%) rotate(20deg);
+  }
+  75% {
+    transform: translateX(5%) scaleX(1);
+  }
+  85% {
+    transform: translateX(0%) scaleX(-1);
+  }
+  100% {
+    transform: translateX(0%) scaleX(-1);
+  }
+}
+
+@keyframes blinkLights {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(3);
+  }
+}
+
+
+
+
+@keyframes splashStream {
+  0% {
+    opacity: 0;
+    transform: translateX(0) translateY(0);
+  }
+  10% {
+    opacity: 0.5;
+    transform: translateX(10px) translateY(-5px) scale(1.1);
+  }
+  20% {
+    opacity: 0.8;
+    transform: translateX(25px) translateY(-12px) scale(1.3);
+  }
+  30% {
+    opacity: 1;
+    transform: translateX(45px) translateY(-18px) scale(1.5);
+  }
+  40% {
+    opacity: 1;
+    transform: translateX(65px) translateY(-25px) scale(1.7);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(85px) translateY(-35px) scale(1.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(110px) translateY(-50px) scale(2);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translateX(135px) translateY(-65px) scale(1.8);
+  }
+  80% {
+    opacity: 0.7;
+    transform: translateX(160px) translateY(-75px) scale(1.5);
+  }
+  90% {
+    opacity: 0.5;
+    transform: translateX(185px) translateY(-80px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(210px) translateY(-80px) scale(1);
+  }
+}
+
+
+
+@keyframes fadeInSlow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
