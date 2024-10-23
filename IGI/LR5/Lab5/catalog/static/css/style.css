@@ -35,22 +35,78 @@
   text-decoration: none;
 }
 
-/*news page*/
 
-/* Основные стили для страницы */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f3f2ef; /* Светлый бежево-серый фон */
-  color: #333;
-  padding: 30px 50px; /* Отступы по краям страницы для симметрии */
+
+/* Основной шрифт Dancing Script */
+.dancing-script-text {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 400; /* Можно изменить вес шрифта */
+  font-size: 24px; /* Пример размера */
 }
 
-/* Заголовок страницы */
+/* Альтернативный шрифт Playwrite GB S */
+.playwrite-gb-s-text {
+  font-family: 'Playwrite GB S', cursive;
+  font-style: italic; /* Пример применения курсивного стиля */
+  font-weight: 400; /* Пример веса */
+  font-size: 28px;
+  letter-spacing: 0.05em;
+}
+
+
+/*news page*/
+
+body {
+  background-image:
+          url("../images/car-back.png");
+  background-size: 50%;
+  background-color: #daccc0;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+}
+
+
+
+
 h1 {
+  background: linear-gradient(to right, #b3a497, #9a8d7b);
+  -webkit-background-clip: text; /* Показываем текст через градиент */
   text-align: center;
-  margin-bottom: 30px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 3em; /* Увеличенный размер шрифта */
   color: #b3a497;
-  text-transform: uppercase;
+  margin-left: 20%;
+  margin-bottom: 20px; /* Отступ снизу */
+}
+
+h3{
+    font-family: 'Playwrite GB S', cursive;
+    font-size: 1.5em;
+    color: #444;
+    margin-bottom: 20px; /* Отступ снизу */
+     margin-left: 20%;
+}
+
+/* Стили для анимации */
+.scene {
+  position: relative;
+  width: 450px;
+  height: 400px;
+  overflow: hidden;
+  background: #222;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px; /* Отступ снизу */
+  margin-left: 40%;
+}
+
+/* Центрирование анимации */
+.animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 /* Контейнер для статей */
@@ -221,12 +277,22 @@ article a:hover {
 }
 
 /* Стили для логотипов компаний */
+
+
+/* Стили для логотипов компаний */
 .manufacturer-list li img.manufacturer-logo {
   width: 180px;
   height: 180px;
   object-fit: cover;
   border-radius: 50%; /* Делаем логотип круглым */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавный переход */
+}
+
+/* Эффект увеличения при наведении */
+.manufacturer-list li img.manufacturer-logo:hover {
+  transform: scale(1.1); /* Увеличение на 10% */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Увеличенная тень при наведении */
 }
 
 /* Стили для ссылок (имя компании) */
@@ -439,119 +505,6 @@ article a:hover {
 
 
 
-/*Animation*/
-/*.scene {*/
-/*  width: 300px;*/
-/*  height: 300px;*/
-/*  perspective: 1000px; !* Задает перспективу для 3D-объекта *!*/
-/*}*/
-
-/*.car {*/
-/*  width: 200px;*/
-/*  height: 100px;*/
-/*  position: relative;*/
-/*  transform-style: preserve-3d;*/
-/*  transform: rotateX(0deg) rotateY(0deg);*/
-/*  animation: rotate 10s infinite linear;*/
-/*}*/
-
-/*!* Базовая часть куба *!*/
-/*.face {*/
-/*  position: absolute;*/
-/*  width: 200px;*/
-/*  height: 100px;*/
-/*  background-color: blue;*/
-/*  border: 2px solid #ccc;*/
-/*  opacity: 0.9;*/
-/*}*/
-
-/*.front  { transform: rotateY(0deg) translateZ(100px); }*/
-/*.back   { transform: rotateY(180deg) translateZ(100px); }*/
-/*.left   { transform: rotateY(-90deg) translateZ(100px); }*/
-/*.right  { transform: rotateY(90deg) translateZ(100px); }*/
-/*.top    { transform: rotateX(90deg) translateZ(50px); background-color: rgba(0, 128, 255, 0.8); }*/
-/*.bottom { transform: rotateX(-90deg) translateZ(50px); background-color: #555; }*/
-
-/*!* Купол — верхняя часть машины *!*/
-/*.dome {*/
-/*  position: absolute;*/
-/*  top: -80px;*/
-/*  left: 90px;*/
-/*  width: 180px;*/
-/*  height: 100px;*/
-/*  background-color: lightblue;*/
-/*  border-radius: 100px 100px 0 0; !* Скругленный купол *!*/
-/*  transform: translateZ(0) rotateY(90deg); !* Установим купол над верхней частью куба *!*/
-/*  border: 2px solid #ccc;*/
-/*}*/
-
-/*!* Фары *!*/
-/*.headlight {*/
-/*  position: absolute;*/
-/*  width: 30px;*/
-/*  height: 15px;*/
-/*  background-color: yellow; !* Цвет фар *!*/
-/*  border-radius: 5px; !* Скругление углов *!*/
-/*  opacity: 0.8;*/
-
-/*}*/
-
-/*.headlight.front-left{*/
-/*  top: 30px; !* Позиция над колесами *!*/
-/*  left: 10px; !* Сместим влево *!*/
-/*  transform: translateZ(0) translateX(150px) rotateY(90deg); !* Повернем фары вправо *!*/
-/*}*/
-
-/*.headlight.front-right {*/
-/*  top: 30px; !* Позиция над колесами *!*/
-/*  right: 10px; !* Сместим вправо *!*/
-/*  transform: translateZ(0) translateX(50px) rotateY(90deg); !* Повернем фары вправо *!*/
-/*}*/
-
-
-/*!* Колеса *!*/
-/*.wheel {*/
-/*  width: 40px;*/
-/*  height: 40px;*/
-/*  background-color: black;*/
-/*  border-radius: 50%;*/
-/*  position: absolute;*/
-/*  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);*/
-/*}*/
-
-/*.wheel.front-left {*/
-/*  bottom: -20px;*/
-/*  left: 20px;*/
-/*  transform: translateZ(100px);*/
-/*}*/
-
-/*.wheel.front-right {*/
-/*  bottom: -20px;*/
-/*  right: 20px;*/
-/*  transform: translateZ(100px);*/
-/*}*/
-
-/*.wheel.back-left {*/
-/*  bottom: -20px;*/
-/*  left: 20px;*/
-/*  transform: translateZ(-100px);*/
-/*}*/
-
-/*.wheel.back-right {*/
-/*  bottom: -20px;*/
-/*  right: 20px;*/
-/*  transform: translateZ(-100px);*/
-/*}*/
-
-/*!* Анимация вращения всей машины *!*/
-/*@keyframes rotate {*/
-/*  from {*/
-/*    transform: rotateY(0deg);*/
-/*  }*/
-/*  to {*/
-/*    transform: rotateY(360deg);*/
-/*  }*/
-/*}*/
 
 .scene {
   position: relative;
@@ -563,11 +516,6 @@ article a:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-.animation-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
 
 .car {
   position: absolute;
@@ -754,4 +702,92 @@ article a:hover {
   100% {
     opacity: 1;
   }
+}
+
+/*latest article*/
+
+.latest-article-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: #f8f7f5; /* Фон */
+  border-radius: 10px; /* Закругленные углы */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+  transition: background-color 0.3s ease;
+}
+
+.latest-article-container:hover {
+  background-color: #ece8e3; /* Смена цвета фона при наведении */
+}
+
+.latest-article-image {
+  border-radius: 10px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover; /* Поддержка пропорций изображения */
+}
+
+.latest-article-info {
+  position: relative;
+  max-width: 500px;
+}
+
+
+/* Кнопка "Read more" */
+.read-more-button {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: #b3a497; /* Цвет кнопки */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.read-more-button:hover {
+  background-color: #9a8d7b; /* Более темный оттенок при наведении */
+}
+
+.car-spec-table {
+  width: 30%;
+  margin: 30px;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  background-color: #fff;
+}
+
+.car-spec-table thead {
+  background-color: #b3a497;
+  color: #fff;
+}
+
+.car-spec-table th, .car-spec-table td {
+  padding: 15px 20px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.car-spec-table th {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+.car-spec-table tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.car-spec-table tr:hover {
+  background-color: #f3eae2;
+}
+
+.car-details h2 {
+  text-align: left;
+  font-size: 2em;
+  color: #444;
+  margin-left: 10%;
+  margin-bottom: 20px;
 }

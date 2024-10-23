@@ -3,6 +3,10 @@
 {% block content %}
     {% load static %}
     <div class="home-container">
+
+        <h1>Car Salon Home</h1>
+        <h3>Welcome to <em>Car Salon</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</h3>
+
         <!-- Прелоадер с вращающимися кругами -->
         <div class="preloader">
             <div class="circle-wrapper circle-move-vertical-1">
@@ -13,38 +17,9 @@
             </div>
         </div>
 
-
-
-{#        <div class="scene">#}
-{#            <div class="car">#}
-{#                <!-- Кубическая основа машины -->#}
-{#                <div class="face front"></div>#}
-{#                <div class="face back"></div>#}
-{#                <div class="face left"></div>#}
-{#                <div class="face right"></div>#}
-{#                <div class="face top"></div>#}
-{#                <div class="face bottom"></div>#}
-{##}
-{#                <!-- Купол машины -->#}
-{#                <div class="dome"></div>#}
-{##}
-{#                <!-- Фары -->#}
-{#                <div class="headlight front-left"></div>#}
-{#                <div class="headlight front-right"></div>#}
-{##}
-{#                <!-- Колеса -->#}
-{#                <div class="wheel front-left"></div>#}
-{#                <div class="wheel front-right"></div>#}
-{#                <div class="wheel back-left"></div>#}
-{#                <div class="wheel back-right"></div>#}
-{#            </div>#}
-{#        </div>#}
-
-
-
         <div class="scene">
             <div class="animation-container">
-                <div class="company-name">Auto Belezza</div>
+                <div class="company-name dancing-script-text">Auto Belezza</div>
                 <img src="{% static 'images/pngegg.png' %}" class="car" alt="Car">
 
                 <!-- Волнообразные брызги -->
@@ -59,37 +34,31 @@
                 <div class="splash splash-right"></div>
                 <div class="splash splash-right"></div>
 
-
-
-
-
-
-
-
-
-
             </div>
         </div>
 
-        <h1>Car Salon Home</h1>
 
-        <p>Welcome to <em>Car Salon</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
 
-        <section class="dynamic-content">
-            <h2>Dynamic content</h2>
-            <p>The salon has the following record counts:</p>
-            <ul>
-                <li><strong>Products:</strong> {{ num_products }}</li>
-                <li><strong>Manufacturers:</strong> {{ num_manufacturers }}</li>
-            </ul>
-        </section>
+
+
+{#        <section class="dynamic-content">#}
+{#            <h2>Dynamic content</h2>#}
+{#            <p>The salon has the following record counts:</p>#}
+{#            <ul>#}
+{#                <li><strong>Products:</strong> {{ num_products }}</li>#}
+{#                <li><strong>Manufacturers:</strong> {{ num_manufacturers }}</li>#}
+{#            </ul>#}
+{#        </section>#}
         <hr>
 
         <section class="latest-article">
-            <h2>Latest Article</h2>
-            <summary>{{ latest_article.title.upper }}</summary>
-            <img src="{{ latest_article.image.url }}" alt="{{ latest_article.title }}" width="200">
-            <a href="{% url 'article_detail' latest_article.id %}">Read more</a>
+            <div class="latest-article-container">
+                <img src="{{ latest_article.image.url }}" alt="{{ latest_article.title }}" class="latest-article-image">
+                <div class="latest-article-info">
+                    <h2>{{ latest_article.title.upper }}</h2>
+                    <a href="{% url 'article_detail' latest_article.id %}" class="read-more-button">Read more</a>
+                </div>
+            </div>
         </section>
 
         <hr>
@@ -98,7 +67,7 @@
         {% else %} times{% endif %}.
         </p>
 
-        <p spellcheck="true" contenteditable="true">Change me</p>
+
 
         <p>Your public IP address is: {{ public_ip }}</p>
 
@@ -108,30 +77,47 @@
         <p>The current date and time is: {{ current_date_formatted }}</p>
         <p>The current month and year is: {{ calendar_text }}</p>
 
-        <section class="code-listing">
-            <h2>C++ Code Listing</h2>
-            <p>Below is an example of a simple C++ program that prints "<samp>Hello, World!</samp>" to the console:</p>
 
-            <pre><code>
-        // C++ program to print "Hello, World!"
-        #include &lt;iostream&gt;
-
-        int main() {
-            // Output message to the console
-            std::cout &lt;&lt; "<samp>Hello, World!</samp>" &lt;&lt; std::endl;
-            return 0;
-        }
-        </code></pre>
-
-            <p>To compile this program, enter the following command:</p>
-            <kbd>g++ hello.cpp -o hello</kbd>
-
-            <p>In this example:</p>
-            <ul>
-                <li><code>std::cout</code> is a standard output stream in C++.</li>
-                <li><code>&lt;&lt;</code> is an operator that inserts data into the output stream.</li>
-                <li><var>message</var> refers to the string "<samp>Hello, World!</samp>" that will be printed.</li>
-            </ul>
+        <section class="car-details">
+            <h2>Car Specifications</h2>
+            <table class="car-spec-table">
+                <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Model</td>
+                    <td>Auto Belezza Sport</td>
+                </tr>
+                <tr>
+                    <td>Engine</td>
+                    <td>V8 Twin Turbo</td>
+                </tr>
+                <tr>
+                    <td>Horsepower</td>
+                    <td>640 HP</td>
+                </tr>
+                <tr>
+                    <td>Top Speed</td>
+                    <td>330 km/h</td>
+                </tr>
+                <tr>
+                    <td>Acceleration</td>
+                    <td>0-100 km/h in 3.2 seconds</td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td>$120,000</td>
+                </tr>
+                </tbody>
+            </table>
         </section>
+
+
+
+
     </div>
 {% endblock %}
