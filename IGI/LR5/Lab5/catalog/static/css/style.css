@@ -1,439 +1,192 @@
-/*side bar*/
-.container {
-  display: flex;
-}
-
+/*SIDE BAR*/
+/* Sidebar Container */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 12%;
+  width: 15%; /* Adjusted for better visibility */
   height: 100%;
-  background-color: #f8f8f8;
+  background-color: #2c3e50; /* Dark blue shade */
+  color: #ecf0f1; /* Light text */
   overflow-y: auto;
   z-index: 1000;
   padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the start */
+  padding-left: 10px; /* Add padding for some spacing from the left */
+  font-family: 'Roboto', sans-serif; /* Modern font for clean look */
 }
 
-.content {
-  margin-left: 12%;
-  padding: 15px;
-}
-
-
+/* Sidebar Navigation */
 .sidebar-nav {
   list-style-type: none;
   padding: 0;
+  width: 100%;
 }
 
+/* Sidebar Items */
 .sidebar-nav li {
-  margin-left: 7%;
-  padding: 10px 0;
+  padding: 10px 20px; /* Improved padding for better spacing */
+  margin: 5px 0;
 }
 
+/* Sidebar Links */
 .sidebar-nav li a {
+  color: #ecf0f1;
   text-decoration: none;
+  font-weight: 600; /* Bold text */
+  font-size: 1em; /* Adjust font size */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+  padding: 10px; /* Padding around text */
+  width: 100%; /* Ensure link covers full width */
+  display: inline-block; /* Block-level link to cover the full area */
+  border-radius: 5px; /* Rounded corners */
 }
 
+/* Hover Effects */
+.sidebar-nav li a:hover {
+  background-color: #3498db; /* Light blue background on hover */
+  color: #ffffff; /* White text */
+}
 
+/* Active Link Style */
+.sidebar-nav li a.active {
+  background-color: #1abc9c; /* Green shade for the active page */
+  color: #ffffff;
+}
+
+/* Sidebar Logout Button */
+.sidebar form button {
+  background-color: #e74c3c; /* Red button */
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1em; /* Same font size as links */
+  font-weight: 600; /* Bold text */
+  width: calc(100% - 40px); /* Ensure button matches width of links */
+  margin: 5px 20px; /* Consistent spacing */
+}
+
+.sidebar form button:hover {
+  background-color: #c0392b; /* Darker red on hover */
+}
+
+/* Improved Content Alignment */
+.content {
+  margin-left: 15%; /* Match the sidebar width */
+  padding: 30px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 50%; /* Take more space on smaller screens */
+  }
+
+  .content {
+    margin-left: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%; /* Sidebar takes full width on very small screens */
+    position: relative; /* Stacks above the content */
+    height: auto; /* Adjust height to content */
+  }
+
+  .content {
+    margin-left: 0; /* Content adjusts accordingly */
+    padding-top: 20px;
+  }
+}
+
+/*_______________________________________________________*/
+
+/*FONTS*/
 
 /* Основной шрифт Dancing Script */
 .dancing-script-text {
   font-family: 'Dancing Script', cursive;
-  font-weight: 400; /* Можно изменить вес шрифта */
-  font-size: 24px; /* Пример размера */
+  font-weight: 400;
+  font-size: 24px;
 }
 
 /* Альтернативный шрифт Playwrite GB S */
 .playwrite-gb-s-text {
   font-family: 'Playwrite GB S', cursive;
-  font-style: italic; /* Пример применения курсивного стиля */
-  font-weight: 400; /* Пример веса */
+  font-style: italic;
+  font-weight: 400;
   font-size: 28px;
   letter-spacing: 0.05em;
 }
 
-
-/*news page*/
+/*BODY*/
 
 body {
-  background-image:
-          url("../images/car-back.png");
-  background-size: 50%;
-  background-color: #daccc0;
-  background-repeat: no-repeat;
-  background-position: bottom right;
+  background: linear-gradient(to bottom, #f8f7f5, #e6e1dc); /* Легкий градиент фона */
+  font-family: 'Roboto', sans-serif;
+  background: #f3f2ef;
+  color: #333;
+  line-height: 1.6;
 }
 
-
-
+/* Общие стили */
+h1, h3 {
+  text-align: center; /* Центрирование текста */
+}
 
 h1 {
-  background: linear-gradient(to right, #b3a497, #9a8d7b);
-  -webkit-background-clip: text; /* Показываем текст через градиент */
+  font-size: 3em; /* Размер заголовка */
+  color: #2c3e50; /* Цвет заголовка */
+  text-transform: uppercase;
   text-align: center;
-  font-family: 'Dancing Script', cursive;
-  font-size: 3em; /* Увеличенный размер шрифта */
-  color: #b3a497;
-  margin-left: 20%;
-  margin-bottom: 20px; /* Отступ снизу */
 }
 
-h3{
-    font-family: 'Playwrite GB S', cursive;
-    font-size: 1.5em;
-    color: #444;
-    margin-bottom: 20px; /* Отступ снизу */
-     margin-left: 20%;
+h3 {
+  font-size: 1.8em; /* Размер слогана */
+  color: #2c3e50; /* Цвет текста */
+  margin-bottom: 30px;
 }
 
-/* Стили для анимации */
-.scene {
-  position: relative;
-  width: 450px;
-  height: 400px;
-  overflow: hidden;
-  background: #222;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  margin-bottom: 30px; /* Отступ снизу */
-  margin-left: 40%;
-}
+/*__________________________________________________*/
 
-/* Центрирование анимации */
-.animation-container {
+
+
+
+/*HOME*/
+
+.home-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
   width: 100%;
-  height: 100%;
 }
-
-/* Контейнер для статей */
-.news-container {
+/*PARTNERS*/
+.partners-section {
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  gap: 50px;
-  justify-content: left;
-  padding: 0 50px; /* Отступы внутри контейнера */
-}
-
-/* Стили для каждой статьи */
-article {
-  width: 20%; /* Уменьшили ширину карточки */
-  border: 1px solid #ddd;
-  padding: 15px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  background-color: #f8f7f5; /* Бежево-серый фон карточки */
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  margin-bottom: 20px;
-  height: auto; /* Убираем фиксированную высоту */
-  min-height: 400px; /* Устанавливаем минимальную высоту */
-}
-
-/* Стили для заголовка статьи */
-article h2 {
-  font-size: 1.2em;
-  margin: 0 0 10px;
-  color: #444;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal; /* Разрешаем перенос текста */
-  word-wrap: break-word; /* Перенос длинных слов */
-  font-variant: small-caps;
-  letter-spacing: -1px;
-  word-spacing: 2px;
-}
-
-/* Стили для описания статьи */
-article p {
-  overflow: hidden; /* Скрыть текст, который не помещается */
-  color: #555;
-  font-size: 0.9em;
-  line-height: 1.5em; /* Настройка высоты строки для лучшего чтения */
-  overflow-wrap: break-word;
-  margin-bottom: 10px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Количество строк */
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-}
-
-/* Стили для изображений */
-article img {
-  width: 100%; /* Занимает всю ширину контейнера */
-  height: 220px; /* Увеличенная высота изображения */
-  object-fit: cover; /* Обрезает изображение, чтобы оно вписывалось в блок, сохраняя пропорции */
-  border-radius: 8px;
-  display: block;
-  margin: 0 auto 10px auto;
-}
-
-/* Стили для кнопки "Read more" */
-article a {
-  display: inline-block;
-  padding: 8px 15px;
-  background-color: #b3a497; /* Бежевый оттенок кнопки */
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  text-align: center;
-  margin-top: auto; /* Прижимает ссылку к нижней части статьи */
-}
-
-article a:hover {
-  background-color: #9a8d7b; /* Темный оттенок при наведении */
-}
-
-/* Адаптивность: на маленьких экранах статьи будут занимать всю ширину */
-@media (max-width: 1024px) {
-  article {
-    width: 100%; /* На маленьких экранах карточки занимают всю ширину */
-    min-height: auto; /* Снимаем ограничение по высоте */
-  }
-}
-
-
-/*article details многоколоночность*/
-/* Стили для кнопки "Back to all news" */
-.back-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #b3a497; /* Бежевый оттенок кнопки */
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.back-button:hover {
-  background-color: #9a8d7b; /* Более темный бежевый оттенок при наведении */
-  cursor: pointer;
-}
-
-/* Контейнер для статьи */
-.article-container {
-  column-count: 2; /* Две колонки */
-  column-gap: 40px; /* Расстояние между колонками */
-  text-align: justify; /* Выравнивание текста по ширине */
-  line-height: 1.6; /* Удобочитаемость */
-}
-
-/* Красная строка для всех абзацев */
-.article-content {
-  text-indent: 30px; /* Размер отступа для красной строки */
-  margin-bottom: 20px; /* Отступ между абзацами */
-  break-inside: avoid;
-}
-
-/* Выделение первой буквы только в первом абзаце */
-.article-container p:first-of-type::first-letter {
-
-  font-size: 200%; /* Увеличение размера первой буквы */
-  font-weight: bold; /* Жирное начертание */
-  color: #b3a497; /* Бежевый оттенок */
-  line-height: 1; /* Корректное выравнивание */
-  padding-right: 5px; /* Отступ справа от первой буквы */
-}
-
-
-/* Стили для изображения */
-.article-image {
-  max-width: 50%; /
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(102, 51, 153, 0.2); /* Легкий фиолетовый тень */
-}
-
-/*Manufacturers*/
-
-/* Контейнер для списка компаний */
-.manufacturer-list {
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-/* Стили для каждого элемента списка */
-.manufacturer-list li {
-  width: 150px;
-  height: 200px;
-  border-radius: 20px;
-  background-color: transparent; /* Убираем подложку */
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 10px;
-  text-align: center;
 }
 
-/* Стили для логотипов компаний */
 
-
-/* Стили для логотипов компаний */
-.manufacturer-list li img.manufacturer-logo {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 50%; /* Делаем логотип круглым */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавный переход */
+.right-aligned-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-right: 20px;
 }
 
-/* Эффект увеличения при наведении */
-.manufacturer-list li img.manufacturer-logo:hover {
-  transform: scale(1.1); /* Увеличение на 10% */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Увеличенная тень при наведении */
-}
 
-/* Стили для ссылок (имя компании) */
-.manufacturer-list li figcaption a {
-  display: block;
-  color: #444;
-  text-decoration: none;
-  font-weight: bold;
-  margin-top: 10px;
-  transition: color 0.3s ease;
-}
-
-.manufacturer-list li figcaption a:hover {
-  color: #444;
-  transform: scale(1.1); /* Увеличение на 10% */
-}
-
-.logo-container {
-  width: 200px; /* Ширина контейнера */
-  height: 200px; /* Высота контейнера */
-  overflow: hidden; /* Скрываем часть логотипа, выходящую за границы */
-  position: relative; /* Позиционирование для контекстного использования transform */
-}
-
-.company-logo {
-  width: 100%; /* Логотип занимает всю ширину контейнера */
-  height: auto; /* Сохраняем пропорции */
-  transition: transform 0.3s ease; /* Плавный переход для трансформации */
-}
-
-/* Эффект трансформации при наведении */
-.company-logo:hover {
-  transform: scale(1.1) rotate(5deg); /* Увеличение на 10% и поворот на 5 градусов */
-}
-
-/* Контейнер для контактов */
-.contacts-container {
-  display: flex; /* Используем Flexbox для главного контейнера */
-}
-
-/* Вертикальная навигация по отделам */
-.departments-nav {
-  width: 200px; /* Ширина навигации */
-  margin-right: 20px; /* Отступ справа */
-  border-right: 1px solid #ccc; /* Рамка справа */
-  padding-right: 10px; /* Отступ внутри навигации */
-}
-
-/* Стили для ссылок в навигации */
-.departments-nav ul {
-  list-style-type: none; /* Убираем маркеры */
-  padding: 0; /* Убираем отступы */
-}
-
-.departments-nav li {
-  margin-bottom: 10px; /* Отступ между пунктами меню */
-}
-
-.departments-nav li a {
-  text-decoration: none; /* Убираем подчеркивание */
-  color: #007bff; /* Цвет ссылки */
-  transition: color 0.3s; /* Плавный переход цвета */
-}
-
-.departments-nav li a:hover {
-  color: #0056b3; /* Темный оттенок при наведении */
-}
-
-/* Основной контент */
-.main-content {
-  flex-grow: 1; /* Основной контент растягивается, чтобы заполнить пространство */
-}
-
-/* Стили для раздела сотрудников */
-.employee-section {
-  display: flex; /* Flexbox для размещения сотрудников */
-  flex-wrap: wrap; /* Позволяет переносить сотрудников на новую строку */
-  gap: 20px; /* Отступы между карточками сотрудников */
-}
-
-/* Стили для карточки сотрудника */
-.employee-card {
-  width: 300px; /* Ширина карточки */
-  padding: 10px; /* Внутренние отступы */
-  border: 1px solid #ddd; /* Рамка вокруг карточки */
-  border-radius: 10px; /* Закругленные углы */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень */
-  text-align: center; /* Центрирование текста */
-  background-color: #f9f9f9; /* Цвет фона карточки */
-  transition: transform 0.2s, box-shadow 0.2s; /* Плавный переход для эффекта наведения */
-}
-
-.employee-card:hover {
-  transform: translateY(-5px); /* Поднимаем карточку при наведении */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Увеличиваем тень при наведении */
-}
-
-/* Стили для фотографий сотрудников */
-.employee-photo {
-  width: 100px; /* Ширина фото */
-  height: 100px; /* Высота фото */
-  object-fit: cover; /* Сохранение пропорций изображения */
-  border-radius: 50%; /* Круглая форма фото */
-}
-
-/* Медиа-запросы для адаптивности */
-@media (max-width: 768px) {
-  .contacts-container {
-    flex-direction: column; /* Меняем направление на столбец */
-  }
-
-  .departments-nav {
-    width: 100%; /* Ширина навигации на мобильных устройствах */
-    margin-right: 0; /* Убираем отступ справа */
-    border-right: none; /* Убираем рамку справа */
-    border-bottom: 1px solid #ccc; /* Добавляем рамку снизу */
-    margin-bottom: 20px; /* Отступ снизу */
-  }
-
-  .employee-card {
-    width: 100%; /* Ширина карточки на мобильных устройствах */
-    max-width: 300px; /* Максимальная ширина карточки */
-  }
-}
-
-@media (max-width: 480px) {
-  .departments-nav {
-    font-size: 14px; /* Уменьшаем размер шрифта для навигации */
-  }
-
-  .employee-photo {
-    width: 80px; /* Уменьшаем ширину фото */
-    height: 80px; /* Уменьшаем высоту фото */
-  }
-
-  .employee-card {
-    padding: 5px; /* Уменьшаем внутренние отступы */
-  }
-}
-
-/*Animation preloader*/
+/*PRELOADER*/
 
 .preloader {
   display: flex;
@@ -503,6 +256,7 @@ article a:hover {
 }
 
 
+/*ANIMATION*/
 
 
 
@@ -704,6 +458,353 @@ article a:hover {
   }
 }
 
+
+/*news page*/
+
+/*body {*/
+/*  background-image:*/
+/*          url("../images/car-back.png");*/
+/*  background-size: 50%;*/
+/*  background-color: #daccc0;*/
+/*  background-repeat: no-repeat;*/
+/*  background-position: bottom right;*/
+/*  background-blend-mode: soft-light;*/
+/*}*/
+
+
+
+
+/* Контейнер для статей */
+.news-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: left;
+  padding: 0 50px; /* Отступы внутри контейнера */
+}
+
+/* Стили для каждой статьи */
+article {
+  width: 20%; /* Уменьшили ширину карточки */
+  border: 1px solid #ddd;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #f8f7f5; /* Бежево-серый фон карточки */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 20px;
+  height: auto; /* Убираем фиксированную высоту */
+  min-height: 400px; /* Устанавливаем минимальную высоту */
+}
+
+/* Стили для заголовка статьи */
+article h2 {
+  font-size: 1.2em;
+  margin: 0 0 10px;
+  color: #444;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal; /* Разрешаем перенос текста */
+  word-wrap: break-word; /* Перенос длинных слов */
+  font-variant: small-caps;
+  letter-spacing: -1px;
+  word-spacing: 2px;
+}
+
+/* Стили для описания статьи */
+article p {
+  overflow: hidden; /* Скрыть текст, который не помещается */
+  color: #555;
+  font-size: 0.9em;
+  line-height: 1.5em; /* Настройка высоты строки для лучшего чтения */
+  overflow-wrap: break-word;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Количество строк */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+/* Стили для изображений */
+article img {
+  width: 100%; /* Занимает всю ширину контейнера */
+  height: 220px; /* Увеличенная высота изображения */
+  object-fit: cover; /* Обрезает изображение, чтобы оно вписывалось в блок, сохраняя пропорции */
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+/* Стили для кнопки "Read more" */
+article a {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #b3a497; /* Бежевый оттенок кнопки */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  margin-top: auto; /* Прижимает ссылку к нижней части статьи */
+}
+
+article a:hover {
+  background-color: #9a8d7b; /* Темный оттенок при наведении */
+}
+
+/* Адаптивность: на маленьких экранах статьи будут занимать всю ширину */
+@media (max-width: 1024px) {
+  article {
+    width: 100%; /* На маленьких экранах карточки занимают всю ширину */
+    min-height: auto; /* Снимаем ограничение по высоте */
+  }
+}
+
+
+/*article details многоколоночность*/
+/* Стили для кнопки "Back to all news" */
+.back-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #b3a497; /* Бежевый оттенок кнопки */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.back-button:hover {
+  background-color: #9a8d7b; /* Более темный бежевый оттенок при наведении */
+  cursor: pointer;
+}
+
+/* Контейнер для статьи */
+.article-container {
+  column-count: 2; /* Две колонки */
+  column-gap: 40px; /* Расстояние между колонками */
+  text-align: justify; /* Выравнивание текста по ширине */
+  line-height: 1.6; /* Удобочитаемость */
+}
+
+/* Красная строка для всех абзацев */
+.article-content {
+  text-indent: 30px; /* Размер отступа для красной строки */
+  margin-bottom: 20px; /* Отступ между абзацами */
+  break-inside: avoid;
+}
+
+/* Выделение первой буквы только в первом абзаце */
+.article-container p:first-of-type::first-letter {
+
+  font-size: 200%; /* Увеличение размера первой буквы */
+  font-weight: bold; /* Жирное начертание */
+  color: #b3a497; /* Бежевый оттенок */
+  line-height: 1; /* Корректное выравнивание */
+  padding-right: 5px; /* Отступ справа от первой буквы */
+}
+
+
+/* Стили для изображения */
+.article-image {
+  max-width: 50%; /
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(102, 51, 153, 0.2); /* Легкий фиолетовый тень */
+}
+
+/*Manufacturers*/
+
+/* Контейнер для списка компаний */
+/* Партнеры */
+.manufacturer-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Центрируем элементы */
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 80%;
+  margin: 0 auto; /* Центрируем список */
+}
+
+
+
+/* Стили для каждого элемента списка */
+.manufacturer-list li {
+  border-radius: 20px;
+  background-color: transparent; /* Убираем подложку */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+  flex: 1 1 auto;
+  max-width: 150px;
+  min-width: 100px;
+}
+
+
+
+/* Стили для логотипов компаний */
+.manufacturer-list li img.manufacturer-logo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%; /* Делаем логотип круглым */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавный переход */
+}
+
+/* Эффект увеличения при наведении */
+.manufacturer-list li img.manufacturer-logo:hover {
+  transform: scale(1.1); /* Увеличение на 10% */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Увеличенная тень при наведении */
+}
+
+/* Стили для ссылок (имя компании) */
+.manufacturer-list li figcaption a {
+  display: block;
+  color: #444;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: color 0.3s ease;
+}
+
+.manufacturer-list li figcaption a:hover {
+  color: #444;
+  transform: scale(1.1); /* Увеличение на 10% */
+}
+
+.logo-container {
+  width: 200px; /* Ширина контейнера */
+  height: 200px; /* Высота контейнера */
+  overflow: hidden; /* Скрываем часть логотипа, выходящую за границы */
+  position: relative; /* Позиционирование для контекстного использования transform */
+}
+
+.company-logo {
+  width: 100%; /* Логотип занимает всю ширину контейнера */
+  height: auto; /* Сохраняем пропорции */
+  transition: transform 0.3s ease; /* Плавный переход для трансформации */
+}
+
+/* Эффект трансформации при наведении */
+.company-logo:hover {
+  transform: scale(1.1) rotate(5deg); /* Увеличение на 10% и поворот на 5 градусов */
+}
+
+/* Контейнер для контактов */
+.contacts-container {
+  display: flex; /* Используем Flexbox для главного контейнера */
+}
+
+/* Вертикальная навигация по отделам */
+.departments-nav {
+  width: 200px; /* Ширина навигации */
+  margin-right: 20px; /* Отступ справа */
+  border-right: 1px solid #ccc; /* Рамка справа */
+  padding-right: 10px; /* Отступ внутри навигации */
+}
+
+/* Стили для ссылок в навигации */
+.departments-nav ul {
+  list-style-type: none; /* Убираем маркеры */
+  padding: 0; /* Убираем отступы */
+}
+
+.departments-nav li {
+  margin-bottom: 10px; /* Отступ между пунктами меню */
+}
+
+.departments-nav li a {
+  text-decoration: none; /* Убираем подчеркивание */
+  color: #007bff; /* Цвет ссылки */
+  transition: color 0.3s; /* Плавный переход цвета */
+}
+
+.departments-nav li a:hover {
+  color: #0056b3; /* Темный оттенок при наведении */
+}
+
+/* Основной контент */
+.main-content {
+  flex-grow: 1; /* Основной контент растягивается, чтобы заполнить пространство */
+}
+
+/* Стили для раздела сотрудников */
+.employee-section {
+  display: flex; /* Flexbox для размещения сотрудников */
+  flex-wrap: wrap; /* Позволяет переносить сотрудников на новую строку */
+  gap: 20px; /* Отступы между карточками сотрудников */
+}
+
+/* Стили для карточки сотрудника */
+.employee-card {
+  width: 300px; /* Ширина карточки */
+  padding: 10px; /* Внутренние отступы */
+  border: 1px solid #ddd; /* Рамка вокруг карточки */
+  border-radius: 10px; /* Закругленные углы */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень */
+  text-align: center; /* Центрирование текста */
+  background-color: #f9f9f9; /* Цвет фона карточки */
+  transition: transform 0.2s, box-shadow 0.2s; /* Плавный переход для эффекта наведения */
+}
+
+.employee-card:hover {
+  transform: translateY(-5px); /* Поднимаем карточку при наведении */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Увеличиваем тень при наведении */
+}
+
+/* Стили для фотографий сотрудников */
+.employee-photo {
+  width: 100px; /* Ширина фото */
+  height: 100px; /* Высота фото */
+  object-fit: cover; /* Сохранение пропорций изображения */
+  border-radius: 50%; /* Круглая форма фото */
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+  .contacts-container {
+    flex-direction: column; /* Меняем направление на столбец */
+  }
+
+  .departments-nav {
+    width: 100%; /* Ширина навигации на мобильных устройствах */
+    margin-right: 0; /* Убираем отступ справа */
+    border-right: none; /* Убираем рамку справа */
+    border-bottom: 1px solid #ccc; /* Добавляем рамку снизу */
+    margin-bottom: 20px; /* Отступ снизу */
+  }
+
+  .employee-card {
+    width: 100%; /* Ширина карточки на мобильных устройствах */
+    max-width: 300px; /* Максимальная ширина карточки */
+  }
+}
+
+@media (max-width: 480px) {
+  .departments-nav {
+    font-size: 14px; /* Уменьшаем размер шрифта для навигации */
+  }
+
+  .employee-photo {
+    width: 80px; /* Уменьшаем ширину фото */
+    height: 80px; /* Уменьшаем высоту фото */
+  }
+
+  .employee-card {
+    padding: 5px; /* Уменьшаем внутренние отступы */
+  }
+}
+
+
+
 /*latest article*/
 
 .latest-article-container {
@@ -790,4 +891,159 @@ article a:hover {
   color: #444;
   margin-left: 10%;
   margin-bottom: 20px;
+}
+
+
+
+/* Контейнер логотипа */
+.logo-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Стили для видео-баннера */
+.video-banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 80vh; /* Задаем высоту баннера */
+}
+
+.background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Затемнение фона видео */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Затемнение */
+  z-index: 2;
+}
+
+/* Контент поверх видео */
+.video-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: white;
+  padding: 60px 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.video-content h1 {
+  font-size: 4rem;
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: 700;
+}
+
+.video-content h2 {
+  font-size: 2.5rem;
+  margin: 10px 0;
+}
+
+.video-content p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* Стили для кнопок поверх видео */
+.video-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.video-button {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: white;
+  border-radius: 25px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.video-button.primary {
+  background: #3498db; /* Синий оттенок */
+}
+
+.video-button.secondary {
+  background: transparent;
+  border: 2px solid white;
+}
+
+.video-button:hover {
+  background: #2980b9; /* Темный синий при наведении */
+  transform: scale(1.05);
+}
+
+/* Пример стилизации блока сертификата */
+.certificate-container {
+  border: 2px solid black;
+  padding: 20px;
+  margin: 40px auto;
+  width: 60%;
+  border-radius: 15px;
+  background: #f8f8f8;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для блока партнеров */
+.manufacturer-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.manufacturer-list li {
+  list-style: none;
+  width: 150px;
+  text-align: center;
+}
+
+.manufacturer-logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.manufacturer-logo:hover {
+  transform: scale(1.1);
+}
+
+/* Баннеры */
+h2 {
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+  .video-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .video-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .video-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
 }

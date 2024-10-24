@@ -10,12 +10,28 @@
     </div>
     <p>{{ info.text }}</p>
 
-    <!-- Видео компании -->
-    {% if info.video %}
-        <video width="320" height="240" controls>
-            <source src="{{ info.video.url }}" type="video/mp4">
-        </video>
-    {% endif %}
+    <div class="video-banner">
+        <!-- Фоновое видео с затемнением -->
+        <div class="video-overlay">
+            <video autoplay muted loop class="background-video">
+                <source src="{{ info.video.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Информация поверх видео -->
+        <div class="video-content">
+            <h1>THE NEW</h1>
+            <h2>BMW M235 xDrive Gran Coupé</h2>
+            <p>Das neue BMW M235 xDrive Gran Coupé.</p>
+
+            <!-- Кнопки -->
+            <div class="video-buttons">
+                <a href="#" class="video-button primary">Конфигурировать и Цены</a>
+                <a href="#" class="video-button secondary">Ознакомиться</a>
+            </div>
+        </div>
+    </div>
 
     <!-- История компании -->
     <h2>История</h2>
@@ -60,27 +76,6 @@
         <img src="{{ info.banner2.url }}" alt="Company Banner 2" style="max-width:100%; height:auto;">
     {% endif %}
 
-    <!-- Секция производителей -->
-    <h1>НАШИ ПАРТНЕРЫ</h1>
-    {% if manufacturer_list %}
-        <ul class="manufacturer-list">
-            {% for manufacturer in manufacturer_list %}
-                <li>
-                    <!-- Логотип компании -->
-                    {% if manufacturer.logo %}
-                        <figure>
-                            <img src="{{ manufacturer.logo.url }}" alt="{{ manufacturer.name }} Logo" class="manufacturer-logo">
-                            <figcaption>
-                                <a  href="{{ manufacturer.link }}" target="_blank">{{ manufacturer.name }}</a>
-                            </figcaption>
-                        </figure>
-                    {% endif %}
 
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No manufacturers available.</p>
-    {% endif %}
 
 {% endblock %}

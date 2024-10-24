@@ -95,6 +95,7 @@ def index(request):
     user_timezone = current_user_time_data["user_timezone"]
     current_date_formatted = current_user_time_data["current_date_formatted"]
     calendar_text = current_user_time_data["calendar_text"]
+    manufacturer_list = Manufacturer.objects.all()
     context = {
         'num_products': Product.objects.count(),
         'num_manufacturers': Manufacturer.objects.count(),
@@ -105,6 +106,7 @@ def index(request):
         'user_timezone': user_timezone,
         'current_date_formatted': current_date_formatted,
         'calendar_text': calendar_text,
+        'manufacturer_list': manufacturer_list,
     }
 
     return render(request, 'index.html', context)
@@ -639,11 +641,11 @@ def about(request):
     # Получаем информацию о компании
     info = CompanyInfo.objects.first()
     # Получаем список производителей
-    manufacturer_list = Manufacturer.objects.all()
+
     # Передаем оба объекта в шаблон
     return render(request, 'catalog/company_info.html', {
         'info': info,
-        'manufacturer_list': manufacturer_list
+
     })
 
 
