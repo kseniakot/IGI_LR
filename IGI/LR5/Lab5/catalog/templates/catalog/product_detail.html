@@ -3,19 +3,30 @@
     <meta name="description" content="detailed info about our products">
 {% endblock %}
 {% block content %}
-  <h1>Name: {{ product.name }}</h1>
-    {% if  product.photo %}
-           <img src="{{ product.photo.url }}" alt="{{ product.name }}" width="200">
-          {% endif %}
-  <p><strong>Description:</strong> {{ product.description }}</p>
-  <p><strong>Price:</strong> {{ product.price }}</p>
-  <p><strong>Product type:</strong> {{ product.product_type }}</p>
-  <p><strong>Unit of measure:</strong> {{ product.unit_of_measure }}</p>
-  <p><strong>Manufacturer:</strong> <a href="{% url 'manufacturer-detail' product.manufacturer.id %}">{{ product.manufacturer }}</a></p>
-  {% if user.is_authenticated and user.client %}
-  <form method="POST" action="{% url 'add_to_cart' product.id %}">
-    {% csrf_token %}
-    <input type="submit" value="Add to cart">
-  </form>
-  {% endif %}
+    <div class="product-container">
+        <h1 class="product-title">Name: {{ product.name }}</h1>
+
+        {% if product.photo %}
+            <div class="product-image">
+                <img src="{{ product.photo.url }}" alt="{{ product.name }}">
+            </div>
+        {% endif %}
+
+        <div class="product-details">
+            <p><strong>Description:</strong> {{ product.description }}</p>
+            <p><strong>Price:</strong> <span class="product-price">${{ product.price }}</span></p>
+            <p><strong>Product type:</strong> {{ product.product_type }}</p>
+            <p><strong>Unit of measure:</strong> {{ product.unit_of_measure }}</p>
+            <p><strong>Manufacturer:</strong>
+                <a href="{% url 'manufacturer-detail' product.manufacturer.id %}" class="product-manufacturer">{{ product.manufacturer }}</a>
+            </p>
+        </div>
+
+        {% if user.is_authenticated and user.client %}
+            <form method="POST" action="{% url 'add_to_cart' product.id %}" class="add-to-cart-form">
+                {% csrf_token %}
+                <input type="submit" value="Add to cart" class="btn-add-to-cart">
+            </form>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -1,14 +1,37 @@
 {% extends "base_generic.html" %}
- 
-{% block content %} 
-  <h1>Promo Codes</h1> 
-  <ul> 
-    {% for promo_code in object_list %} 
-      <li>
-        <p>{{ promo_code.code }} - {{ promo_code.discount }}% discount</p>
-      </li> 
-    {% empty %} 
-      <li>No promo codes available.</li> 
-    {% endfor %} 
-  </ul> 
+
+{% block content %}
+    <h1 class="promo-title">Promo Codes</h1>
+
+    <div class="promo-container">
+        <div class="promo-list">
+            <h2>Active Promo Codes</h2>
+            <ul class="promo-list-items">
+                {% for promo_code in object_list %}
+                    <li class="promo-item active">
+                        <div class="promo-code">{{ promo_code.code }}</div>
+                        <p>{{ promo_code.discount }}% discount</p>
+
+                    </li>
+                {% empty %}
+                    <li class="promo-item">No active promo codes available.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="promo-list">
+            <h2>Archived Promo Codes</h2>
+            <ul class="promo-list-items">
+                {% for promo_code in archived_promo_codes %}
+                    <li class="promo-item archived">
+                        <div class="promo-code">{{ promo_code.code }}</div>
+                        <p>{{ promo_code.discount }}% discount</p>
+                        <p>Expired on: {{ promo_code.expiry_date }}</p>
+                    </li>
+                {% empty %}
+                    <li class="promo-item">No archived promo codes available.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}

@@ -1,29 +1,28 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1 dir="ltr">Reviews</h1>
+    <h1 class="reviews-title" dir="ltr">Reviews</h1>
 
-  {% for review in object_list %}
-    <article>
-      <header>
-        <h2>{{ review.user.username }}</h2>
-        <time datetime="{{ review.date.isoformat }}">{{ review.date }}</time>
-      </header>
-      <section>
-        <p>Rating: {{ review.get_rating }}</p>
-        <p>{{ review.text }}</p>
-      </section>
-      <footer>
+    <div class="reviews-container">
+        {% for review in object_list %}
+            <article class="review">
+                <header class="review-header">
+                    <h2 class="review-username">{{ review.user.username }}</h2>
+                    <time class="review-date" datetime="{{ review.date.isoformat }}">{{ review.date }}</time>
+                </header>
+                <section class="review-content">
+                    <p class="review-rating">Rating: {{ review.get_rating }}</p>
+                    <p class="review-text">{{ review.text }}</p>
+                </section>
+            </article>
+        {% empty %}
+            <p class="no-reviews">No reviews found.</p>
+        {% endfor %}
+    </div>
 
-      </footer>
-    </article>
-  {% empty %}
-    <p>No reviews found.</p>
-  {% endfor %}
-
-  {% if user.is_authenticated %}
-    <a href="{% url 'add-review' %}">Add a review</a>
-  {% else %}
-  {% endif %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'add-review' %}" class="add-review-link">Add a review</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="login-link">Log in to add a review</a>
+    {% endif %}
 {% endblock %}
-    <a href="{% url 'login' %}">Log in to add a review</a>

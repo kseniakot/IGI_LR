@@ -461,96 +461,102 @@ h3 {
 
 /*ARTICLES NEWS*/
 
-/* Контейнер для статей */
+
 .news-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
-  justify-content: left;
-  padding: 0 50px; /* Отступы внутри контейнера */
+  justify-content: space-evenly;
+  padding: 10px;
+  width: 100%;
 }
 
-/* Стили для каждой статьи */
 article {
-  width: 20%; /* Уменьшили ширину карточки */
+  width: 23%; /* Adjust width to fit 4 articles in a row (100% / 4 = 25%, slightly less to accommodate gaps) */
   border: 1px solid #ddd;
   padding: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  background-color: #f8f7f5; /* Бежево-серый фон карточки */
+  background-color: #f8f7f5;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   margin-bottom: 20px;
-  height: auto; /* Убираем фиксированную высоту */
-  min-height: 400px; /* Устанавливаем минимальную высоту */
+  height: auto;
+  min-height: 400px;
 }
 
-/* Стили для заголовка статьи */
+/* Styles for the article title */
 article h2 {
   font-size: 1.2em;
   margin: 0 0 10px;
   color: #444;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: normal; /* Разрешаем перенос текста */
-  word-wrap: break-word; /* Перенос длинных слов */
+  white-space: normal;
+  word-wrap: break-word;
   font-variant: small-caps;
   letter-spacing: -1px;
   word-spacing: 2px;
 }
 
-/* Стили для описания статьи */
+/* Styles for the article description */
 article p {
-  overflow: hidden; /* Скрыть текст, который не помещается */
+  overflow: hidden;
   color: #555;
   font-size: 0.9em;
-  line-height: 1.5em; /* Настройка высоты строки для лучшего чтения */
+  line-height: 1.5em;
   overflow-wrap: break-word;
   margin-bottom: 10px;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Количество строк */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
 }
 
-/* Стили для изображений */
+/* Styles for images */
 article img {
-  width: 100%; /* Занимает всю ширину контейнера */
-  height: 220px; /* Увеличенная высота изображения */
-  object-fit: cover; /* Обрезает изображение, чтобы оно вписывалось в блок, сохраняя пропорции */
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
   border-radius: 8px;
   display: block;
   margin: 0 auto 10px auto;
 }
 
-/* Стили для кнопки "Read more" */
+/* Styles for the "Read more" button */
 article a {
   display: inline-block;
   padding: 8px 15px;
-  background-color: #b3a497; /* Бежевый оттенок кнопки */
+  background-color: #b3a497;
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
   text-align: center;
-  margin-top: auto; /* Прижимает ссылку к нижней части статьи */
+  margin-top: auto;
 }
 
 article a:hover {
-  background-color: #9a8d7b; /* Темный оттенок при наведении */
+  background-color: #9a8d7b;
 }
 
-/* Адаптивность: на маленьких экранах статьи будут занимать всю ширину */
+/* Responsiveness: On smaller screens, articles will take up the full width */
 @media (max-width: 1024px) {
   article {
-    width: 100%; /* На маленьких экранах карточки занимают всю ширину */
-    min-height: auto; /* Снимаем ограничение по высоте */
+    width: 48%; /* Adjust to 2 articles per row on smaller screens */
+    min-height: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  article {
+    width: 100%; /* Full width on very small screens */
+    min-height: auto;
   }
 }
 
 
-/*article details многоколоночность*/
+/*article details */
 /* Стили для кнопки "Back to all news" */
 .back-button {
   display: inline-block;
@@ -1268,5 +1274,647 @@ h2 {
   .video-buttons {
     flex-direction: column;
     gap: 10px;
+  }
+}
+
+/*PRODUCT LIST*/
+
+/* Styling for the form */
+.product-filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Container for product grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+/* Individual product items */
+.product-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f8f7f5;
+  padding: 15px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Styling for the product images */
+.product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Product name link */
+.product-link {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+.product-link:hover {
+  color: #b3a497; /* Change color on hover */
+}
+
+/* Product price */
+.product-price {
+  font-size: 1em;
+  font-weight: 600;
+  color: #444;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+/*PRIVACY POLICY*/
+/* Privacy Policy Styling */
+.privacy-title {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.privacy-nav ul {
+  display: flex;
+  justify-content: space-evenly;
+  list-style-type: none;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.privacy-nav ul li a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #444;
+  padding: 8px 15px;
+  transition: background-color 0.3s ease;
+}
+
+.privacy-nav ul li a:hover {
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
+.privacy-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background: #fafafa;
+}
+
+.privacy-content {
+  width: 70%;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Table Styles */
+.table-section {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.data-usage-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.data-usage-table thead th {
+  background-color: #b3a497;
+  color: #fff;
+  padding: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.data-usage-table tbody td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  vertical-align: middle; /* Vertically center the content */
+  text-align: left;
+
+}
+
+/* Remove double lines */
+.data-usage-table th,
+.data-usage-table td {
+  border-bottom: 1px solid #ccc;
+}
+
+/* Empty cell background */
+.data-usage-table td:empty {
+  background-color: #f3f3f3;
+}
+
+/* Alternate row colors */
+.data-usage-table tbody tr:nth-child(even) {
+  background-color: #f8f7f5;
+}
+
+
+.privacy-pre {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-left: 5px solid #b3a497;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 20px 0;
+  overflow: auto;
+}
+
+blockquote {
+  background: #e6e1dc;
+  padding: 15px;
+  border-left: 4px solid #b3a497;
+  font-style: italic;
+  color: #555;
+  margin: 20px 0;
+}
+
+/* Download link */
+.download-link {
+  background-color: #b3a497;
+  color: #fff;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.download-link:hover {
+  background-color: #9a8d7b;
+}
+
+/* Map styling */
+iframe {
+  display: block;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/*PROMOCODES*/
+
+/* Promo Codes Container */
+.promo-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+
+/* Promo Lists */
+.promo-list {
+  width: 45%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.promo-list h2 {
+  text-align: center;
+  font-size: 1.5em;
+  color: #444;
+  border-bottom: 2px solid #e6e6e6;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+/* Promo Items */
+.promo-list-items {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.promo-item {
+  padding: 15px;
+  border-bottom: 1px solid #e6e6e6;
+  font-size: 1em;
+  line-height: 1.5;
+  color: #555;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.promo-item:last-child {
+  border-bottom: none; /* Remove the bottom border for the last item */
+}
+
+.promo-item.active {
+  background-color: #e8f5e9; /* Light green background for active promo codes */
+}
+
+.promo-item.archived {
+  background-color: #fce4ec; /* Light pink background for archived promo codes */
+}
+
+.promo-code {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #333;
+}
+
+/* Hover Effect */
+.promo-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Title */
+.promo-title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #444;
+  font-weight: bold;
+}
+
+
+/*JOBS*/
+/* Container for all job postings */
+.jobs-container {
+  width: 90%;
+  margin: 0 auto; /* Center the container on the page */
+}
+
+/* Job posting block */
+.job-posting {
+  width: 45%; /* Make each job posting take up nearly half of the container */
+  margin: 10px;
+  padding: 15px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  float: left; /* Float the job postings to the left */
+}
+
+/* Title and Description Styles */
+.jobs-title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #444;
+  font-weight: bold;
+}
+
+.job-title {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.job-description {
+  font-size: 0.9em;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Ensures job postings wrap to the next line if they don't fit */
+.job-posting:nth-child(odd) {
+  clear: left; /* Clear float for odd elements to start a new row */
+}
+
+/* Clear floating elements */
+.clear {
+  clear: both;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .job-posting {
+    width: 100%; /* Make job postings take full width on smaller screens */
+    float: none; /* Remove float on smaller screens */
+    margin: 10px 0;
+  }
+}
+
+/*REVIEWS*/
+
+/* Основной заголовок */
+.reviews-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2em;
+  color: #333;
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Контейнер для отзывов */
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Стиль для каждого отзыва */
+.review {
+  width: 80%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Georgia', serif;
+}
+
+.review-username {
+  font-size: 1.5em;
+  color: #444;
+  font-weight: bold;
+}
+
+.review-date {
+  font-size: 0.9em;
+  color: #999;
+}
+
+
+.review-content {
+  font-family: 'Arial', sans-serif;
+  font-size: 1em;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Стили для рейтинга */
+.review-rating {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #555;
+}
+
+.review-text {
+  font-size: 1em;
+  color: #444;
+}
+
+
+.add-review-link, .login-link {
+  display: inline-block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 25px;
+  font-family: 'Roboto', sans-serif;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.add-review-link:hover, .login-link:hover {
+  background-color: #2980b9;
+}
+
+/* Псевдоклассы для инпутов и кнопок */
+input[type="text"]:focus, textarea:focus {
+  border: 2px solid #3498db;
+  outline: none;
+  background-color: #f0f8ff;
+}
+
+button[type="submit"]:hover {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+.no-reviews {
+  font-family: 'Georgia', serif;
+  font-size: 1.2em;
+  color: #777;
+  text-align: center;
+}
+
+/*FAQ*/
+
+/* Основные стили для заголовка FAQ */
+.faq-title {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 2em;
+  color: #34495e;
+  margin-bottom: 30px;
+}
+
+/* Контейнер FAQ */
+.faq-container {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+
+
+.faq-item:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Стиль для блока details */
+.faq-details {
+  cursor: pointer;
+  padding: 10px;
+}
+
+/* Стили для заголовков вопросов */
+.faq-question {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #ecf0f1;
+  transition: background-color 0.3s ease;
+}
+
+/* Переход к активному состоянию */
+.faq-details[open] .faq-question {
+  background-color: #bdc3c7;
+}
+
+/* Стилизованный блок ответа */
+.faq-answer {
+  font-size: 0.95em;
+  color: #34495e;
+  padding: 15px;
+  line-height: 1.6;
+  background-color: #ffffff;
+  border-top: 1px solid #ecf0f1;
+  display: none;
+}
+
+.faq-details[open] .faq-answer {
+  display: block;
+}
+
+/* Стили для даты */
+.faq-date {
+  font-size: 0.85em;
+  color: #7f8c8d;
+  text-align: right;
+  margin-top: 10px;
+}
+
+/* Псевдоклассы для ссылки "нет вопросов" */
+.no-faqs {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 1em;
+}
+
+/* PRODUCT DETAIL*/
+
+/* Контейнер для продукта */
+.product-container {
+  width: 80%;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Заголовок продукта */
+.product-title {
+  font-size: 2.5em;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Стили для изображения продукта */
+.product-image {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.product-image img {
+  width: 300px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.product-image img:hover {
+  transform: scale(1.05);
+}
+
+/* Стили для деталей продукта */
+.product-details {
+  text-align: left;
+  width: 100%;
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Цена продукта */
+.product-price {
+  font-size: 1.3em;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* Ссылка на производителя */
+.product-manufacturer {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.product-manufacturer:hover {
+  color: #2980b9;
+}
+
+/* Кнопка добавления в корзину */
+.add-to-cart-form {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.btn-add-to-cart {
+  background-color: #27ae60;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add-to-cart:hover {
+  background-color: #229954;
+}
+
+
+@media (max-width: 768px) {
+  .product-container {
+    width: 90%;
+  }
+
+  .product-title {
+    font-size: 2em;
+  }
+
+  .product-image img {
+    width: 80%;
+  }
+
+  .product-details {
+    font-size: 1em;
+  }
+
+  .btn-add-to-cart {
+    width: 100%;
   }
 }
