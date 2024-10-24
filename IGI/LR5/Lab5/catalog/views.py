@@ -27,6 +27,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from .models import Order
 from .forms import OrderStatusForm, RegisterForm, ReviewForm
+import re
 
 log_level_name = os.getenv('LOG_LEVEL', 'DEBUG')
 log_level = getattr(logging, log_level_name.upper(), logging.INFO)
@@ -638,14 +639,23 @@ def article_detail(request, article_id):
 
 
 def about(request):
-    # Получаем информацию о компании
     info = CompanyInfo.objects.first()
-    # Получаем список производителей
+    product = Product.objects.filter(manufacturer__name="BMW").first()
+    history_text = info.history
+    pattern = r"(\d{4}):"
+    segments = re.split(pattern, history_text)
 
-    # Передаем оба объекта в шаблон
+    history_dict = []
+
+    for i in range(1, len(segments), 2):
+        year = segments[i]
+        description = segments[i + 1].strip()
+        history_dict.append({"year": year, "text": description})
+
     return render(request, 'catalog/company_info.html', {
         'info': info,
-
+        'product': product,
+        'history_dict': history_dict
     })
 
 

@@ -1,15 +1,15 @@
 {% extends "base_generic.html" %}
-
+{% load static %}
 {% block content %}
-    <h1>О компании</h1>
+    <h1>About company</h1>
+    <div class="info-container">
     <div class="logo-container">
-    <!-- Логотип компании -->
     {% if info.logo %}
         <img src="{{ info.logo.url }}" alt="Company Logo" height="200" width="200" class="company-logo">
     {% endif %}
     </div>
     <p>{{ info.text }}</p>
-
+    </div>
     <div class="video-banner">
         <!-- Фоновое видео с затемнением -->
         <div class="video-overlay">
@@ -19,7 +19,7 @@
             </video>
         </div>
 
-        <!-- Информация поверх видео -->
+
         <div class="video-content">
             <h1>THE NEW</h1>
             <h2>BMW M235 xDrive Gran Coupé</h2>
@@ -27,55 +27,95 @@
 
             <!-- Кнопки -->
             <div class="video-buttons">
-                <a href="#" class="video-button primary">Конфигурировать и Цены</a>
-                <a href="#" class="video-button secondary">Ознакомиться</a>
+                <a href="{% url 'products' %}" class="video-button primary">ALL OUR PRODUCTS</a>
+                <a href="{% url 'product-detail' product.id %}" class="video-button secondary">NEW MODEL</a>
             </div>
         </div>
     </div>
 
-    <!-- История компании -->
-    <h2>История</h2>
-    <p>{{ info.history }}</p>
 
-    <!-- Реквизиты компании -->
-    <h2>Реквизиты</h2>
-    <p>{{ info.details }}</p>
-
-    <!-- Сертификат компании -->
-    <div style="border: 2px solid black; padding: 10px; width: 50%; margin: auto;">
-        <h2>Certificate</h2>
-        <div>
-            <h3>CAR SALON UAS</h3>
-            <p><strong>Certificate</strong></p>
-            <p>on the entry of information</p>
-            <p>Minsk, January 17, 2024</p>
-            <p><strong>Limited Liability Company "Car Technologies"</strong></p>
-            <p>(TIN 7731340252)</p>
-            <p>Registration number: 8241</p>
-            <p>Oksyukova L.P.</p>
-            <p>Director of the Association "TURPOMOSH"</p>
-            <p>Seal</p>
-        </div>
+    <h2 class="history-title">HISTORY</h2>
+    <div class="history-container">
+        <ul class="history-list">
+            {% for event in history_dict %}
+                <li class="history-event">
+                    <h3 class="history-year">{{ event.year }}</h3>
+                    <p class="history-text">{{ event.text }}</p>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 
-    <audio controls>
-        <source src="{{ info.audio.url }}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <div class="certificate-container" id="about_company">
+        <h1 class="h1-certificate">Certificate of Authorization</h1>
 
-    <!-- Баннеры компании -->
-    <h2>Наши баннеры</h2>
+        <div class="certificate-content">
+            <p>This certifies that <strong class="certificate">Auto Belezza LLC</strong> has successfully passed all required inspections and is equipped with the necessary resources, qualified personnel, and facilities to provide automotive services across the United States.</p>
 
-    <!-- Первый баннер -->
-    {% if info.banner1 %}
-        <img src="{{ info.banner1.url }}" alt="Company Banner 1" style="max-width:100%; height:auto;">
-    {% endif %}
+            <p>Auto Belezza LLC offers the following services:</p>
+            <ul class="certificate-list">
+                <li>New car sales and consultations;</li>
+                <li>Luxury and high-performance vehicle customization;</li>
+                <li>Routine maintenance and servicing;</li>
+                <li>Comprehensive automotive diagnostics and repairs;</li>
+                <li>Professional detailing and car care solutions.</li>
+            </ul>
 
-    <!-- Второй баннер -->
-    {% if info.banner2 %}
-        <img src="{{ info.banner2.url }}" alt="Company Banner 2" style="max-width:100%; height:auto;">
-    {% endif %}
+            <p>The company holds license No. 789456123 issued on January 1, 2024, and operates in compliance with current standards of safety and quality assurance.</p>
+
+            <p>This certificate is valid from January 1, 2024, to January 1, 2025.</p>
+        </div>
+        <div class="certificate-seal">
+            <img src="{% static 'images/klipartz.com.png' %}"
+                 alt="Company Seal">
+        </div>
+
+        <div class="certificate-signatures">
+            <div class="certificate-signature-line">
+                <div>
+                    <img src="{% static 'images/signature.png' %}" alt="CEO Signature" class="signature-image"><br>
+                    ___________________________<br>
+
+                    <em>Chief Executive Officer</em><br>
+                    John Doe
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+
+        <footer class="certificate">
+            <p>&copy; 2024 Auto Belezza LLC. All rights reserved.</p>
+        </footer>
+    </div>
 
 
+    <div class="audio-player-container">
+        <audio controls class="custom-audio-player">
+            <source src="{{ info.audio.url }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+
+
+    <div class="banners-container">
+
+        {% if info.banner1 %}
+            <div class="banner">
+                <img src="{{ info.banner1.url }}" alt="Company Banner 1">
+            </div>
+        {% endif %}
+
+        {% if info.banner2 %}
+            <div class="banner">
+                <img src="{{ info.banner2.url }}" alt="Company Banner 2">
+            </div>
+        {% endif %}
+    </div>
+
+
+    <p class="company-details-text">{{ info.details }}</p>
 
 {% endblock %}

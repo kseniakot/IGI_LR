@@ -128,7 +128,7 @@
 /*BODY*/
 
 body {
-  background: linear-gradient(to bottom, #f8f7f5, #e6e1dc); /* Легкий градиент фона */
+  background: linear-gradient(to bottom, #f8f7f5, #e6e1dc);
   font-family: 'Roboto', sans-serif;
   background: #f3f2ef;
   color: #333;
@@ -459,20 +459,7 @@ h3 {
 }
 
 
-/*news page*/
-
-/*body {*/
-/*  background-image:*/
-/*          url("../images/car-back.png");*/
-/*  background-size: 50%;*/
-/*  background-color: #daccc0;*/
-/*  background-repeat: no-repeat;*/
-/*  background-position: bottom right;*/
-/*  background-blend-mode: soft-light;*/
-/*}*/
-
-
-
+/*ARTICLES NEWS*/
 
 /* Контейнер для статей */
 .news-container {
@@ -615,7 +602,7 @@ article a:hover {
   box-shadow: 0 0 10px rgba(102, 51, 153, 0.2); /* Легкий фиолетовый тень */
 }
 
-/*Manufacturers*/
+/*MANUFACTURERS*/
 
 /* Контейнер для списка компаний */
 /* Партнеры */
@@ -680,7 +667,17 @@ article a:hover {
   transform: scale(1.1); /* Увеличение на 10% */
 }
 
+
+/* Container for logo and text */
+.info-container {
+  display: flex; /* Arrange logo and text side by side */
+  align-items: center; /* Vertically center-align the items */
+  gap: 20px; /* Add space between the logo and text */
+  padding: 20px; /* Add padding around the container */
+}
+
 .logo-container {
+  flex: 0 0 200px;
   width: 200px; /* Ширина контейнера */
   height: 200px; /* Высота контейнера */
   overflow: hidden; /* Скрываем часть логотипа, выходящую за границы */
@@ -702,6 +699,74 @@ article a:hover {
 .contacts-container {
   display: flex; /* Используем Flexbox для главного контейнера */
 }
+
+/*COMPANY HISTORY*/
+
+/* Основной контейнер истории */
+.history-container {
+  padding: 20px;
+  background-color: #f9f9f9; /* Легкий фон для выделения секции */
+  border-radius: 8px;
+  max-width: 800px; /* Ширина контейнера */
+  margin: 0 auto; /* Центрирование по горизонтали */
+}
+
+/* Стили для заголовка истории */
+.history-title {
+  text-align: center;
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Стили для списка */
+.history-list {
+  list-style-type: none; /* Убираем стандартные маркеры списка */
+  padding: 0;
+}
+
+/* Стили для каждого элемента истории */
+.history-event {
+  display: flex;
+  align-items: baseline; /* Выравниваем текст по линии */
+  margin-bottom: 15px;
+  padding: 10px;
+  border-left: 4px solid #b3a497; /* Линия слева для выделения */
+  background-color: #fff; /* Белый фон для выделения */
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+/* Стили для года */
+.history-year {
+  font-size: 1.5em;
+  color: #b3a497;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+/* Стили для текста */
+.history-text {
+  color: #555;
+  font-size: 1em;
+  line-height: 1.6;
+  flex: 1; /* Растягивает текст на всю оставшуюся ширину */
+}
+
+
+
+.company-details-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  color: #333;
+  line-height: 1.6;
+  text-align: justify;
+  margin: 0 10%;
+}
+
+
 
 /* Вертикальная навигация по отделам */
 .departments-nav {
@@ -801,6 +866,164 @@ article a:hover {
   .employee-card {
     padding: 5px; /* Уменьшаем внутренние отступы */
   }
+}
+
+
+/*AUDIO*/
+
+.audio-player-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  margin: 30px auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.audio-player-container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.custom-audio-player {
+  width: 100%;
+  outline: none;
+  border: none;
+}
+
+.banners-container {
+  display: flex; /* Use flexbox to place banners side by side */
+  justify-content: center; /* Center them horizontally */
+  align-items: center; /* Center them vertically */
+  gap: 20px; /* Space between the banners */
+  padding: 20px; /* Padding around the container */
+}
+
+.banner img {
+  max-width: 100%; /* Make the image responsive */
+  height: auto;
+  border-radius: 10px; /* Optional: Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a polished look */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+.banner img:hover {
+  transform: scale(1.05); /* Slightly zoom in when hovered */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance the shadow on hover */
+}
+
+div.certificate-container {
+  position: relative;
+  width: 70%;
+  margin: 50px auto;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(229, 167, 12, 0.65)),
+  url('../images/car-back.png');
+  background-size: cover;
+  background-blend-mode: lighten;
+
+  /* Border image */
+  border: 20px solid transparent;
+  border-image: url('https://a0.anyrgb.com/pngimg/864/678/tabletop-game-borders-and-frames-chessboard-indoor-games-and-sports-chess-border-frame-board-game-decorative-elements-decorative-arts-ornament.png') 30 round;
+
+  /* z-index to ensure the certificate is layered correctly */
+  z-index: -1;
+
+  /* Vendor prefixes for older browser support */
+  -webkit-box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+}
+
+
+h1.h1-certificate {
+  font-family: 'Garamond', serif;
+  font-size: 30px;
+  color: #002147;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+div.certificate-content {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  padding: 0 20px;
+}
+
+ul.certificate-list {
+  list-style-type: disc;
+  margin: 20px 0;
+  padding-left: 40px;
+}
+
+.certificate-signatures {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  font-family: 'Georgia', serif;
+}
+
+.certificate-signature-line div {
+  font-size: 12px;
+  text-align: center;
+  padding: 0 40px;
+}
+
+.certificate-seal {
+  position: absolute;
+  bottom: 120px;
+  right: 30px;
+  width: 30%;
+  height: 30%;
+  opacity: 0.8;
+  z-index: 10;
+}
+
+.certificate-seal img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.8;
+}
+
+.signature-line em {
+  display: block;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #666;
+}
+
+.signature-image {
+  width: 150px;
+  height: auto;
+  margin-bottom: 10px;
+  object-fit: contain;
+}
+
+footer.certificate {
+  margin-top: 60px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  border-top: 2px solid #ddd;
+  padding-top: 10px;
+}
+
+strong.certificate {
+  font-weight: bold;
+  color: #002147;
 }
 
 

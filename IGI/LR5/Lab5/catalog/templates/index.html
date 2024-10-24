@@ -39,16 +39,6 @@
         </div>
 
 
-
-
-{#        <section class="dynamic-content">#}
-{#            <h2>Dynamic content</h2>#}
-{#            <p>The salon has the following record counts:</p>#}
-{#            <ul>#}
-{#                <li><strong>Products:</strong> {{ num_products }}</li>#}
-{#                <li><strong>Manufacturers:</strong> {{ num_manufacturers }}</li>#}
-{#            </ul>#}
-{#        </section>#}
     <div class="right-aligned-content">
         <hr>
 
@@ -81,7 +71,7 @@
         <ul class="manufacturer-list">
             {% for manufacturer in manufacturer_list %}
                 <li>
-                    <!-- Логотип компании -->
+
                     {% if manufacturer.logo %}
                         <figure>
                             <img src="{{ manufacturer.logo.url }}" alt="{{ manufacturer.name }} Logo" class="manufacturer-logo">
@@ -97,7 +87,6 @@
     {% else %}
         <p>No manufacturers available.</p>
     {% endif %}
-      <!-- Секция производителей -->
 
     </div>
 
