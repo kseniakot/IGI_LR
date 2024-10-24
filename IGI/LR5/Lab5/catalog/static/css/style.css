@@ -1345,6 +1345,26 @@ h2 {
 
 /*PRIVACY POLICY*/
 /* Privacy Policy Styling */
+
+p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none; /* Убираем стандартные маркеры */
+  padding: 0;
+}
+
+ul li {
+  font-size: 16px;
+  margin: 10px 0;
+  color: #444;
+}
+
 .privacy-title {
   text-align: center;
   font-family: 'Montserrat', sans-serif;
@@ -1917,4 +1937,146 @@ button[type="submit"]:hover {
   .btn-add-to-cart {
     width: 100%;
   }
+}
+
+a:visited {
+  color: #281c16;
+}
+
+::selection {
+  background-color: #281c16;
+  color: #fff;
+  text-shadow: none;
+}
+
+blockquote[lang="en"]::before {
+  content: "“";
+}
+
+blockquote[lang="en"]::after {
+  content: "”";
+}
+
+blockquote[lang="fr"]::before {
+  content: "« ";
+}
+
+blockquote[lang="fr"]::after {
+  content: " »";
+}
+
+
+/*form*/
+
+/* General Form Styling */
+form {
+  width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Styling for available (enabled) inputs */
+input:enabled,
+select:enabled,
+textarea:enabled {
+  border: 2px solid #b3a497;
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+/* Styling required inputs */
+input:required,
+select:required,
+textarea:required {
+  border: 2px solid #e74c3c; /* Red border for required fields */
+  background-color: #fff;
+}
+
+input:required:focus,
+select:required:focus,
+textarea:required:focus {
+  border-color: #c0392b; /* Darker red when focused */
+}
+
+/* Styling for disabled inputs */
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: #e0e0e0;
+  border: 2px solid #ccc;
+  color: #777;
+  cursor: not-allowed;
+}
+
+/* Styling for out-of-range values */
+input:out-of-range {
+  border-color: #ff9800; /* Orange border for out-of-range values */
+  background-color: #fff4e5;
+}
+
+/* Styling checkboxes and radio buttons when checked */
+input[type="radio"]:checked,
+input[type="checkbox"]:checked {
+  outline: 2px solid #3498db; /* Blue outline */
+  background-color: #ecf0f1; /* Light background */
+}
+
+/* Styling for table layout */
+table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+}
+
+/* Table rows and cells */
+td {
+  padding: 10px 0;
+  vertical-align: middle;
+}
+
+/* Submit Button */
+input[type="submit"] {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+  background-color: #2980b9;
+}
+
+/* Link Styling */
+a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Error message styling */
+td {
+  color: #e74c3c;
+  font-size: 13px;
+}
+
+/* Placeholder styling */
+input::placeholder {
+  color: #aaa;
+  font-style: italic;
 }
